@@ -18,13 +18,38 @@ public class Player {
     private long money;
     // TODO make AbstractWeapon so that the line below can be uncommented
 //    private List<AbstractWeapon> weaponInventory;
+//    private AbstractWeapon currentWeapon;
     private short lifeCount;
 
+    /**
+     * Constructs a Player object.
+     *
+     * @param someName the name of the player as a String
+     */
     public Player(final String someName) {
         this.name = someName;
         this.level = 1;
 //        weaponInventory = new ArrayList<>();
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
+    }
+
+    /**
+     * Accessor for the name instance variable.
+     *
+     * @return name instance variable as a String
+     */
+    public String getName() {
+        return name;
+    }
+
+    /* Calls attack() method for currentWeapon. */
+    private void pullTrigger() {
+        this.currentWeapon.attack();
+    }
+
+    /* Calls reload() method for currentWeapon. */
+    private void reloadWeapon() {
+        this.currentWeapon.reload();
     }
 }
