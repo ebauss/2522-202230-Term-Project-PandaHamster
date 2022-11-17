@@ -10,6 +10,9 @@ import java.util.ArrayList;
  */
 public class Player {
     private static final long MAX_LEVEL = 20;
+    private static final int THREE = 3;
+    private static final int ONE_HUNDRED = 100;
+    private String name;
     private long level;
     private long currentExp;
     private long money;
@@ -17,10 +20,11 @@ public class Player {
 //    private List<AbstractWeapon> weaponInventory;
     private short lifeCount;
 
-    public Player() {
+    public Player(final String someName) {
+        this.name = someName;
         this.level = 1;
 //        weaponInventory = new ArrayList<>();
-        this.lifeCount = 3;
-        this.money = 100;
+        this.lifeCount = THREE;
+        this.money = ONE_HUNDRED;
     }
 }
