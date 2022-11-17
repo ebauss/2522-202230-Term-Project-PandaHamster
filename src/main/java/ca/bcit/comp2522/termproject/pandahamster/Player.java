@@ -35,7 +35,7 @@ public class Player extends GameEntity {
     }
 
     /**
-     * Accessor for the name instance variable.
+     * Gets the name instance variable.
      *
      * @return name instance variable as a String
      */
