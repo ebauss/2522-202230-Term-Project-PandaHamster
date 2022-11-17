@@ -9,10 +9,18 @@ import java.util.ArrayList;
  * @version 0.0
  */
 public class Player {
-    private long maxLevel;
+    private static final long MAX_LEVEL = 20;
     private long level;
     private long currentExp;
     private long money;
-    private ArrayList<AbstractWeapon> weaponInventory;
+    // TODO make AbstractWeapon so that the line below can be uncommented
+//    private List<AbstractWeapon> weaponInventory;
     private short lifeCount;
+
+    public Player() {
+        this.level = 1;
+//        weaponInventory = new ArrayList<>();
+        this.lifeCount = 3;
+        this.money = 100;
+    }
 }
