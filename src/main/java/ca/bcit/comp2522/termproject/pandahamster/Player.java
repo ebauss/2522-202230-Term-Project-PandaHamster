@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Evon Bausa & Alex Liu
  * @version 0.0
  */
-public class Player {
+public class Player extends GameEntity {
     private static final long MAX_LEVEL = 20;
     private static final int THREE = 3;
     private static final int ONE_HUNDRED = 100;
