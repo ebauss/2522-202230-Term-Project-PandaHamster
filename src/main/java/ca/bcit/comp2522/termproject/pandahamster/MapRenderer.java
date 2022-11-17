@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import org.tiledreader.TiledMap;
 
 /**
@@ -17,7 +18,7 @@ public final class MapRenderer {
      * @param map the map to render
      * @return the rendered map
      */
-    public GridPane render(final TiledMap map) {
+    public StackPane render(final TiledMap map) {
 
     }
 }
