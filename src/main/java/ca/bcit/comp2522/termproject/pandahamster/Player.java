@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Evon Bausa & Alex Liu
  * @version 0.0
  */
-public class Player extends GameEntity {
+public class Player extends GameEntity implements DynamicEntity {
     private static final long MAX_LEVEL = 20;
     private static final int THREE = 3;
     private static final int ONE_HUNDRED = 100;
@@ -51,5 +51,18 @@ public class Player extends GameEntity {
     /* Calls reload() method for currentWeapon. */
     private void reloadWeapon() {
         this.currentWeapon.reload();
+    }
+
+    /**
+     * Moves the player along the map.
+     *
+     * <p>
+     * Uses the WASD keys to move the player. W to move forward. A to move left.
+     * D to move right. S to move backward.
+     * </p>
+     */
+    @Override
+    public void move() {
+
     }
 }
