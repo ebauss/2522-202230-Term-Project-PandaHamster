@@ -1,5 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -29,6 +30,8 @@ public class PandaHamster extends Application {
         TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
         StackPane stackPane = MapRenderer.render(map);
         Group root = new Group(stackPane);
+        Player player = new Player("...");
+        WorldManager.createDynamicRectangle(player);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
