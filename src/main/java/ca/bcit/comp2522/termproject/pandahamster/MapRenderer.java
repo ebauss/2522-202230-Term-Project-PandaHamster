@@ -36,8 +36,7 @@ public final class MapRenderer {
         for (TiledLayer tiledLayer: map.getTopLevelLayers()) {
             GridPane gridPane = new GridPane();
             // TiledTileLayers are the layers where actual tiles are drawn
-            if (tiledLayer instanceof TiledTileLayer) {
-                TiledTileLayer tiledTileLayer = (TiledTileLayer) tiledLayer;
+            if (tiledLayer instanceof TiledTileLayer tiledTileLayer) {
                 // iterate through all the tiles on the layer
                 for (int x = 0; x < map.getWidth(); x++) {
                     for (int y = 0; y < map.getHeight(); y++) {
