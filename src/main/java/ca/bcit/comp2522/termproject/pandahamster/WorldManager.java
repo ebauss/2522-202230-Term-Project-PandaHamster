@@ -38,6 +38,13 @@ public final class WorldManager {
         world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATION);
     }
     /**
+     * Gets the list of the bodies in the world.
+     * @return the list of bodies
+     */
+    public Body getBodies() {
+        return world.getBodyList();
+    }
+    /**
      * Creates a new body for the specified game entity for the physics simulation.
      * @param gameEntity the game entity to create a body for
      */
