@@ -38,13 +38,13 @@ public final class MapRenderer {
                 for (int x = 0; x < map.getWidth(); x++) {
                     for (int y = 0; y < map.getHeight(); y++) {
                         TiledTile tile = tiledTileLayer.getTile(x, y);
+                        ImageView imageView;
                         if (tile != null) {
-                            ImageView imageView = makeTile(tiles, tile, tile.getTileset().getName(), x, y);
-                            gridPane.add(imageView, x, y);
+                            imageView = makeTile(tiles, tile, tile.getTileset().getName(), x, y);
                         } else {
-                            ImageView imageView = makeEmptyTile(map.getTileWidth(), map.getTileHeight());
-                            gridPane.add(imageView, x, y);
+                            imageView = makeEmptyTile(map.getTileWidth(), map.getTileHeight());
                         }
+                        gridPane.add(imageView, x, y);
                     }
                 }
             }
