@@ -23,7 +23,6 @@ public class Player extends GameEntity implements DynamicEntity {
     private List<AbstractWeapon> weaponInventory;
     private AbstractWeapon currentWeapon;
     private short lifeCount;
-    private Body body;
 
     /**
      * Constructs a Player object.
@@ -46,21 +45,6 @@ public class Player extends GameEntity implements DynamicEntity {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Gets the body instance variable.
-     * @return body instance variable as a Body
-     */
-    public Body getBody() {
-        return body;
-    }
-    /**
-     * Reassigns the body instance variable to the specified body.
-     * @param body the new body
-     */
-    public void setBody(final Body body) {
-        this.body = body;
     }
 
     /* Calls attack() method for currentWeapon. */

@@ -1,5 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import org.jbox2d.dynamics.Body;
+
 /**
  * Represents an abstract class of type GameEntity.
  *
@@ -11,6 +13,7 @@ public abstract class GameEntity {
     private long yPosition;
     private final long width;
     private final long height;
+    private Body body;
 
     /**
      * Constructs an object of type GameEntity.
@@ -79,5 +82,19 @@ public abstract class GameEntity {
      */
     public long getHeight() {
         return height;
+    }
+    /**
+     * Gets the body instance variable.
+     * @return body instance variable as a Body
+     */
+    public Body getBody() {
+        return body;
+    }
+    /**
+     * Reassigns the body instance variable to the specified body.
+     * @param body the new body
+     */
+    public void setBody(final Body body) {
+        this.body = body;
     }
 }
