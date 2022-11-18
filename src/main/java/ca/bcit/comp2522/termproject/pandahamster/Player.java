@@ -28,6 +28,7 @@ public class Player extends GameEntity implements DynamicEntity {
      * @param someName the name of the player as a String
      */
     public Player(final String someName) {
+        super(0, 0, 16, 16);
         this.name = someName;
         this.level = 1;
 //        weaponInventory = new ArrayList<>();
