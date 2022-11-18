@@ -37,11 +37,13 @@ public final class MapRenderer {
                 // iterate through all the tiles on the layer
                 for (int x = 0; x < map.getWidth(); x++) {
                     for (int y = 0; y < map.getHeight(); y++) {
+                        // get tile at the specified location
                         TiledTile tile = tiledTileLayer.getTile(x, y);
                         ImageView imageView;
+                        // make the actual tile with its image if a tile was drawn there
                         if (tile != null) {
                             imageView = makeTile(tiles, tile, tile.getTileset().getName(), x, y);
-                        } else {
+                        } else { // no tile was drawn here so make a dummy tile
                             imageView = makeEmptyTile(map.getTileWidth(), map.getTileHeight());
                         }
                         gridPane.add(imageView, x, y);
@@ -52,20 +54,32 @@ public final class MapRenderer {
         }
         return stackPane;
     }
+    /*
+    Returns an image view of the image of the tile. If the image already exists in the hashmap,
+    it will use the one inside otherwise it will make a new image and add it into the hashmap
+    and use the image that was added.
+     */
     private ImageView makeTile(
             final HashMap<String, HashMap<Integer, Image>> tiles,
             final TiledTile tile, final String tilesetName,
             final int x, final int y) {
+        // check if the hashmap contains the image of the tile
         if (tiles.get(tilesetName).containsKey(tile.getID())) {
+            // use the image inside if it was contained
             Image image = tiles.get(tilesetName).get(tile.getID());
             return new ImageView(image);
         } else {
+            // since the image was not in the hashmap, make the image and add it into the hashmap
             Image image = ImageCropper.cropImage(tile.getTileset().getImage().getSource(), x, y,
                     tile.getTileset().getTileWidth(), tile.getTileset().getTileHeight());
             tiles.get(tilesetName).put(tile.getID(), image);
             return new ImageView(image);
         }
     }
+    /*
+    Returns a image view of a dummy tile where a tile was not drawn. Defines the width and height
+    of the dummy tile to be the same as a regular tile.
+     */
     private ImageView makeEmptyTile(final int tileWidth, final int tileHeight) {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(tileWidth);
