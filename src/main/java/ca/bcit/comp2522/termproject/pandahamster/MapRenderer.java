@@ -4,7 +4,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import org.tiledreader.*;
+import org.tiledreader.TiledMap;
+import org.tiledreader.TiledTileset;
+import org.tiledreader.TiledTileLayer;
+import org.tiledreader.TiledTile;
+import org.tiledreader.TiledLayer;
 
 import java.util.HashMap;
 
