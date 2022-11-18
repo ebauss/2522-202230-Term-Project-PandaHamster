@@ -26,7 +26,7 @@ public final class MapRenderer {
      * @param map the map to render
      * @return the rendered map
      */
-    public StackPane render(final TiledMap map) {
+    public static StackPane render(final TiledMap map) {
         StackPane stackPane = new StackPane();
         HashMap<String, HashMap<Integer, Image>> tiles = new HashMap<>();
         for (TiledTileset tiledTileset: map.getTilesets()) {
@@ -62,7 +62,7 @@ public final class MapRenderer {
     it will use the one inside otherwise it will make a new image and add it into the hashmap
     and use the image that was added.
      */
-    private ImageView makeTile(
+    private static ImageView makeTile(
             final HashMap<String, HashMap<Integer, Image>> tiles,
             final TiledTile tile, final String tilesetName,
             final int x, final int y) {
@@ -83,7 +83,7 @@ public final class MapRenderer {
     Returns a image view of a dummy tile where a tile was not drawn. Defines the width and height
     of the dummy tile to be the same as a regular tile.
      */
-    private ImageView makeEmptyTile(final int tileWidth, final int tileHeight) {
+    private static ImageView makeEmptyTile(final int tileWidth, final int tileHeight) {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(tileWidth);
         imageView.setFitHeight(tileHeight);
