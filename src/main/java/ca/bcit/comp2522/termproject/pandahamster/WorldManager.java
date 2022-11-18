@@ -1,10 +1,9 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.FixtureDef;
-import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.*;
 
 /**
  * For managing a world instance.
@@ -27,5 +26,23 @@ public final class WorldManager {
             fixtureDef = new FixtureDef();
         }
         return world;
+    }
+    /**
+     * Creates a new body for the specified game entity for the physics simulation.
+     * @param gameEntity the game entity to create a body for
+     */
+    public static void createDynamicRectangle(final GameEntity gameEntity) {
+        bodyDef.type = BodyType.DYNAMIC;
+        bodyDef.position.set(gameEntity.getXPosition(), gameEntity.getYPosition());
+        Body body = world.createBody(bodyDef);
+        PolygonShape polygonShape = new PolygonShape();
+        polygonShape.setAsBox(gameEntity.getWidth(), gameEntity.getHeight());
+        fixtureDef.shape = polygonShape;
+        fixtureDef.density = 10f;
+        fixtureDef.friction = 0.2f;
+        fixtureDef.restitution = 0;
+        body.createFixture(fixtureDef);
+        body.setUserData(gameEntity);
+        gameEntity.setBody(body);
     }
 }
