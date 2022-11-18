@@ -11,6 +11,9 @@ import org.jbox2d.dynamics.*;
  * @version 2022
  */
 public final class WorldManager {
+    private static final float TIME_STEP = 1 / 60f;
+    private static final int VELOCITY_ITERATIONS = 8;
+    private static final int POSITION_ITERATION = 3;
     private static World world;
     private static BodyDef bodyDef;
     private static FixtureDef fixtureDef;
@@ -26,6 +29,13 @@ public final class WorldManager {
             fixtureDef = new FixtureDef();
         }
         return world;
+    }
+    /**
+     * Advances the physics simulation by a single time step that is defined as
+     * 1 / 60f.
+     */
+    public static void updateWorld() {
+        world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATION);
     }
     /**
      * Creates a new body for the specified game entity for the physics simulation.
