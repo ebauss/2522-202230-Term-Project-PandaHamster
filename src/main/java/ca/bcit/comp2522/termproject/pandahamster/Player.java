@@ -55,6 +55,13 @@ public class Player extends GameEntity implements DynamicEntity {
     public Body getBody() {
         return body;
     }
+    /**
+     * Reassigns the body instance variable to the specified body.
+     * @param body the new body
+     */
+    public void setBody(final Body body) {
+        this.body = body;
+    }
 
     /* Calls attack() method for currentWeapon. */
     private void pullTrigger() {
