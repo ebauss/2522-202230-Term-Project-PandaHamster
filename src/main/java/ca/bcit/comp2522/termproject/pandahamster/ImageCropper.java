@@ -7,7 +7,7 @@ import javafx.scene.image.WritableImage;
 /**
  *  To crop and return a sub image from a given original image. Used in map rendering
  *  to split the map into evenly sized sub images.
- * @author Alexander Liu
+ * @author Evon Bausa & Alex Liu
  * @version 2022
  */
 public final class ImageCropper {

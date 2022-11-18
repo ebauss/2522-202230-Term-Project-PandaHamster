@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 /**
  * Class to render a tmx file (a tiled map).
- * @author Alex Liu
+ * @author Evon Bausa & Alex Liu
  * @version 2022
  */
 public final class MapRenderer {
