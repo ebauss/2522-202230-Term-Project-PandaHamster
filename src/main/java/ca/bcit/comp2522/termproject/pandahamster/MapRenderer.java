@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.tiledreader.*;
@@ -29,6 +30,7 @@ public final class MapRenderer {
         }
         // iterate through each layer
         for (TiledLayer tiledLayer: map.getTopLevelLayers()) {
+            GridPane gridPane = new GridPane();
             // TiledTileLayers are the layers where actual tiles are drawn
             if (tiledLayer instanceof TiledTileLayer) {
                 TiledTileLayer tiledTileLayer = (TiledTileLayer) tiledLayer;
@@ -36,16 +38,27 @@ public final class MapRenderer {
                 for (int x = 0; x < map.getWidth(); x++) {
                     for (int y = 0; y < map.getHeight(); y++) {
                         TiledTile tile = tiledTileLayer.getTile(x, y);
-                        String tilesetName = tile.getTileset().getName();
-                        Image image = ImageCropper.cropImage(
-                                tile.getTileset().getPath(),
-                                x * map.getTileWidth(), y * map.getTileHeight(),
-                                map.getTileWidth(),
-                                map.getTileHeight());
-
+                        if (tile != null) {
+                            ImageView imageView = makeTile(tiles, tile, tile.getTileset().getName(), x, y);
+                        }
                     }
                 }
             }
+        }
+        return stackPane;
+    }
+    private ImageView makeTile(
+            final HashMap<String, HashMap<Integer, Image>> tiles,
+            final TiledTile tile, final String tilesetName,
+            final int x, final int y) {
+        if (tiles.get(tilesetName).containsKey(tile.getID())) {
+            Image image = tiles.get(tilesetName).get(tile.getID());
+            return new ImageView(image);
+        } else {
+            Image image = ImageCropper.cropImage(tile.getTileset().getImage().getSource(), x, y,
+                    tile.getTileset().getTileWidth(), tile.getTileset().getTileHeight());
+            tiles.get(tilesetName).put(tile.getID(), image);
+            return new ImageView(image);
         }
     }
 }
