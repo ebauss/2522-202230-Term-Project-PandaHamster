@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents an object of type Player.
@@ -17,8 +18,8 @@ public class Player extends GameEntity implements DynamicEntity {
     private long currentExp;
     private long money;
     // TODO make AbstractWeapon so that the line below can be uncommented
-//    private List<AbstractWeapon> weaponInventory;
-//    private AbstractWeapon currentWeapon;
+    private List<AbstractWeapon> weaponInventory;
+    private AbstractWeapon currentWeapon;
     private short lifeCount;
 
     /**
