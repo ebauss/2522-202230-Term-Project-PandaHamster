@@ -6,7 +6,7 @@ package ca.bcit.comp2522.termproject.pandahamster;
  * @author Evon Bausa & Alex Liu
  * @version 0.0
  */
-public class AbstractShooter implements Attacker {
+public abstract class AbstractShooter implements Attacker {
     private float damage;
     private float attackSpeed;
     /* If true, that means this object can damage multiple enemies; i.e. Area of Effect Damage. */
