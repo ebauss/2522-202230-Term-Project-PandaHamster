@@ -45,7 +45,8 @@ public final class MapRenderer {
                         ImageView imageView;
                         // make the actual tile with its image if a tile was drawn there
                         if (tile != null) {
-                            imageView = makeTile(tiles, tile, tile.getTileset().getName(), x, y);
+                            imageView = makeTile(tiles, tile, tile.getTileset().getName(),
+                                    tile.getTilesetX(), tile.getTilesetY());
                         } else { // no tile was drawn here so make a dummy tile
                             imageView = makeEmptyTile(map.getTileWidth(), map.getTileHeight());
                         }
@@ -73,7 +74,8 @@ public final class MapRenderer {
             return new ImageView(image);
         } else {
             // since the image was not in the hashmap, make the image and add it into the hashmap
-            Image image = ImageCropper.cropImage(tile.getTileset().getImage().getSource(), x, y,
+            Image image = ImageCropper.cropImage(tile.getTileset().getImage().getSource(),
+                    x * tile.getTileset().getTileWidth(), y * tile.getTileset().getTileHeight(),
                     tile.getTileset().getTileWidth(), tile.getTileset().getTileHeight());
             tiles.get(tilesetName).put(tile.getID(), image);
             return new ImageView(image);
