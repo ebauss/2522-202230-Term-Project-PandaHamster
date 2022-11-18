@@ -1,5 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import org.jbox2d.dynamics.Body;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private List<AbstractWeapon> weaponInventory;
     private AbstractWeapon currentWeapon;
     private short lifeCount;
+    private Body body;
 
     /**
      * Constructs a Player object.
@@ -43,6 +46,14 @@ public class Player extends GameEntity implements DynamicEntity {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Gets the body instance variable.
+     * @return body instance variable as a Body
+     */
+    public Body getBody() {
+        return body;
     }
 
     /* Calls attack() method for currentWeapon. */
