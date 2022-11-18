@@ -1,6 +1,8 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.tiledreader.FileSystemTiledReader;
@@ -26,6 +28,10 @@ public class PandaHamster extends Application {
         TiledReader reader = new FileSystemTiledReader();
         TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
         StackPane stackPane = MapRenderer.render(map);
+        Group root = new Group(stackPane);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     /**
