@@ -14,6 +14,7 @@ public final class WorldManager {
     private static final float TIME_STEP = 1 / 60f;
     private static final int VELOCITY_ITERATIONS = 8;
     private static final int POSITION_ITERATION = 3;
+    private static WorldManager worldManager;
     private static World world;
     private static BodyDef bodyDef;
     private static FixtureDef fixtureDef;
@@ -22,19 +23,20 @@ public final class WorldManager {
      * Returns the instance of the world. Subsequent calls will refer to the same world.
      * @return the world
      */
-    public static World getInstance() {
-        if (world == null) {
+    public static WorldManager getInstance() {
+        if (worldManager == null) {
+            worldManager = new WorldManager();
             world = new World(new Vec2(0, 0));
             bodyDef = new BodyDef();
             fixtureDef = new FixtureDef();
         }
-        return world;
+        return worldManager;
     }
     /**
      * Advances the physics simulation by a single time step that is defined as
      * 1 / 60f.
      */
-    public static void updateWorld() {
+    public void updateWorld() {
         world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATION);
         Body firstBody = world.getBodyList();
         // the body list is a linked list
@@ -56,7 +58,7 @@ public final class WorldManager {
      * Creates a new body for the specified game entity for the physics simulation.
      * @param gameEntity the game entity to create a body for
      */
-    public static void createDynamicRectangle(final GameEntity gameEntity) {
+    public void createDynamicRectangle(final GameEntity gameEntity) {
         bodyDef.type = BodyType.DYNAMIC;
         bodyDef.position.set(gameEntity.getXPosition(), gameEntity.getYPosition());
         Body body = world.createBody(bodyDef);
