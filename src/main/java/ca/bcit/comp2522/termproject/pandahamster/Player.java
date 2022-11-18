@@ -1,5 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import javafx.scene.shape.Rectangle;
 import org.jbox2d.dynamics.Body;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private List<AbstractWeapon> weaponInventory;
     private AbstractWeapon currentWeapon;
     private short lifeCount;
+    private Rectangle playerSprite;
 
     /**
      * Constructs a Player object.
@@ -36,6 +38,7 @@ public class Player extends GameEntity implements DynamicEntity {
 //        weaponInventory = new ArrayList<>();
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
+        playerSprite = new Rectangle(0, 0 , 16, 16);
     }
 
     /**
@@ -45,6 +48,14 @@ public class Player extends GameEntity implements DynamicEntity {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Gets the playerSprite instance variable.
+     * @return playerSprite instance variable as a Rectangle
+     */
+    public Rectangle getPlayerSprite() {
+        return playerSprite;
     }
 
     /* Calls attack() method for currentWeapon. */
