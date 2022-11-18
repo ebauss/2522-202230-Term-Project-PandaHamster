@@ -36,6 +36,14 @@ public final class WorldManager {
      */
     public static void updateWorld() {
         world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATION);
+        Body firstBody = world.getBodyList();
+        // the body list is a linked list
+        while (firstBody.m_next != null) {
+            GameEntity gameEntity = (GameEntity) firstBody.getUserData();
+            gameEntity.setXPosition((long) firstBody.getPosition().x);
+            gameEntity.setYPosition((long) firstBody.getPosition().y);
+            firstBody = firstBody.getNext();
+        }
     }
     /**
      * Gets the list of the bodies in the world.
