@@ -40,6 +40,10 @@ public final class MapRenderer {
                         TiledTile tile = tiledTileLayer.getTile(x, y);
                         if (tile != null) {
                             ImageView imageView = makeTile(tiles, tile, tile.getTileset().getName(), x, y);
+                            gridPane.add(imageView, x, y);
+                        } else {
+                            ImageView imageView = makeEmptyTile(map.getTileWidth(), map.getTileHeight());
+                            gridPane.add(imageView, x, y);
                         }
                     }
                 }
@@ -60,5 +64,11 @@ public final class MapRenderer {
             tiles.get(tilesetName).put(tile.getID(), image);
             return new ImageView(image);
         }
+    }
+    private ImageView makeEmptyTile(final int tileWidth, final int tileHeight) {
+        ImageView imageView = new ImageView();
+        imageView.setFitWidth(tileWidth);
+        imageView.setFitHeight(tileHeight);
+        return imageView;
     }
 }
