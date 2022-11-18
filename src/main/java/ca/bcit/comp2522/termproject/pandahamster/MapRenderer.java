@@ -47,6 +47,7 @@ public final class MapRenderer {
                         gridPane.add(imageView, x, y);
                     }
                 }
+                stackPane.getChildren().add(gridPane);
             }
         }
         return stackPane;
