@@ -11,20 +11,38 @@ import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
  */
 public class SubMachineGun extends AbstractWeapon {
     /**
-     * Constructs an object of type SubMachineGun.
-     *
-     * @param damage the amount of damage the object deals a float
-     * @param attackSpeed the speed of the attack as a float
-     * @param shotDamageMultipleEnemies whether the object has AOE damage as a boolean
-     * @param attackRange how far the object can deal damage as a long
-     * @param cost the cost to purchase the object as a long
-     * @param ammoCapacity the ammo capacity as a long
-     * @param clipSize the size of the magazine as a long
+     * The SMG damage.
      */
-    public SubMachineGun(final float damage, final float attackSpeed, final boolean shotDamageMultipleEnemies,
-                         final long attackRange, final long cost, final long ammoCapacity, final long clipSize) {
-        // TODO Remove parameters in constructor and create final immutable values for parameters in super()
-        super(damage, attackSpeed, shotDamageMultipleEnemies, attackRange, cost, ammoCapacity, clipSize);
+    public static final float DAMAGE = 3f;
+    /**
+     * The SMG attack speed. The time it takes to do a single attack in seconds.
+     */
+    public static final float ATTACK_SPEED = 0.05f;
+    /**
+     * If the SMG can hit multiple enemies with a single attack.
+     */
+    public static final boolean HAS_AOE = false;
+    /**
+     * The SMG attack range in pixels.
+     */
+    public static final long ATTACK_RANGE = 75;
+    /**
+     * The SMG cost in the shop.
+     */
+    public static final long COST = 1500;
+    /**
+     * The SMG ammo capacity, total ammo of the assault rifle.
+     */
+    public static final long AMMO_CAPACITY = 1200;
+    /**
+     * The SMG clip size, how many shots can be fired before reloading is required.
+     */
+    public static final long CLIP_SIZE = 100;
+    /**
+     * Constructs an object of type SubMachineGun.
+     */
+    public SubMachineGun() {
+        super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE);
     }
 
     /**
