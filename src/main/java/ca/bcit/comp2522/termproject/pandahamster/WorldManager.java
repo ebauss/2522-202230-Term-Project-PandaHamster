@@ -47,6 +47,7 @@ public final class WorldManager {
      * 1 / 60f, basically a 60th of a second/60FPS.
      */
     public void updateWorld() {
+        // obstacles from tiled map are on;y ever built once when application opens
         if (!BUILT_OBSTACLES) {
             createObstacles();
             BUILT_OBSTACLES = true;
@@ -57,6 +58,11 @@ public final class WorldManager {
         while (firstBody != null) {
             GameEntity gameEntity = (GameEntity) firstBody.getUserData();
             if (gameEntity != null) {
+                // update the position based on the position in the body
+                /*
+                jBox2D has the x and y at the center, need to subtract half the width and height
+                to get the position of the top left corner (the x and y for javafx).
+                 */
                 gameEntity.setXPosition((long) firstBody.getPosition().x - gameEntity.getWidth() / 2f);
                 gameEntity.setYPosition((long) firstBody.getPosition().y - gameEntity.getHeight() / 2f);
             }
@@ -75,10 +81,16 @@ public final class WorldManager {
      * @param gameEntity the game entity to create a body for
      */
     public void createDynamicRectangle(final GameEntity gameEntity) {
+        // dynamic means the body can move
         bodyDef.type = BodyType.DYNAMIC;
+        /*
+            jBox2D has the x and y at the center, need to subtract half the width and height
+            to get the position of the top left corner (the x and y for javafx).
+        */
         bodyDef.position.set(gameEntity.getXPosition() + gameEntity.getWidth() / 2f,
                 gameEntity.getYPosition() + gameEntity.getHeight() / 2f);
         Body body = world.createBody(bodyDef);
+        // make the shape of the player
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.setAsBox(gameEntity.getWidth() / 2f, gameEntity.getHeight() / 2f);
         fixtureDef.shape = polygonShape;
@@ -95,6 +107,7 @@ public final class WorldManager {
      * @param gameEntity the game entity to create the body for
      */
     public void createStaticRectangle(final GameEntity gameEntity) {
+        // body won't move
         bodyDef.type = BodyType.STATIC;
         bodyDef.position.set(gameEntity.getXPosition(), gameEntity.getYPosition());
         Body body = world.createBody(bodyDef);
@@ -109,7 +122,11 @@ public final class WorldManager {
         gameEntity.setBody(body);
     }
     public void createStaticRectangle(final float x, final float y, final float width, final float height) {
+        // body won't move
         bodyDef.type = BodyType.STATIC;
+        /*
+            set at the center since that is where x and y is for jBox2D
+        */
         bodyDef.position.set(x + width / 2, y + height / 2);
         Body body = world.createBody(bodyDef);
         PolygonShape polygonShape = new PolygonShape();
@@ -124,7 +141,9 @@ public final class WorldManager {
         TiledReader reader = new FileSystemTiledReader();
         TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
         for (TiledLayer layer: map.getTopLevelLayers()) {
+            // tiled object layers are where the objects on the map
             if (layer instanceof TiledObjectLayer tiledObjectLayer) {
+                // build and each body of the object
                 for (TiledObject tiledObject: tiledObjectLayer.getObjects()) {
                     createStaticRectangle(
                             tiledObject.getX(), tiledObject.getY(),
