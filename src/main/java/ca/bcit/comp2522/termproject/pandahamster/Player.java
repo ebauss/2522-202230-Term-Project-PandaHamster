@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import javafx.scene.shape.Rectangle;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private AbstractWeapon currentWeapon;
     private short lifeCount;
     private Rectangle playerSprite;
+    private final float speed = 20f;
 
     /**
      * Constructs a Player object.
@@ -86,17 +88,32 @@ public class Player extends GameEntity implements DynamicEntity {
     private void reloadWeapon() {
         this.currentWeapon.reload();
     }
-
     /**
-     * Moves the player along the map.
-     *
-     * <p>
-     * Uses the WASD keys to move the player. W to move forward. A to move left.
-     * D to move right. S to move backward.
-     * </p>
+     * Moves the player up on the screen.
      */
     @Override
-    public void move() {
-
+    public void moveUp() {
+        getBody().setLinearVelocity(new Vec2(0, -speed));
+    }
+    /**
+     * Moves the player left on the screen.
+     */
+    @Override
+    public void moveLeft() {
+        getBody().setLinearVelocity(new Vec2(-speed, 0));
+    }
+    /**
+     * Moves the player down on the screen.
+     */
+    @Override
+    public void moveDown() {
+        getBody().setLinearVelocity(new Vec2(0, speed));
+    }
+    /**
+     * Moves the player right on the screen.
+     */
+    @Override
+    public void moveRight() {
+        getBody().setLinearVelocity(new Vec2(speed, 0));
     }
 }
