@@ -9,8 +9,14 @@ import org.jbox2d.dynamics.Body;
  * @version 0.0
  */
 public abstract class GameEntity {
-    private long xPosition;
-    private long yPosition;
+    /**
+     * The x position of the game entity on the map.
+     */
+    protected float xPosition;
+    /**
+     * The y position of the game entity on the map.
+     */
+    protected float yPosition;
     private final long width;
     private final long height;
     private Body body;
@@ -35,7 +41,7 @@ public abstract class GameEntity {
      *
      * @return xPosition of class as a long
      */
-    public long getXPosition() {
+    public float getXPosition() {
         return xPosition;
     }
 
@@ -44,7 +50,7 @@ public abstract class GameEntity {
      *
      * @param newXPosition of class as a long
      */
-    public void setXPosition(final long newXPosition) {
+    public void setXPosition(final float newXPosition) {
         this.xPosition = newXPosition;
     }
 
@@ -53,7 +59,7 @@ public abstract class GameEntity {
      *
      * @return yPosition of class as a long
      */
-    public long getYPosition() {
+    public float getYPosition() {
         return yPosition;
     }
 
@@ -62,7 +68,7 @@ public abstract class GameEntity {
      *
      * @param newYPosition of class as a long
      */
-    public void setYPosition(final long newYPosition) {
+    public void setYPosition(final float newYPosition) {
         this.yPosition = newYPosition;
     }
 
