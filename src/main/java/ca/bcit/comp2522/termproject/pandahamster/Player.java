@@ -40,7 +40,26 @@ public class Player extends GameEntity implements DynamicEntity {
         this.money = ONE_HUNDRED;
         playerSprite = new Rectangle(0, 0 , 16, 16);
     }
-
+    /**
+     * Sets the x position of this player. The player rectangle position
+     * will also be updated accordingly.
+     * @param xPosition of class as a long
+     */
+    @Override
+    public void setXPosition(final float xPosition) {
+        super.xPosition = xPosition;
+        playerSprite.setX(xPosition);
+    }
+    /**
+     * Sets the y position of this player. The player rectangle position
+     * * will also be updated accordingly.
+     * @param yPosition of class as a long
+     */
+    @Override
+    public void setYPosition(final float yPosition) {
+        super.yPosition = yPosition;
+        playerSprite.setY(yPosition);
+    }
     /**
      * Gets the name instance variable.
      *
