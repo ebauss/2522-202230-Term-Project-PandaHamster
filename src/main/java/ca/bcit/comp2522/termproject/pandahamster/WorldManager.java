@@ -34,13 +34,13 @@ public final class WorldManager {
     }
     /**
      * Advances the physics simulation by a single time step that is defined as
-     * 1 / 60f.
+     * 1 / 60f, basically a 60th of a second/60FPS.
      */
     public void updateWorld() {
         world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATION);
         Body firstBody = world.getBodyList();
         // the body list is a linked list
-        while (firstBody.m_next != null) {
+        while (firstBody != null) {
             GameEntity gameEntity = (GameEntity) firstBody.getUserData();
             gameEntity.setXPosition((long) firstBody.getPosition().x);
             gameEntity.setYPosition((long) firstBody.getPosition().y);
@@ -65,8 +65,27 @@ public final class WorldManager {
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.setAsBox(gameEntity.getWidth(), gameEntity.getHeight());
         fixtureDef.shape = polygonShape;
-        fixtureDef.density = 10f;
-        fixtureDef.friction = 0.2f;
+        fixtureDef.density = 1f;
+        fixtureDef.friction = 0;
+        fixtureDef.restitution = 0;
+        body.createFixture(fixtureDef);
+        body.setUserData(gameEntity);
+        gameEntity.setBody(body);
+    }
+
+    /**
+     * Creates a new body for the specified game entity for the physics simulation.
+     * @param gameEntity the game entity to create the body for
+     */
+    public void createStaticRectangle(final GameEntity gameEntity) {
+        bodyDef.type = BodyType.STATIC;
+        bodyDef.position.set(gameEntity.getXPosition(), gameEntity.getYPosition());
+        Body body = world.createBody(bodyDef);
+        PolygonShape polygonShape = new PolygonShape();
+        polygonShape.setAsBox(gameEntity.getWidth(), gameEntity.getHeight());
+        fixtureDef.shape = polygonShape;
+        fixtureDef.density = 1f;
+        fixtureDef.friction = 0;
         fixtureDef.restitution = 0;
         body.createFixture(fixtureDef);
         body.setUserData(gameEntity);
