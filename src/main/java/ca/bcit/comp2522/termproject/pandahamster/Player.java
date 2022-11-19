@@ -52,6 +52,12 @@ public class Player extends GameEntity implements DynamicEntity {
                 default -> { }
             }
         });
+        playerSprite.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+            switch (event.getCode()) {
+                case W, A, S, D -> getBody().setLinearVelocity(new Vec2(0, 0));
+                default -> { }
+            }
+        });
     }
     /**
      * Sets the x position of this player. The player rectangle position
