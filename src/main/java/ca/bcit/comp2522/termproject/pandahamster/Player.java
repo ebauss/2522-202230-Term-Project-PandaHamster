@@ -3,9 +3,6 @@ package ca.bcit.comp2522.termproject.pandahamster;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
