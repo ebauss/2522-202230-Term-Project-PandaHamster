@@ -4,6 +4,7 @@ import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
+import org.tiledreader.*;
 
 /**
  * For managing a world instance.
@@ -14,6 +15,7 @@ public final class WorldManager {
     private static final float TIME_STEP = 1 / 60f;
     private static final int VELOCITY_ITERATIONS = 8;
     private static final int POSITION_ITERATION = 3;
+    private static boolean BUILT_OBSTACLES = false;
     private static WorldManager worldManager;
     private static World world;
     private static BodyDef bodyDef;
@@ -37,6 +39,10 @@ public final class WorldManager {
      * 1 / 60f, basically a 60th of a second/60FPS.
      */
     public void updateWorld() {
+        if (!BUILT_OBSTACLES) {
+            createObstacles();
+            BUILT_OBSTACLES = true;
+        }
         world.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATION);
         Body firstBody = world.getBodyList();
         // the body list is a linked list
@@ -90,5 +96,31 @@ public final class WorldManager {
         body.createFixture(fixtureDef);
         body.setUserData(gameEntity);
         gameEntity.setBody(body);
+    }
+    public void createStaticRectangle(final float x, final float y, final float width, final float height) {
+        bodyDef.type = BodyType.STATIC;
+        bodyDef.position.set(x + width / 2, y + height / 2);
+        Body body = world.createBody(bodyDef);
+        PolygonShape polygonShape = new PolygonShape();
+        polygonShape.setAsBox(width / 2, height / 2);
+        fixtureDef.shape = polygonShape;
+        fixtureDef.density = 1f;
+        fixtureDef.friction = 0;
+        fixtureDef.restitution = 0;
+        body.createFixture(fixtureDef);
+    }
+    private void createObstacles() {
+        TiledReader reader = new FileSystemTiledReader();
+        TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
+        for (TiledLayer layer: map.getTopLevelLayers()) {
+            if (layer instanceof TiledObjectLayer tiledObjectLayer) {
+                for (TiledObject tiledObject: tiledObjectLayer.getObjects()) {
+                    createStaticRectangle(
+                            tiledObject.getX(), tiledObject.getY(),
+                            tiledObject.getWidth(), tiledObject.getHeight()
+                    );
+                }
+            }
+        }
     }
 }
