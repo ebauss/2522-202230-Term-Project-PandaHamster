@@ -82,7 +82,7 @@ public final class MapRenderer {
         }
     }
     /*
-    Returns a image view of a dummy tile where a tile was not drawn. Defines the width and height
+    Returns an image view of a dummy tile where a tile was not drawn. Defines the width and height
     of the dummy tile to be the same as a regular tile.
      */
     private static ImageView makeEmptyTile(final int tileWidth, final int tileHeight) {
