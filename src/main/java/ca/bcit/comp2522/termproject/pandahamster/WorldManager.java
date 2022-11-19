@@ -1,10 +1,18 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
-import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.*;
-import org.tiledreader.*;
+import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.FixtureDef;
+import org.jbox2d.dynamics.BodyType;
+import org.tiledreader.TiledReader;
+import org.tiledreader.FileSystemTiledReader;
+import org.tiledreader.TiledMap;
+import org.tiledreader.TiledLayer;
+import org.tiledreader.TiledObjectLayer;
+import org.tiledreader.TiledObject;
 
 /**
  * For managing a world instance.
