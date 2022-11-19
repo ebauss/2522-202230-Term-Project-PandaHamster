@@ -121,6 +121,15 @@ public final class WorldManager {
         body.setUserData(gameEntity);
         gameEntity.setBody(body);
     }
+    /**
+     * Creates a new body with the specified dimensions and position for the physics simulation.
+     * No user data is associated with these bodies. Use this method when having user data is
+     * irrelevant and the body is not supposed to move.
+     * @param x the x location of the body (center of the body)
+     * @param y the y location of the body (center of the body)
+     * @param width width of the rectangle body
+     * @param height height of the rectangle body
+     */
     public void createStaticRectangle(final float x, final float y, final float width, final float height) {
         // body won't move
         bodyDef.type = BodyType.STATIC;
