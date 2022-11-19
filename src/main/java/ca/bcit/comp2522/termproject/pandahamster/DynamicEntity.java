@@ -10,5 +10,21 @@ public interface DynamicEntity {
     /**
      * Moves the object on the map.
      */
-    void move();
+    default void move() { }
+    /**
+     * Moves the dynamic entity up.
+     */
+    default void moveUp() { }
+    /**
+     * Moves the dynamic entity left.
+     */
+    default void moveLeft() { }
+    /**
+     * Moves the dynamic entity down.
+     */
+    default void moveDown() { }
+    /**
+     * Moves the dynamic entity right.
+     */
+    default void moveRight() { }
 }
