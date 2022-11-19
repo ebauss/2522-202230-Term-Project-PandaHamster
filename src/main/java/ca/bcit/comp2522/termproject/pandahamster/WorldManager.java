@@ -77,7 +77,9 @@ public final class WorldManager {
         return world.getBodyList();
     }
     /**
-     * Creates a new body for the specified game entity for the physics simulation.
+     * Creates a new body for the specified game entity for the physics simulation. User data is
+     * associated with these bodies. Use this method when user data is relevant and the body is
+     * supposed to move.
      * @param gameEntity the game entity to create a body for
      */
     public void createDynamicRectangle(final GameEntity gameEntity) {
@@ -101,9 +103,10 @@ public final class WorldManager {
         body.setUserData(gameEntity);
         gameEntity.setBody(body);
     }
-
     /**
-     * Creates a new body for the specified game entity for the physics simulation.
+     * Creates a new body for the specified game entity for the physics simulation. User data is
+     * associated with these bodies. Use this method when user data is relevant and the body is
+     * not supposed to move.
      * @param gameEntity the game entity to create the body for
      */
     public void createStaticRectangle(final GameEntity gameEntity) {
