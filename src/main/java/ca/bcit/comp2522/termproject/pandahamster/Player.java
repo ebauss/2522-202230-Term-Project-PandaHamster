@@ -1,5 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -41,6 +42,16 @@ public class Player extends GameEntity implements DynamicEntity {
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
         playerSprite = new Rectangle(0, 0 , 16, 16);
+        playerSprite.setFocusTraversable(true);
+        playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            switch (event.getCode()) {
+                case W -> moveUp();
+                case A -> moveLeft();
+                case S -> moveDown();
+                case D -> moveRight();
+                default -> { }
+            }
+        });
     }
     /**
      * Sets the x position of this player. The player rectangle position

@@ -36,20 +36,6 @@ public class PandaHamster extends Application {
         Group root = new Group(stackPane);
         Player player = new Player("...");
         root.getChildren().add(player.getPlayerSprite());
-        player.getPlayerSprite().setFocusTraversable(true);
-        EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(final KeyEvent event) {
-                switch (event.getCode()) {
-                    case W -> player.getBody().setLinearVelocity(new Vec2(0, -25));
-                    case A -> player.getBody().setLinearVelocity(new Vec2(-25, 0));
-                    case S -> player.getBody().setLinearVelocity(new Vec2(0, 25));
-                    case D -> player.getBody().setLinearVelocity(new Vec2(25, 0));
-                    default -> { }
-                }
-            }
-        };
-        player.getPlayerSprite().addEventFilter(KeyEvent.KEY_PRESSED, keyEventEventHandler);
         WorldManager.getInstance().createDynamicRectangle(player);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
