@@ -48,8 +48,10 @@ public final class WorldManager {
         // the body list is a linked list
         while (firstBody != null) {
             GameEntity gameEntity = (GameEntity) firstBody.getUserData();
-            gameEntity.setXPosition((long) firstBody.getPosition().x);
-            gameEntity.setYPosition((long) firstBody.getPosition().y);
+            if (gameEntity != null) {
+                gameEntity.setXPosition((long) firstBody.getPosition().x - gameEntity.getWidth() / 2f);
+                gameEntity.setYPosition((long) firstBody.getPosition().y - gameEntity.getHeight() / 2f);
+            }
             firstBody = firstBody.getNext();
         }
     }
@@ -66,10 +68,11 @@ public final class WorldManager {
      */
     public void createDynamicRectangle(final GameEntity gameEntity) {
         bodyDef.type = BodyType.DYNAMIC;
-        bodyDef.position.set(gameEntity.getXPosition(), gameEntity.getYPosition());
+        bodyDef.position.set(gameEntity.getXPosition() + gameEntity.getWidth() / 2f,
+                gameEntity.getYPosition() + gameEntity.getHeight() / 2f);
         Body body = world.createBody(bodyDef);
         PolygonShape polygonShape = new PolygonShape();
-        polygonShape.setAsBox(gameEntity.getWidth(), gameEntity.getHeight());
+        polygonShape.setAsBox(gameEntity.getWidth() / 2f, gameEntity.getHeight() / 2f);
         fixtureDef.shape = polygonShape;
         fixtureDef.density = 1f;
         fixtureDef.friction = 0;
