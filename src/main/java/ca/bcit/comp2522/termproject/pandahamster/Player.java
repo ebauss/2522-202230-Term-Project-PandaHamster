@@ -42,6 +42,7 @@ public class Player extends GameEntity implements DynamicEntity {
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
         playerSprite = new Rectangle(0, 0 , 16, 16);
+        // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
         playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
@@ -54,6 +55,7 @@ public class Player extends GameEntity implements DynamicEntity {
         });
         playerSprite.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             switch (event.getCode()) {
+                // when a movement key is released, stop the player from moving
                 case W, A, S, D -> getBody().setLinearVelocity(new Vec2(0, 0));
                 default -> { }
             }
