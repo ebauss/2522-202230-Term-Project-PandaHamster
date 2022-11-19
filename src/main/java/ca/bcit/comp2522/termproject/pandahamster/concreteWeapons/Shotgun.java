@@ -11,20 +11,38 @@ import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
  */
 public class Shotgun extends AbstractWeapon {
     /**
-     * Constructs an object of type Shotgun.
-     *
-     * @param damage the amount of damage the object deals a float
-     * @param attackSpeed the speed of the attack as a float
-     * @param shotDamageMultipleEnemies whether the object has AOE damage as a boolean
-     * @param attackRange how far the object can deal damage as a long
-     * @param cost the cost to purchase the object as a long
-     * @param ammoCapacity the ammo capacity as a long
-     * @param clipSize the size of the magazine as a long
+     * The shotgun damage.
      */
-    public Shotgun(final float damage, final float attackSpeed, final boolean shotDamageMultipleEnemies,
-                   final long attackRange, final long cost, final long ammoCapacity, final long clipSize) {
-        // TODO Remove parameters in constructor and create final immutable values for parameters in super()
-        super(damage, attackSpeed, shotDamageMultipleEnemies, attackRange, cost, ammoCapacity, clipSize);
+    public static final float DAMAGE = 25f;
+    /**
+     * The shotgun attack speed. The time it takes to do a single attack in seconds.
+     */
+    public static final float ATTACK_SPEED = 1f;
+    /**
+     * If the shotgun can hit multiple enemies with a single attack.
+     */
+    public static final boolean HAS_AOE = true;
+    /**
+     * The shotgun attack range in pixels.
+     */
+    public static final long ATTACK_RANGE = 40;
+    /**
+     * The shotgun cost in the shop.
+     */
+    public static final long COST = 2500;
+    /**
+     * The shotgun ammo capacity, total ammo of the assault rifle.
+     */
+    public static final long AMMO_CAPACITY = 200;
+    /**
+     * The shotgun clip size, how many shots can be fired before reloading is required.
+     */
+    public static final long CLIP_SIZE = 8;
+    /**
+     * Constructs an object of type Shotgun.
+     */
+    public Shotgun() {
+        super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE);
     }
 
     /**
