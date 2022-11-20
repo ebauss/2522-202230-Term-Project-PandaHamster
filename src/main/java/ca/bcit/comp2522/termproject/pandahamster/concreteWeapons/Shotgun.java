@@ -39,10 +39,15 @@ public class Shotgun extends AbstractWeapon {
      */
     public static final long CLIP_SIZE = 8;
     /**
+     * A string representation of the object.
+     */
+    public static final String NAME = "Shotgun";
+
+    /**
      * Constructs an object of type Shotgun.
      */
     public Shotgun() {
-        super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE);
+        super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE, NAME);
     }
 
     /**

@@ -39,10 +39,15 @@ public class Grenade extends AbstractWeapon {
      */
     public static final long CLIP_SIZE = 5;
     /**
+     * A string representation of the name of the object.
+     */
+    public static final String NAME = "Grenade";
+
+    /**
      * Constructs an object of type Grenade.
      */
     public Grenade() {
-        super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE);
+        super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE, NAME);
     }
 
     /**

@@ -39,10 +39,15 @@ public class SubMachineGun extends AbstractWeapon {
      */
     public static final long CLIP_SIZE = 100;
     /**
+     * A string representation of the object.
+     */
+    public static final String NAME = "Sub Machine Gun";
+
+    /**
      * Constructs an object of type SubMachineGun.
      */
     public SubMachineGun() {
-        super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE);
+        super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE, NAME);
     }
 
     /**
