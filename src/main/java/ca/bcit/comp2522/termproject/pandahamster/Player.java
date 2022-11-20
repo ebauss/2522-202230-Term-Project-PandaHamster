@@ -1,9 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
-import javafx.geometry.Point2D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
 import org.jbox2d.common.Vec2;
 import java.util.List;
 
