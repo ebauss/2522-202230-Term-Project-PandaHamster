@@ -43,6 +43,7 @@ public class Player extends GameEntity implements DynamicEntity {
         // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
         playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            System.out.println(MousePositionTracker.getMouseLocation());
             switch (event.getCode()) {
                 case W -> moveUp();
                 case A -> moveLeft();
