@@ -25,6 +25,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private short lifeCount;
     private Rectangle playerSprite;
     private final float speed = 50f;
+    private final float angularVelocity = 10;
 
     /**
      * Constructs a Player object.
@@ -48,22 +49,8 @@ public class Player extends GameEntity implements DynamicEntity {
                 case A -> moveLeft();
                 case S -> moveDown();
                 case D -> moveRight();
-                case LEFT -> {
-                    Rotate rotate = new Rotate();
-                    rotate.setAngle(-10);
-                    rotate.setPivotX(playerSprite.getX() + 8);
-                    rotate.setPivotY(playerSprite.getY() + 8);
-
-                    playerSprite.getTransforms().add(rotate);
-                }
-                case RIGHT -> {
-                    Rotate rotate = new Rotate();
-                    rotate.setAngle(10);
-                    rotate.setPivotX(playerSprite.getX() + 8);
-                    rotate.setPivotY(playerSprite.getY() + 8);
-
-                    playerSprite.getTransforms().add(rotate);
-                }
+                case LEFT -> rotateCounterClockwise();
+                case RIGHT -> rotateClockwise();
                 default -> { }
             }
         });
@@ -71,12 +58,7 @@ public class Player extends GameEntity implements DynamicEntity {
             switch (event.getCode()) {
                 // when a movement key is released, stop the player from moving
                 case W, A, S, D -> getBody().setLinearVelocity(new Vec2(0, 0));
-                case LEFT, RIGHT -> {
-                    Rotate rotate = new Rotate();
-                    rotate.setAngle(0);
-
-                    playerSprite.getTransforms().add(rotate);
-                }
+                case LEFT, RIGHT -> getBody().setAngularVelocity(0);
                 default -> { }
             }
         });
@@ -157,5 +139,19 @@ public class Player extends GameEntity implements DynamicEntity {
     @Override
     public void moveRight() {
         getBody().setLinearVelocity(new Vec2(speed, 0));
+    }
+
+    /**
+     * Rotates the player clockwise on the screen.
+     */
+    public void rotateClockwise() {
+        getBody().setAngularVelocity(-angularVelocity);
+    }
+
+    /**
+     * Rotates the player counter clockwise on the screen.
+     */
+    public void rotateCounterClockwise() {
+        getBody().setAngularVelocity(angularVelocity);
     }
 }
