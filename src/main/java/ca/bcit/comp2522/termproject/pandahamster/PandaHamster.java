@@ -44,6 +44,7 @@ public class PandaHamster extends Application {
             @Override
             public void handle(final long now) {
                 WorldManager.getInstance().updateWorld();
+                player.faceMouseDirection();
             }
         };
         animationTimer.start();

@@ -1,5 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
@@ -146,6 +147,7 @@ public class Player extends GameEntity implements DynamicEntity {
      */
     public void rotateClockwise() {
         getBody().setAngularVelocity(-angularVelocity);
+        playerSprite.setRotate(getBody().getAngle());
     }
 
     /**
@@ -153,5 +155,21 @@ public class Player extends GameEntity implements DynamicEntity {
      */
     public void rotateCounterClockwise() {
         getBody().setAngularVelocity(angularVelocity);
+        playerSprite.setRotate(getBody().getAngle());
+    }
+    public void faceMouseDirection() {
+        Vec2 playerPos = new Vec2(xPosition + getWidth()
+                / 2f, yPosition + getHeight() / 2f);
+        Vec2 mousePos = new Vec2(
+                (float) MousePositionTracker.getMouseLocation().getX(),
+                (float) MousePositionTracker.getMouseLocation().getY());
+        Vec2 targetPos = mousePos.sub(playerPos);
+        float desiredAngle = (float) Math.atan2(-targetPos.x, targetPos.y);
+        getBody().setTransform(getBody().getPosition(), desiredAngle);
+        Rotate rotate = new Rotate();
+        rotate.setAngle(getBody().getAngle());
+        rotate.setPivotX(xPosition + getWidth() / 2f);
+        rotate.setPivotY(yPosition + getHeight() / 2f);
+        playerSprite.setRotate(desiredAngle * 57.2958);
     }
 }
