@@ -146,6 +146,8 @@ public class Player extends GameEntity implements DynamicEntity {
 
     /**
      * Adds a new weapon to the weaponInventory.
+     *
+     * @param newWeapon the new weapon to be added into the inventory
      */
     public void addWeaponIntoInventory(final AbstractWeapon newWeapon) {
         weaponInventory.add(newWeapon);
