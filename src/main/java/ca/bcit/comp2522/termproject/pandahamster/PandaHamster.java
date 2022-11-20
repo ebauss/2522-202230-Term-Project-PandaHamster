@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.tiledreader.FileSystemTiledReader;
@@ -32,6 +33,9 @@ public class PandaHamster extends Application {
         Group root = new Group(stackPane);
         Player player = new Player("...");
         root.getChildren().add(player.getPlayerSprite());
+        root.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
+            MousePositionTracker.setMouseLocation(event.getX(), event.getY());
+        });
         WorldManager.getInstance().createDynamicRectangle(player);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
