@@ -58,6 +58,25 @@ public class Player extends GameEntity implements DynamicEntity {
             }
         });
     }
+
+    /**
+     * Gets the money value.
+     *
+     * @return the amount of money the player has.
+     */
+    public long getMoney() {
+        return money;
+    }
+
+    /**
+     * Sets the money value.
+     *
+     * @param money the amount of money the player has as a long
+     */
+    public void setMoney(final long money) {
+        this.money = money;
+    }
+
     /**
      * Sets the x position of this player. The player rectangle position
      * will also be updated accordingly.
@@ -77,14 +96,6 @@ public class Player extends GameEntity implements DynamicEntity {
     public void setYPosition(final float yPosition) {
         super.yPosition = yPosition;
         playerSprite.setY(yPosition);
-    }
-    /**
-     * Gets the name instance variable.
-     *
-     * @return name instance variable as a String
-     */
-    public String getName() {
-        return name;
     }
 
     /**
@@ -131,5 +142,9 @@ public class Player extends GameEntity implements DynamicEntity {
     @Override
     public void moveRight() {
         getBody().setLinearVelocity(new Vec2(speed, 0));
+    }
+
+    public void appendWeaponIntoInventory() {
+
     }
 }
