@@ -35,4 +35,13 @@ public abstract class AbstractShooter implements Attacker {
         this.cost = cost;
         this.name = name;
     }
+
+    /**
+     * Gets method for the name variable.
+     *
+     * @return the name variable
+     */
+    public String getName() {
+        return name;
+    }
 }

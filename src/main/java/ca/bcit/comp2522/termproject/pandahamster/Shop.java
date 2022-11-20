@@ -45,7 +45,7 @@ public class Shop {
         // TODO modify implementation so that it displays shop items in JavaFX. Currently, only looping through the
         //  shopInventory has been implemented.
         for (AbstractShooter element: this.shopInventory) {
-            System.out.println(element.name);
+            System.out.println(element.getName());
         }
     }
 }
