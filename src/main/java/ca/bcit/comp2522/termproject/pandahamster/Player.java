@@ -2,6 +2,7 @@ package ca.bcit.comp2522.termproject.pandahamster;
 
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 import org.jbox2d.common.Vec2;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private AbstractWeapon currentWeapon;
     private short lifeCount;
     private Rectangle playerSprite;
-    private final float speed = 20f;
+    private final float speed = 50f;
 
     /**
      * Constructs a Player object.
@@ -47,6 +48,22 @@ public class Player extends GameEntity implements DynamicEntity {
                 case A -> moveLeft();
                 case S -> moveDown();
                 case D -> moveRight();
+                case LEFT -> {
+                    Rotate rotate = new Rotate();
+                    rotate.setAngle(-10);
+                    rotate.setPivotX(playerSprite.getX() + 8);
+                    rotate.setPivotY(playerSprite.getY() + 8);
+
+                    playerSprite.getTransforms().add(rotate);
+                }
+                case RIGHT -> {
+                    Rotate rotate = new Rotate();
+                    rotate.setAngle(10);
+                    rotate.setPivotX(playerSprite.getX() + 8);
+                    rotate.setPivotY(playerSprite.getY() + 8);
+
+                    playerSprite.getTransforms().add(rotate);
+                }
                 default -> { }
             }
         });
@@ -54,10 +71,19 @@ public class Player extends GameEntity implements DynamicEntity {
             switch (event.getCode()) {
                 // when a movement key is released, stop the player from moving
                 case W, A, S, D -> getBody().setLinearVelocity(new Vec2(0, 0));
+                case LEFT, RIGHT -> {
+                    Rotate rotate = new Rotate();
+                    rotate.setAngle(0);
+
+                    playerSprite.getTransforms().add(rotate);
+                }
                 default -> { }
             }
         });
+
+
     }
+
     /**
      * Sets the x position of this player. The player rectangle position
      * will also be updated accordingly.
