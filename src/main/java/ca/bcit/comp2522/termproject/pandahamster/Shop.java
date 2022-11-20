@@ -44,8 +44,8 @@ public class Shop {
     public void showItems() {
         // TODO modify implementation so that it displays shop items in JavaFX. Currently, only looping through the
         //  shopInventory has been implemented.
-        for (AbstractShooter element: this.shopInventory) {
-            System.out.println(element.getName());
+        for (AbstractShooter shooter: this.shopInventory) {
+            System.out.println(shooter.getName());
         }
     }
 
@@ -56,5 +56,13 @@ public class Shop {
      */
     public void purchaseWeapon(final AbstractWeapon weapon) {
         playerInstance.addWeaponIntoInventory(weapon);
+    }
+
+    /**
+     * Refills ammo for all player weapons.
+     */
+    public void purchaseAmmo() {
+        playerInstance.replenishAmmoSupply();
+        // TODO Replenish ammo supply for towers as well.
     }
 }

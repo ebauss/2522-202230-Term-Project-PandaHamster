@@ -152,4 +152,14 @@ public class Player extends GameEntity implements DynamicEntity {
     public void addWeaponIntoInventory(final AbstractWeapon newWeapon) {
         weaponInventory.add(newWeapon);
     }
+
+    /**
+     * Refills the ammo for all weapons in the inventory.
+     */
+    public void replenishAmmoSupply() {
+        for (AbstractWeapon weapon: weaponInventory) {
+            // TODO Implement this. Loop through each weapon and call the replenishAmmo() function.
+            //  Do the same thing for towers in a different for loop.
+        }
+    }
 }

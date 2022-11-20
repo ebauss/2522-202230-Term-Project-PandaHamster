@@ -30,6 +30,8 @@ public class AssaultRifle extends AbstractWeapon {
      * The assault rifle cost in the shop.
      */
     public static final long COST = 1000;
+    // TODO A few of these might not need to be contants since they need to change. I.e ammo capacity.
+    // TODO Possibly add a constant that stores the value of the Maximum ammo capacity for that weapon.
     /**
      * The assault rifle ammo capacity, total ammo of the assault rifle.
      */
