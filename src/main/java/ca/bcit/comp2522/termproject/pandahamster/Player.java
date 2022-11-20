@@ -151,25 +151,32 @@ public class Player extends GameEntity implements DynamicEntity {
     }
 
     /**
-     * Rotates the player counter clockwise on the screen.
+     * Rotates the player counter-clockwise on the screen.
      */
     public void rotateCounterClockwise() {
         getBody().setAngularVelocity(angularVelocity);
         playerSprite.setRotate(getBody().getAngle());
     }
+
+    /**
+     * Aligns the player to face the direction of the mouse.
+     */
     public void faceMouseDirection() {
+        // convert the player position to jBox2D position (center is x and y)
         Vec2 playerPos = new Vec2(xPosition + getWidth()
                 / 2f, yPosition + getHeight() / 2f);
+        // get the position of the mouse
         Vec2 mousePos = new Vec2(
                 (float) MousePositionTracker.getMouseLocation().getX(),
                 (float) MousePositionTracker.getMouseLocation().getY());
+        // calculate target position
         Vec2 targetPos = mousePos.sub(playerPos);
+        // gets the angle in radians
         float desiredAngle = (float) Math.atan2(-targetPos.x, targetPos.y);
+        // update the body angle to the calculated angle
         getBody().setTransform(getBody().getPosition(), desiredAngle);
-        Rotate rotate = new Rotate();
-        rotate.setAngle(getBody().getAngle());
-        rotate.setPivotX(xPosition + getWidth() / 2f);
-        rotate.setPivotY(yPosition + getHeight() / 2f);
-        playerSprite.setRotate(desiredAngle * 57.2958);
+        // update the player's angle (convert the angle to degrees)
+        final float radToDeg = 57.2958f;
+        playerSprite.setRotate(desiredAngle * radToDeg);
     }
 }
