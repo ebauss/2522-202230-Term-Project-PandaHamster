@@ -48,4 +48,13 @@ public class Shop {
             System.out.println(element.getName());
         }
     }
+
+    /**
+     * Adds the weapon into the players inventory.
+     *
+     * @param weapon the weapon to add into the inventory of the player
+     */
+    public void purchaseWeapon(final AbstractWeapon weapon) {
+        playerInstance.addWeaponIntoInventory(weapon);
+    }
 }
