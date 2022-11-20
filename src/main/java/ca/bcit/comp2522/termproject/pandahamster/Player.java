@@ -144,7 +144,10 @@ public class Player extends GameEntity implements DynamicEntity {
         getBody().setLinearVelocity(new Vec2(speed, 0));
     }
 
-    public void appendWeaponIntoInventory() {
-
+    /**
+     * Adds a new weapon to the weaponInventory.
+     */
+    public void addWeaponIntoInventory(final AbstractWeapon newWeapon) {
+        weaponInventory.add(newWeapon);
     }
 }
