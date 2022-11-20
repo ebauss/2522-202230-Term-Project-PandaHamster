@@ -59,12 +59,7 @@ public class Player extends GameEntity implements DynamicEntity {
             switch (event.getCode()) {
                 // when a movement key is released, stop the player from moving
                 case W, A, S, D -> getBody().setLinearVelocity(new Vec2(0, 0));
-//                case LEFT, RIGHT -> {
-//                    Rotate rotate = new Rotate();
-//                    rotate.setAngle(0);
-//
-//                    playerSprite.getTransforms().add(rotate);
-//                }
+                case LEFT, RIGHT -> getBody().setAngularVelocity(0);
                 default -> { }
             }
         });
