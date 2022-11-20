@@ -39,10 +39,15 @@ public class Sniper extends AbstractWeapon {
      */
     public static final long CLIP_SIZE = 5;
     /**
+     * A string representation of the object.
+     */
+    public static final String NAME = "Sniper";
+
+    /**
      * Constructs an object of type Sniper.
      */
     public Sniper() {
-        super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE);
+        super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE, NAME);
     }
 
     /**

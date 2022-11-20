@@ -19,6 +19,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private long level;
     private long currentExp;
     private long money;
+    // TODO make AbstractWeapon so that the line below can be uncommented
     private List<AbstractWeapon> weaponInventory;
     private AbstractWeapon currentWeapon;
     private short lifeCount;
@@ -61,8 +62,25 @@ public class Player extends GameEntity implements DynamicEntity {
                 default -> { }
             }
         });
+    }
 
 
+    /**
+     * Gets the money value.
+     *
+     * @return the amount of money the player has.
+     */
+    public long getMoney() {
+        return money;
+    }
+
+    /**
+     * Sets the money value.
+     *
+     * @param money the amount of money the player has as a long
+     */
+    public void setMoney(final long money) {
+        this.money = money;
     }
 
     /**
@@ -176,5 +194,24 @@ public class Player extends GameEntity implements DynamicEntity {
         // update the player's angle (convert the angle to degrees)
         final float radToDeg = 57.2958f;
         playerSprite.setRotate(desiredAngle * radToDeg);
+    }
+
+    /**
+     * Adds a new weapon to the weaponInventory.
+     *
+     * @param newWeapon the new weapon to be added into the inventory
+     */
+    public void addWeaponIntoInventory(final AbstractWeapon newWeapon) {
+        weaponInventory.add(newWeapon);
+    }
+
+    /**
+     * Refills the ammo for all weapons in the inventory.
+     */
+    public void replenishAmmoSupply() {
+        for (AbstractWeapon weapon: weaponInventory) {
+            // TODO Implement this. Loop through each weapon and call the replenishAmmo() function.
+            //  Do the same thing for towers in a different for loop.
+        }
     }
 }
