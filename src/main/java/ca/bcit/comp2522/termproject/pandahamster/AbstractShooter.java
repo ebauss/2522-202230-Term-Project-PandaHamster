@@ -45,9 +45,9 @@ public abstract class AbstractShooter implements Attacker {
         return name;
     }
 
-    /**
-     * Fully replenish the ammo.
-     */
-    public abstract void replenishAmmo();
+//    /**
+//     * Fully replenish the ammo.
+//     */
+//    public abstract void replenishAmmo();
     //TODO Implement this method for all the concrete weapons.
 }
