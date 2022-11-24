@@ -17,6 +17,7 @@ import org.tiledreader.TiledReader;
  * @version 2022
  */
 public class PandaHamster extends Application {
+    private static Group root;
     /**
      * Starts the game, main logic will exist in here.
      * @param primaryStage the primary stage for this application, onto which
@@ -30,13 +31,16 @@ public class PandaHamster extends Application {
         TiledReader reader = new FileSystemTiledReader();
         TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
         StackPane stackPane = MapRenderer.render(map);
-        Group root = new Group(stackPane);
+        root = new Group(stackPane);
         Player player = new Player("...");
         root.getChildren().add(player.getPlayerSprite());
         root.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
             MousePositionTracker.setMouseLocation(event.getX(), event.getY());
         });
-        WorldManager.getInstance().createDynamicRectangle(player);
+        stackPane.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            player.pullTrigger();
+        });
+        WorldManager.getInstance().createDynamicRectangle(player, 1f);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -45,9 +49,18 @@ public class PandaHamster extends Application {
             public void handle(final long now) {
                 WorldManager.getInstance().updateWorld();
                 player.faceMouseDirection();
+                Bullet.removeFromGame();
             }
         };
         animationTimer.start();
+    }
+
+    /**
+     * Returns the group that contains all the elements.
+     * @return the group
+     */
+    public static Group getGroup() {
+        return root;
     }
 
     /**
