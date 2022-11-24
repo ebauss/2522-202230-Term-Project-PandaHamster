@@ -1,12 +1,9 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import org.jbox2d.callbacks.ContactFilter;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.World;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.FixtureDef;
-import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.*;
 import org.tiledreader.TiledReader;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
@@ -39,6 +36,7 @@ public final class WorldManager {
             world = new World(new Vec2(0, 0));
             bodyDef = new BodyDef();
             fixtureDef = new FixtureDef();
+            addCollisionRules();
         }
         return worldManager;
     }
@@ -82,7 +80,7 @@ public final class WorldManager {
      * supposed to move.
      * @param gameEntity the game entity to create a body for
      */
-    public void createDynamicRectangle(final GameEntity gameEntity) {
+    public void createDynamicRectangle(final GameEntity gameEntity, final float density) {
         // dynamic means the body can move
         bodyDef.type = BodyType.DYNAMIC;
         /*
@@ -96,7 +94,7 @@ public final class WorldManager {
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.setAsBox(gameEntity.getWidth() / 2f, gameEntity.getHeight() / 2f);
         fixtureDef.shape = polygonShape;
-        fixtureDef.density = 1f;
+        fixtureDef.density = density;
         fixtureDef.friction = 0;
         fixtureDef.restitution = 0;
         body.createFixture(fixtureDef);
@@ -164,5 +162,30 @@ public final class WorldManager {
                 }
             }
         }
+    }
+    private static void addCollisionRules() {
+        class CollisionRules extends ContactFilter {
+            @Override
+            public boolean shouldCollide(final Fixture fixtureA, final Fixture fixtureB) {
+                if (fixtureA.getBody().getUserData() instanceof Bullet
+                        && fixtureB.getBody().getUserData() instanceof Bullet) {
+                    return false;
+                }
+                if (fixtureA.getBody().getUserData() instanceof Player
+                        && fixtureB.getBody().getUserData() instanceof Bullet) {
+                    return false;
+                }
+                return !(fixtureA.getBody().getUserData() instanceof Bullet)
+                        || !(fixtureB.getBody().getUserData() instanceof Player);
+            }
+        }
+        world.setContactFilter(new CollisionRules());
+    }
+    /**
+     * Removes the body from the world.
+     * @param body
+     */
+    public void removeBody(final Body body) {
+        world.destroyBody(body);
     }
 }
