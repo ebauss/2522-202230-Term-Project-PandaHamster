@@ -10,8 +10,8 @@ import ca.bcit.comp2522.termproject.pandahamster.GameEntity;
  * @version 2022
  */
 public abstract class AbstractEnemy extends GameEntity implements Attacker {
-    private long killMoneyValue;
-    private long killExperienceValue;
+    private final long killMoneyValue;
+    private final long killExperienceValue;
 
     /**
      * Constructs an object of type AbstractEnemy.
@@ -20,6 +20,8 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker {
      * @param someYPosition yPosition of class as a long
      * @param someWidth     width of class as a long
      * @param someHeight    height of class as a long
+     * @param someKillMoneyValue the amount of money the player receives for killing the enemy
+     * @param someKillExperienceValue the amount of experience the player receives for killing the enemy
      */
     public AbstractEnemy(final long someXPosition, final long someYPosition,
                          final long someWidth, final long someHeight,
