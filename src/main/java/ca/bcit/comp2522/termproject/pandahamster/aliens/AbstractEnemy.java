@@ -30,4 +30,22 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker {
         this.killMoneyValue = someKillMoneyValue;
         this.killExperienceValue = someKillExperienceValue;
     }
+
+    /**
+     * Gets the killMoneyValue.
+     *
+     * @return the killMoneyValue as a long
+     */
+    public long getKillMoneyValue() {
+        return killMoneyValue;
+    }
+
+    /**
+     * Gets the killExperienceValue.
+     *
+     * @return the killExperienceValue as a long
+     */
+    public long getKillExperienceValue() {
+        return killExperienceValue;
+    }
 }
