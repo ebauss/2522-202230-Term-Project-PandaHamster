@@ -2,6 +2,7 @@ package ca.bcit.comp2522.termproject.pandahamster;
 
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
+import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private AbstractWeapon currentWeapon;
     private short lifeCount;
     private Rectangle playerSprite;
-    private final float speed = 50f;
+    private final float speed = 40f;
     private final float angularVelocity = 10;
 
     /**
@@ -63,7 +64,6 @@ public class Player extends GameEntity implements DynamicEntity {
             }
         });
     }
-
 
     /**
      * Gets the money value.
@@ -120,9 +120,37 @@ public class Player extends GameEntity implements DynamicEntity {
         return playerSprite;
     }
 
-    /* Calls attack() method for currentWeapon. */
-    private void pullTrigger() {
-        this.currentWeapon.attack();
+    /**
+     * Calls the attack() method for currentWeapon.
+     */
+    public void pullTrigger() {
+        // TODO Need to clean up the bullet shooting as this is just a test.
+        // TODO need to remove bullets after they reached the max range or hit an enemy or obstacle
+        // TODO need to remove the bullets from the map and the world (prob will be laggy if we keep adding bullets)
+        // TODO since this was test, need to implement actual gun params (attack speed and range)
+        // TODO need to get the vector normal of the targetPos or else if you shoot with cursor closer to player, the impulse would be smaller
+        Vec2 playerPos = new Vec2(xPosition + getWidth()
+                / 2f, yPosition + getHeight() / 2f);
+        // get the position of the mouse
+        Vec2 mousePos = new Vec2(
+                (float) MousePositionTracker.getMouseLocation().getX(),
+                (float) MousePositionTracker.getMouseLocation().getY());
+        // calculate target position
+        Vec2 targetPos = mousePos.sub(playerPos);
+        // gets the angle in radians
+        float desiredAngle = (float) Math.atan2(-targetPos.x, targetPos.y);
+        final float radToDeg = 57.2958f;
+        Bullet bullet = new Bullet(playerPos.x, playerPos.y);
+        bullet.getBulletSprite().setRotate(desiredAngle * radToDeg);
+        bullet.addToGame();
+//        bullet.getBody().setBullet(true);
+        // get the length of the vector
+        float targetMag = MathUtils.sqrt(mousePos.x * mousePos.x + mousePos.y * mousePos.y);
+
+        // get the unit vector to apply impulses
+        Vec2 normalized = new Vec2(targetPos.x / targetMag, targetPos.y / targetMag);
+        bullet.getBody().setLinearVelocity(normalized.mul(500));
+//        this.currentWeapon.attack();
     }
 
     /* Calls reload() method for currentWeapon. */
