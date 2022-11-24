@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster.aliens;
 
 import ca.bcit.comp2522.termproject.pandahamster.Attacker;
+import ca.bcit.comp2522.termproject.pandahamster.DynamicEntity;
 import ca.bcit.comp2522.termproject.pandahamster.GameEntity;
 
 /**
@@ -9,7 +10,7 @@ import ca.bcit.comp2522.termproject.pandahamster.GameEntity;
  * @author Evon Bausa & Alex Liu
  * @version 2022
  */
-public abstract class AbstractEnemy extends GameEntity implements Attacker {
+public abstract class AbstractEnemy extends GameEntity implements Attacker, DynamicEntity {
     private final long killMoneyValue;
     private final long killExperienceValue;
 
@@ -47,5 +48,13 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker {
      */
     public long getKillExperienceValue() {
         return killExperienceValue;
+    }
+
+    /**
+     * Moves the enemy toward the base.
+     */
+    @Override
+    public void move() {
+        DynamicEntity.super.move();
     }
 }
