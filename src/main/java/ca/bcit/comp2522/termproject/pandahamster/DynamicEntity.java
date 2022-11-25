@@ -10,7 +10,7 @@ public interface DynamicEntity {
     /**
      * Moves the object on the map.
      */
-    default void move() { }
+    default void move(final float mapHeight, final float mapWidth) { }
     /**
      * Moves the dynamic entity up.
      */
