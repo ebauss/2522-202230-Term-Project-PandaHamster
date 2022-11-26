@@ -15,6 +15,7 @@ public class Bullet extends GameEntity implements ContactListener {
     private Rectangle bulletSprite;
     private Point2D bulletOrigin;
     private float distanceTravelled;
+    private float maxRange;
     private boolean inWorld = false;
     /**
      * Makes a new bullet.
@@ -68,6 +69,14 @@ public class Bullet extends GameEntity implements ContactListener {
         bullets.add(this);
         PandaHamster.getGroup().getChildren().add(this.getBulletSprite());
         WorldManager.getInstance().createDynamicRectangle(this, 0.2f);
+    }
+
+    /**
+     * Returns true if bullet has reached the max range.
+     * @return
+     */
+    public boolean reachedMaxRange() {
+        return distanceTravelled >= maxRange;
     }
     /**
     Remove bullets when a bullet hits a valid collidable object.
