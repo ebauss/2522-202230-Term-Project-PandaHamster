@@ -10,7 +10,7 @@ import org.jbox2d.dynamics.contacts.Contact;
 
 import java.util.ArrayList;
 
-public class Bullet extends GameEntity implements ContactListener {
+public class Bullet extends GameEntity {
     private static final ArrayList<Bullet> bullets = new ArrayList<>();
     private Rectangle bulletSprite;
     private Point2D bulletOrigin;
@@ -88,27 +88,5 @@ public class Bullet extends GameEntity implements ContactListener {
                 PandaHamster.getGroup().getChildren().remove(bullet.getBulletSprite());
             }
         }
-    }
-
-    @Override
-    public void beginContact(final Contact contact) {
-        Fixture fixtureA = contact.getFixtureA();
-        Fixture fixtureB = contact.getFixtureB();
-
-    }
-
-    @Override
-    public void endContact(final Contact contact) {
-
-    }
-
-    @Override
-    public void preSolve(final Contact contact, final Manifold manifold) {
-
-    }
-
-    @Override
-    public void postSolve(final Contact contact, final ContactImpulse contactImpulse) {
-
     }
 }
