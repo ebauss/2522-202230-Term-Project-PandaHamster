@@ -14,6 +14,7 @@ public class Bullet extends GameEntity {
     private Rectangle bulletSprite;
     private Vec2 origin;
     private float maxRange;
+    private boolean markedForRemoval;
     /**
      * Makes a new bullet.
      * @param x x
@@ -68,6 +69,20 @@ public class Bullet extends GameEntity {
      */
     public void setOrigin(final Vec2 origin) {
         this.origin = origin;
+    }
+    /**
+     * Returns boolean value of markedForRemoval.
+     * @return a boolean
+     */
+    public boolean markedForRemoval() {
+        return markedForRemoval;
+    }
+    /**
+     * Sets the markedForRemoval to the specified value.
+     * @param markedForRemoval a boolean
+     */
+    public void setMarkedForRemoval(final boolean markedForRemoval) {
+        this.markedForRemoval = markedForRemoval;
     }
 
     /**
