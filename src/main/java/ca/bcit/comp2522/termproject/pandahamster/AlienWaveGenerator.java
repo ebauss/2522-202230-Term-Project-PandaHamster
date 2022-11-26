@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
+import ca.bcit.comp2522.termproject.pandahamster.aliens.FodderAlien;
 
 import java.util.ArrayList;
 
@@ -38,5 +39,17 @@ public class AlienWaveGenerator {
      */
     public void generateWaveOfAliens() {
         //TODO Implement this.
+        alienCollection.add(new FodderAlien(100, 100, 16, 16,
+                100, 100, 50f, 100));
+    }
+
+    /**
+     * Determines whether the wave is complete; all enemies are dead.
+     *
+     * @return true if wave is complete, otherwise false
+     */
+    public boolean isWaveComplete() {
+        // TODO Implement this
+        return false;
     }
 }

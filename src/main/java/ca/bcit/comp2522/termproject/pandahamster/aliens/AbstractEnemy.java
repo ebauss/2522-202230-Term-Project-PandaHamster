@@ -40,7 +40,7 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
         this.killExperienceValue = someKillExperienceValue;
         this.speed = someSpeed;
         this.healthPoints = someHealthPoints;
-        alienSprite = new Rectangle(100, 100, 16, 16);
+        alienSprite = new Rectangle(someXPosition, someYPosition, someHeight, someWidth);
     }
 
     /**
