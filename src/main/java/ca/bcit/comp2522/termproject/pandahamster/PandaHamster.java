@@ -69,13 +69,13 @@ public class PandaHamster extends Application {
                 lastUpdate += now - lastUpdate;
             }
         };
-        stackPane.addEventFilter(MouseEvent.ANY, event -> {
-            if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
-                bulletShooting.start();
-            } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
-                bulletShooting.stop();
-            }
-        });
+//        stackPane.addEventFilter(MouseEvent.ANY, event -> {
+//            if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
+//                bulletShooting.start();
+//            } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
+//                bulletShooting.stop();
+//            }
+//        });
     }
 
     /**
