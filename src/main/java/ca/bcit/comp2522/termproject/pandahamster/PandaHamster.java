@@ -1,12 +1,16 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledReader;
@@ -53,6 +57,25 @@ public class PandaHamster extends Application {
             }
         };
         animationTimer.start();
+        AnimationTimer bulletShooting = new AnimationTimer() {
+            private long lastUpdate;
+            @Override
+            public void handle(final long now) {
+                if (lastUpdate >= 1e+9) {
+                    player.pullTrigger();
+                    lastUpdate = 0;
+                }
+                System.out.println(now);
+                lastUpdate += now - lastUpdate;
+            }
+        };
+        stackPane.addEventFilter(MouseEvent.ANY, event -> {
+            if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
+                bulletShooting.start();
+            } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
+                bulletShooting.stop();
+            }
+        });
     }
 
     /**
