@@ -33,9 +33,14 @@ public final class BulletManager {
      * </ul>
      */
     public static void cleanup() {
+        for (Bullet bullet: BULLET_LIST) {
+            if (bullet.reachedMaxRange()) {
+                bullet.setMarkedForRemoval(true);
+            }
+        }
         Iterator<Bullet> itr = BULLET_LIST.iterator();
         while (itr.hasNext()) {
-            if (itr.next().reachedMaxRange()) {
+            if (itr.next().markedForRemoval()) {
                 itr.remove();
             }
         }
