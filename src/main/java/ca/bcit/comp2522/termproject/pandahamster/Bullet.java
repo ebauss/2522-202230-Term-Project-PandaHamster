@@ -6,6 +6,9 @@ import org.jbox2d.common.Vec2;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a bullet.
+ */
 public class Bullet extends GameEntity {
     private static final ArrayList<Bullet> bullets = new ArrayList<>();
     private Rectangle bulletSprite;
@@ -50,16 +53,26 @@ public class Bullet extends GameEntity {
     public Rectangle getBulletSprite() {
         return bulletSprite;
     }
+
+    /**
+     * Returns the origin.
+     * @return the origin
+     */
     public Vec2 getOrigin() {
         return origin;
     }
+
+    /**
+     * Sets the origin of this bullet.
+     * @param origin the origin
+     */
     public void setOrigin(final Vec2 origin) {
         this.origin = origin;
     }
 
     /**
-     * Returns true if bullet has reached the max range.
-     * @return
+     * Checks if a bullet has travelled its max range.
+     * @return true if it has distance travelled has reached max range
      */
     public boolean reachedMaxRange() {
         return distanceTravelled() >= maxRange;
