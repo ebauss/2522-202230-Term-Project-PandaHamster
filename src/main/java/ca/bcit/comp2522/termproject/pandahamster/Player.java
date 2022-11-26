@@ -142,7 +142,8 @@ public class Player extends GameEntity implements DynamicEntity {
         final float radToDeg = 57.2958f;
         Bullet bullet = new Bullet(playerPos.x, playerPos.y);
         bullet.getBulletSprite().setRotate(desiredAngle * radToDeg);
-        bullet.addToGame();
+        bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
+        BulletManager.addBullets(bullet);
 //        bullet.getBody().setBullet(true);
         // get the length of the vector
         float targetMag = MathUtils.sqrt(mousePos.x * mousePos.x + mousePos.y * mousePos.y);
