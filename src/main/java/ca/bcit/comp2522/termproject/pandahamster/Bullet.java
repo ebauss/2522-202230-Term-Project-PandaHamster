@@ -62,17 +62,6 @@ public class Bullet extends GameEntity {
     }
 
     /**
-     * Adds the bullet to the map and world.
-     */
-    public void addToGame() {
-        origin = new Vec2(getXPosition(), getYPosition());
-        this.inWorld = true;
-        bullets.add(this);
-        PandaHamster.getGroup().getChildren().add(this.getBulletSprite());
-        WorldManager.getInstance().createDynamicRectangle(this, 0.2f);
-    }
-
-    /**
      * Returns true if bullet has reached the max range.
      * @return
      */
