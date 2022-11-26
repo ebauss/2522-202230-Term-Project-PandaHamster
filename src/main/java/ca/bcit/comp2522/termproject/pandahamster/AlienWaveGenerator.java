@@ -32,4 +32,11 @@ public class AlienWaveGenerator {
         }
         return singleInstance;
     }
+
+    /**
+     * Generates the wave of aliens.
+     */
+    public void generateWaveOfAliens() {
+        //TODO Implement this.
+    }
 }
