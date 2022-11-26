@@ -1,9 +1,12 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Pistol;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +43,10 @@ public class Player extends GameEntity implements DynamicEntity {
 //        weaponInventory = new ArrayList<>();
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
+        weaponInventory = new ArrayList<>();
+        AbstractWeapon pistol = new Pistol();
+        weaponInventory.add(pistol);
+        currentWeapon = pistol;
         playerSprite = new Rectangle(0, 0 , 16, 16);
         // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
@@ -124,11 +131,6 @@ public class Player extends GameEntity implements DynamicEntity {
      * Calls the attack() method for currentWeapon.
      */
     public void pullTrigger() {
-        // TODO Need to clean up the bullet shooting as this is just a test.
-        // TODO need to remove bullets after they reached the max range or hit an enemy or obstacle
-        // TODO need to remove the bullets from the map and the world (prob will be laggy if we keep adding bullets)
-        // TODO since this was test, need to implement actual gun params (attack speed and range)
-        // TODO need to get the vector normal of the targetPos or else if you shoot with cursor closer to player, the impulse would be smaller
         Vec2 playerPos = new Vec2(xPosition + getWidth()
                 / 2f, yPosition + getHeight() / 2f);
         // get the position of the mouse
@@ -151,7 +153,7 @@ public class Player extends GameEntity implements DynamicEntity {
         // get the unit vector to apply impulses
         Vec2 normalized = new Vec2(targetPos.x / targetMag, targetPos.y / targetMag);
         bullet.getBody().setLinearVelocity(normalized.mul(500));
-//        this.currentWeapon.attack();
+        this.currentWeapon.attack();
     }
 
     /* Calls reload() method for currentWeapon. */
