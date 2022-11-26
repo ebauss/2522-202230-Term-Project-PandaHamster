@@ -3,6 +3,7 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
 import ca.bcit.comp2522.termproject.pandahamster.Attacker;
 import ca.bcit.comp2522.termproject.pandahamster.DynamicEntity;
 import ca.bcit.comp2522.termproject.pandahamster.GameEntity;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Contains logic for all enemies.
@@ -14,6 +15,8 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
     private final long killMoneyValue;
     private final long killExperienceValue;
     private final float speed;
+    private long healthPoints;
+    private Rectangle alienSprite;
 
     /**
      * Constructs an object of type AbstractEnemy.
@@ -25,14 +28,27 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
      * @param someKillMoneyValue      the amount of money the player receives for killing the enemy
      * @param someKillExperienceValue the amount of experience the player receives for killing the enemy
      * @param someSpeed               the speed of the alien
+     * @param someHealthPoints        the health of the alien
      */
     public AbstractEnemy(final long someXPosition, final long someYPosition,
                          final long someWidth, final long someHeight,
-                         final long someKillMoneyValue, final long someKillExperienceValue, final float someSpeed) {
+                         final long someKillMoneyValue, final long someKillExperienceValue, final float someSpeed,
+                         final long someHealthPoints) {
         super(someXPosition, someYPosition, someWidth, someHeight);
         this.killMoneyValue = someKillMoneyValue;
         this.killExperienceValue = someKillExperienceValue;
         this.speed = someSpeed;
+        this.healthPoints = someHealthPoints;
+        alienSprite = new Rectangle(100, 100, 16, 16);
+    }
+
+    /**
+     * Gets the alienSprite Rectangle object.
+     *
+     * @return the alien Rectangle object
+     */
+    public Rectangle getAlienSprite() {
+        return alienSprite;
     }
 
     /**
