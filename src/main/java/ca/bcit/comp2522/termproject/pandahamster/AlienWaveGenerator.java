@@ -14,11 +14,15 @@ import java.util.ArrayList;
 public class AlienWaveGenerator {
     private static AlienWaveGenerator singleInstance = null;
     private ArrayList<AbstractEnemy> alienCollection;
+    private final float mapHeight;
+    private final float mapWidth;
 
     /**
      * Constructs an object of type AlienWaveGenerator.
      */
-    public AlienWaveGenerator() {
+    public AlienWaveGenerator(final float someMapHeight, final float someMapWidth) {
+        this.mapHeight = someMapHeight;
+        this.mapWidth = someMapWidth;
         this.alienCollection = new ArrayList<>();
     }
 
@@ -29,7 +33,7 @@ public class AlienWaveGenerator {
      */
     public static AlienWaveGenerator getInstance() {
         if (singleInstance == null) {
-            singleInstance = new AlienWaveGenerator();
+            singleInstance = new AlienWaveGenerator(mapHeight, mapWidth);
         }
         return singleInstance;
     }
@@ -51,5 +55,14 @@ public class AlienWaveGenerator {
     public boolean isWaveComplete() {
         // TODO Implement this
         return false;
+    }
+
+    /**
+     * Moves the aliens towards the base.
+     */
+    public void moveAliensTowardBase() {
+        for (AbstractEnemy alien: alienCollection) {
+            alien.move();
+        }
     }
 }
