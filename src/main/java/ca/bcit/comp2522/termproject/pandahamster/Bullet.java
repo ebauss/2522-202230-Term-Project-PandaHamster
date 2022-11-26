@@ -11,7 +11,6 @@ public class Bullet extends GameEntity {
     private Rectangle bulletSprite;
     private Vec2 origin;
     private float maxRange;
-    private boolean inWorld = false;
     /**
      * Makes a new bullet.
      * @param x x
