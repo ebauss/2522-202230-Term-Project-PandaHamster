@@ -19,6 +19,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private static final long MAX_LEVEL = 20;
     private static final int THREE = 3;
     private static final int ONE_HUNDRED = 100;
+    private static Player player;
     private String name;
     private long level;
     private long currentExp;
@@ -36,7 +37,7 @@ public class Player extends GameEntity implements DynamicEntity {
      *
      * @param someName the name of the player as a String
      */
-    public Player(final String someName) {
+    private Player(final String someName) {
         super(0, 0, 16, 16);
         this.name = someName;
         this.level = 1;
@@ -70,6 +71,18 @@ public class Player extends GameEntity implements DynamicEntity {
                 default -> { }
             }
         });
+    }
+
+    /**
+     * Returns an instance of the player. Subsequent calls will return the same player.
+     * @param name name of the player
+     * @return the player instance
+     */
+    public static Player getInstance() {
+        if (player == null) {
+            player = new Player("");
+        }
+        return player;
     }
 
     /**
@@ -131,28 +144,6 @@ public class Player extends GameEntity implements DynamicEntity {
      * Calls the attack() method for currentWeapon.
      */
     public void pullTrigger() {
-        Vec2 playerPos = new Vec2(xPosition + getWidth()
-                / 2f, yPosition + getHeight() / 2f);
-        // get the position of the mouse
-        Vec2 mousePos = new Vec2(
-                (float) MousePositionTracker.getMouseLocation().getX(),
-                (float) MousePositionTracker.getMouseLocation().getY());
-        // calculate target position
-        Vec2 targetPos = mousePos.sub(playerPos);
-        // gets the angle in radians
-        float desiredAngle = (float) Math.atan2(-targetPos.x, targetPos.y);
-        final float radToDeg = 57.2958f;
-        Bullet bullet = new Bullet(playerPos.x, playerPos.y);
-        bullet.getBulletSprite().setRotate(desiredAngle * radToDeg);
-        bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
-        BulletManager.addBullets(bullet);
-//        bullet.getBody().setBullet(true);
-        // get the length of the vector
-        float targetMag = MathUtils.sqrt(mousePos.x * mousePos.x + mousePos.y * mousePos.y);
-
-        // get the unit vector to apply impulses
-        Vec2 normalized = new Vec2(targetPos.x / targetMag, targetPos.y / targetMag);
-        bullet.getBody().setLinearVelocity(normalized.mul(500));
         this.currentWeapon.attack();
     }
 
