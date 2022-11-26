@@ -36,7 +36,7 @@ public class PandaHamster extends Application {
         TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
         StackPane stackPane = MapRenderer.render(map);
         root = new Group(stackPane);
-        Player player = new Player("...");
+        Player player = Player.getInstance();
         root.getChildren().add(player.getPlayerSprite());
         root.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
             MousePositionTracker.setMouseLocation(event.getX(), event.getY());
