@@ -13,23 +13,26 @@ import ca.bcit.comp2522.termproject.pandahamster.GameEntity;
 public abstract class AbstractEnemy extends GameEntity implements Attacker, DynamicEntity {
     private final long killMoneyValue;
     private final long killExperienceValue;
+    private final float speed;
 
     /**
      * Constructs an object of type AbstractEnemy.
      *
-     * @param someXPosition xPosition of class as a long
-     * @param someYPosition yPosition of class as a long
-     * @param someWidth     width of class as a long
-     * @param someHeight    height of class as a long
-     * @param someKillMoneyValue the amount of money the player receives for killing the enemy
+     * @param someXPosition           xPosition of class as a long
+     * @param someYPosition           yPosition of class as a long
+     * @param someWidth               width of class as a long
+     * @param someHeight              height of class as a long
+     * @param someKillMoneyValue      the amount of money the player receives for killing the enemy
      * @param someKillExperienceValue the amount of experience the player receives for killing the enemy
+     * @param someSpeed               the speed of the alien
      */
     public AbstractEnemy(final long someXPosition, final long someYPosition,
                          final long someWidth, final long someHeight,
-                         final long someKillMoneyValue, final long someKillExperienceValue) {
+                         final long someKillMoneyValue, final long someKillExperienceValue, final float someSpeed) {
         super(someXPosition, someYPosition, someWidth, someHeight);
         this.killMoneyValue = someKillMoneyValue;
         this.killExperienceValue = someKillExperienceValue;
+        this.speed = someSpeed;
     }
 
     /**

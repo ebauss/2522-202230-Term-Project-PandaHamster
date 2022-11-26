@@ -16,10 +16,13 @@ public class FodderAlien extends AbstractEnemy {
      * @param someHeight              height of class as a long
      * @param someKillMoneyValue the amount of money the player receives for killing the enemy
      * @param someKillExperienceValue the amount of experience the player receives for killing the enemy
+     * @param someSpeed               the speed of the alien
      */
-    public FodderAlien(final long someXPosition, final long someYPosition, final long someWidth,
-                       final long someHeight, final long someKillMoneyValue, final long someKillExperienceValue) {
-        super(someXPosition, someYPosition, someWidth, someHeight, someKillMoneyValue, someKillExperienceValue);
+    public FodderAlien(final long someXPosition, final long someYPosition,
+                       final long someWidth, final long someHeight,
+                       final long someKillMoneyValue, final long someKillExperienceValue, final float someSpeed) {
+        super(someXPosition, someYPosition, someWidth, someHeight, someKillMoneyValue, someKillExperienceValue,
+                someSpeed);
     }
 
     /**
