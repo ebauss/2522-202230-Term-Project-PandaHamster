@@ -19,6 +19,9 @@ public class AlienWaveGenerator {
 
     /**
      * Constructs an object of type AlienWaveGenerator.
+     *
+     * @param someMapHeight the height dimension of the map
+     * @param someMapWidth the width dimension of the map
      */
     public AlienWaveGenerator(final float someMapHeight, final float someMapWidth) {
         this.mapHeight = someMapHeight;
@@ -29,11 +32,13 @@ public class AlienWaveGenerator {
     /**
      * Instantiates a single instance of AlienWaveGenerator.
      *
+     * @param someMapHeight the height dimension of the map
+     * @param someMapWidth the width dimension of the map
      * @return the instance of AlienWaveGenerator
      */
-    public static AlienWaveGenerator getInstance() {
+    public static AlienWaveGenerator getInstance(final float someMapHeight, final float someMapWidth) {
         if (singleInstance == null) {
-            singleInstance = new AlienWaveGenerator(mapHeight, mapWidth);
+            singleInstance = new AlienWaveGenerator(someMapHeight, someMapWidth);
         }
         return singleInstance;
     }
