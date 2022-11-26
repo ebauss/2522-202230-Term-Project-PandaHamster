@@ -53,7 +53,7 @@ public class PandaHamster extends Application {
             public void handle(final long now) {
                 WorldManager.getInstance().updateWorld();
                 player.faceMouseDirection();
-                Bullet.removeFromGame();
+                BulletManager.cleanup();
             }
         };
         animationTimer.start();
