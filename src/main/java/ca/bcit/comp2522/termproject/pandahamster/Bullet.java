@@ -57,8 +57,11 @@ public class Bullet extends GameEntity {
     public Rectangle getBulletSprite() {
         return bulletSprite;
     }
-    public Vec2 getBulletOrigin() {
+    public Vec2 getOrigin() {
         return origin;
+    }
+    public void setOrigin(final Vec2 origin) {
+        this.origin = origin;
     }
 
     /**
