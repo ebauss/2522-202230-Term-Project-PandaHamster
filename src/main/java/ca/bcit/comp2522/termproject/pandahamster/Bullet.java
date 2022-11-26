@@ -5,6 +5,8 @@ import javafx.scene.shape.Rectangle;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
+import org.jbox2d.common.MathUtils;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.contacts.Contact;
 
@@ -13,8 +15,7 @@ import java.util.ArrayList;
 public class Bullet extends GameEntity {
     private static final ArrayList<Bullet> bullets = new ArrayList<>();
     private Rectangle bulletSprite;
-    private Point2D bulletOrigin;
-    private float distanceTravelled;
+    private Vec2 origin;
     private float maxRange;
     private boolean inWorld = false;
     /**
@@ -56,15 +57,15 @@ public class Bullet extends GameEntity {
     public Rectangle getBulletSprite() {
         return bulletSprite;
     }
-    public Point2D getBulletOrigin() {
-        return bulletOrigin;
+    public Vec2 getBulletOrigin() {
+        return origin;
     }
 
     /**
      * Adds the bullet to the map and world.
      */
     public void addToGame() {
-        bulletOrigin = new Point2D(getXPosition(), getYPosition());
+        origin = new Vec2(getXPosition(), getYPosition());
         this.inWorld = true;
         bullets.add(this);
         PandaHamster.getGroup().getChildren().add(this.getBulletSprite());
@@ -76,17 +77,16 @@ public class Bullet extends GameEntity {
      * @return
      */
     public boolean reachedMaxRange() {
-        return distanceTravelled >= maxRange;
+        return distanceTravelled() >= maxRange;
     }
+
     /**
-    Remove bullets when a bullet hits a valid collidable object.
+     * Determines the current distance travelled using Pythogoreas Theorem.
+     * @return the distance
      */
-    public static void removeFromGame() {
-        for (Bullet bullet: bullets) {
-            if (bullet.getBulletOrigin().distance(bullet.getXPosition(), bullet.getYPosition()) > 600) {
-                WorldManager.getInstance().removeBody(bullet.getBody());
-                PandaHamster.getGroup().getChildren().remove(bullet.getBulletSprite());
-            }
-        }
+    private float distanceTravelled() {
+        Vec2 currentPosition = new Vec2(getXPosition(), getYPosition());
+        Vec2 travelled = currentPosition.sub(origin);
+        return MathUtils.sqrt((travelled.x * travelled.y) + (travelled.y * travelled.y));
     }
 }
