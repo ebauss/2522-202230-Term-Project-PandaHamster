@@ -34,15 +34,27 @@ public final class BulletManager {
      */
     public static void cleanup() {
         for (Bullet bullet: BULLET_LIST) {
+            System.out.println(bullet.getXPosition());
             if (bullet.reachedMaxRange()) {
                 bullet.setMarkedForRemoval(true);
             }
         }
         Iterator<Bullet> itr = BULLET_LIST.iterator();
         while (itr.hasNext()) {
-            if (itr.next().markedForRemoval()) {
+            Bullet bullet = itr.next();
+            if (bullet.markedForRemoval()) {
+                remove(bullet);
                 itr.remove();
             }
         }
+    }
+
+    /**
+     * Removes the bullet from the game and world.
+     * @param bullet the bullet to remove
+     */
+    private static void remove(final Bullet bullet) {
+        PandaHamster.getGroup().getChildren().remove(bullet.getBulletSprite());
+        WorldManager.getInstance().removeBody(bullet.getBody());
     }
 }
