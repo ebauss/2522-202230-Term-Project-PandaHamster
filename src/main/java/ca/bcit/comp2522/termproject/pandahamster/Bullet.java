@@ -1,14 +1,8 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
-import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
-import org.jbox2d.callbacks.ContactImpulse;
-import org.jbox2d.callbacks.ContactListener;
-import org.jbox2d.collision.Manifold;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Fixture;
-import org.jbox2d.dynamics.contacts.Contact;
 
 import java.util.ArrayList;
 
