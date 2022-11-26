@@ -23,6 +23,7 @@ public class Bullet extends GameEntity {
     public Bullet(final float x, final float y) {
         super(x, y, 2, 2);
         bulletSprite = new Rectangle(x, y, 2, 2);
+        maxRange = 100;
     }
 
     /**
@@ -94,12 +95,11 @@ public class Bullet extends GameEntity {
     }
 
     /**
-     * Determines the current distance travelled using Pythogoreas Theorem.
+     * Determines the distance the bullet has currently travelled.
      * @return the distance
      */
     private float distanceTravelled() {
         Vec2 currentPosition = new Vec2(getXPosition(), getYPosition());
-        Vec2 travelled = currentPosition.sub(origin);
-        return MathUtils.sqrt((travelled.x * travelled.y) + (travelled.y * travelled.y));
+        return MathUtils.distance(currentPosition, origin);
     }
 }
