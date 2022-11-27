@@ -51,6 +51,10 @@ public class Pistol extends AbstractWeapon {
     public Pistol() {
         super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE, NAME);
     }
+
+    /**
+     * Performs the attack method for a pistol. Shoots a single bullet in the direction of the mouse.
+     */
     @Override
     public void attack() {
         Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
