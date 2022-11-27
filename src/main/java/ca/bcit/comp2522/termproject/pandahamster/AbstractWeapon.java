@@ -1,5 +1,8 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import org.jbox2d.common.MathUtils;
+import org.jbox2d.common.Vec2;
+
 /**
  * Represents an abstract class of type AbstractWeapon.
  *
@@ -52,5 +55,40 @@ public abstract class AbstractWeapon extends AbstractShooter {
      */
     public void setLastAttackTimeInSeconds(final float lastAttackTimeInSeconds) {
         this.lastAttackTimeInSeconds = lastAttackTimeInSeconds;
+    }
+
+    /**
+     * Gets the direction vector of the mouse in relation to the center of the player.
+     * @return the direction vector
+     */
+    public Vec2 getMouseDirection() {
+        Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
+                / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
+        // get the position of the mouse
+        Vec2 mousePos = new Vec2(
+                (float) MousePositionTracker.getMouseLocation().getX(),
+                (float) MousePositionTracker.getMouseLocation().getY());
+        // calculate target position
+        return mousePos.sub(playerPos);
+    }
+
+    /**
+     * Fires a single bullet in the direction of the mouse. Should only be used by weapons that just require a single
+     * bullet to be fired in the direction of the mouse.
+     * @param attackRange attack range of the weapon this method
+     * @param target the direction vector of where to fire the bullet
+     */
+    public void fireSingleShot(final float attackRange, final Vec2 target) {
+        Bullet bullet = new Bullet(Player.getInstance().getXPosition(), Player.getInstance().getYPosition(), attackRange);
+        bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
+        BulletManager.addBullets(bullet);
+        // get the length of the vector
+        Vec2 mouseLocation = new Vec2((float) MousePositionTracker.getMouseLocation().getX(),
+                (float) MousePositionTracker.getMouseLocation().getY());
+        float targetMag = MathUtils.sqrt(mouseLocation.x * mouseLocation.x + mouseLocation.y * mouseLocation.y);
+        // get the unit vector to apply impulses
+        Vec2 normalized = new Vec2(target.x / targetMag, target.y / targetMag);
+        final int speed = 500;
+        bullet.getBody().setLinearVelocity(normalized.mul(speed));
     }
 }
