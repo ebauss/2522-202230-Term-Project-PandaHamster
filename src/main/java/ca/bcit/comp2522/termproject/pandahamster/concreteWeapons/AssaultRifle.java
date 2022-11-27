@@ -27,7 +27,7 @@ public class AssaultRifle extends AbstractWeapon {
     /**
      * The assault rifle attack range in pixels.
      */
-    public static final long ATTACK_RANGE = 100;
+    public static final long ATTACK_RANGE = 300;
     /**
      * The assault rifle cost in the shop.
      */
