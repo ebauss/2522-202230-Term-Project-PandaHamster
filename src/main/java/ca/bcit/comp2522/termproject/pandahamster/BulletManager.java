@@ -33,7 +33,6 @@ public final class BulletManager {
      */
     public static void cleanup() {
         for (Bullet bullet: BULLET_LIST) {
-            System.out.println(bullet.getXPosition());
             if (bullet.reachedMaxRange()) {
                 bullet.setMarkedForRemoval(true);
             }
