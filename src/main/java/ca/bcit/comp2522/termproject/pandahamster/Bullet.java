@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class Bullet extends GameEntity {
     private static final ArrayList<Bullet> bullets = new ArrayList<>();
+    private GameEntityType originator;
     private Rectangle bulletSprite;
     private Vec2 origin;
     private float maxRange;
@@ -20,10 +21,11 @@ public class Bullet extends GameEntity {
      * @param x x
      * @param y y
      */
-    public Bullet(final float x, final float y, final float maxRange) {
+    public Bullet(final float x, final float y, final float maxRange, final GameEntityType originator) {
         super(x, y, 2, 2);
         bulletSprite = new Rectangle(x, y, 2, 2);
         this.maxRange = maxRange;
+        this.originator = originator;
     }
 
     /**
