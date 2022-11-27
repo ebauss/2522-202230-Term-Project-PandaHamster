@@ -36,6 +36,7 @@ public final class BulletManager {
         while (itr.hasNext()) {
             Bullet bullet = itr.next();
             if (bullet.markedForRemoval()) {
+                makeBulletEffect(bullet);
                 remove(bullet);
                 itr.remove();
             }
@@ -49,5 +50,11 @@ public final class BulletManager {
     private static void remove(final Bullet bullet) {
         PandaHamster.getGroup().getChildren().remove(bullet.getBulletSprite());
         WorldManager.getInstance().removeBody(bullet.getBody());
+    }
+    private static void makeBulletEffect(final Bullet bullet) {
+        if (bullet.getOriginator() == GameEntityType.Player) {
+            AbstractWeapon currentWeapon = Player.getInstance().getCurrentWeapon();
+            currentWeapon.createBulletEffect(bullet);
+        }
     }
 }
