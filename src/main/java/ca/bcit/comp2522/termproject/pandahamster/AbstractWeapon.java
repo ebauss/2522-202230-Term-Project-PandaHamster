@@ -103,4 +103,8 @@ public abstract class AbstractWeapon extends AbstractShooter {
         final int speed = 500;
         bullet.getBody().setLinearVelocity(normalized.mul(speed));
     }
+    /**
+     * Creates a bullet effect when a bullet has hit an obstacle or enemy.
+     */
+    public abstract void createBulletEffect();
 }
