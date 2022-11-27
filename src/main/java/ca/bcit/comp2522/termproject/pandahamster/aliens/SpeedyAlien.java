@@ -7,8 +7,8 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
  * @version 2022
  */
 public class SpeedyAlien extends AbstractEnemy {
-    private static final float FODDER_ALIEN_SPEED = 10f;
-    private static final long FODDER_ALIEN_HEALTH = 100;
+    private static final float SPEEDY_ALIEN_SPEED = 10f;
+    private static final long SPEEDY_ALIEN_HEALTH = 100;
 
     /**
      * Constructs an object of type SpeedyAlien.
@@ -24,7 +24,7 @@ public class SpeedyAlien extends AbstractEnemy {
                        final long someWidth, final long someHeight,
                        final long someKillMoneyValue, final long someKillExperienceValue) {
         super(someXPosition, someYPosition, someWidth, someHeight, someKillMoneyValue, someKillExperienceValue,
-                FODDER_ALIEN_SPEED, FODDER_ALIEN_HEALTH);
+                SPEEDY_ALIEN_SPEED, SPEEDY_ALIEN_HEALTH);
     }
 
     /**
