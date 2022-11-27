@@ -82,6 +82,15 @@ public abstract class AbstractWeapon extends AbstractShooter {
         Bullet bullet = new Bullet(Player.getInstance().getXPosition(), Player.getInstance().getYPosition(), attackRange);
         bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
         BulletManager.addBullets(bullet);
+        applyVelocity(bullet, target);
+    }
+
+    /**
+     * Sets the bullet's linear velocity in the target direction.
+     * @param bullet the bullet to move
+     * @param target the direction to fire
+     */
+    public void applyVelocity(final Bullet bullet, final Vec2 target) {
         // get the length of the vector
         Vec2 mouseLocation = new Vec2((float) MousePositionTracker.getMouseLocation().getX(),
                 (float) MousePositionTracker.getMouseLocation().getY());

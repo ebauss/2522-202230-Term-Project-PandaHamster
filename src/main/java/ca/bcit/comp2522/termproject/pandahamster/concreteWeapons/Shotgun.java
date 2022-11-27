@@ -59,29 +59,30 @@ public class Shotgun extends AbstractWeapon {
     public void attack() {
         if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
             setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
-            Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
-                    / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
-            // get the position of the mouse
-            Vec2 mousePos = new Vec2(
-                    (float) MousePositionTracker.getMouseLocation().getX(),
-                    (float) MousePositionTracker.getMouseLocation().getY());
-            Vec2 target = mousePos.sub(playerPos);
-            Vec2 start = target.sub(new Vec2(45, 45));
-            for (int i = 0; i < 5; i++) {
-                if (i < 3) {
-                    start = start.add(new Vec2(15, 15));
-                } else if (i >= 3){
-                    start = start.sub(new Vec2(0, 15));
+            Vec2 target = getMouseDirection();
+            /*
+                Since each bullet will be (15, 15) away from each other, subtract 45 so the center bullet is
+                where mouse position was when pressed. Bullets will be initially placed in a cone arrangement.
+             */
+            final float bulletDistance = 15;
+            final int totalPellets = 5;
+            Vec2 start = target.sub(
+                    new Vec2(bulletDistance * (totalPellets / 2 + 1), bulletDistance * (totalPellets / 2 + 1)));
+            for (int i = 0; i < totalPellets; i++) {
+                // first 3 bullets will be first half of the cone
+                if (i < totalPellets / 2 + 1) {
+                    start = start.add(new Vec2(bulletDistance, bulletDistance));
+                    // second half of the cone
+                } else if (i >= totalPellets / 2 + 1) {
+                    start = start.sub(new Vec2(0, bulletDistance));
                 }
-                Bullet bullet = new Bullet(playerPos.x, playerPos.y, ATTACK_RANGE);
-                bullet.setOrigin(new Vec2(playerPos.x, playerPos.y));
-                bullet.getBulletSprite().setRotate(30);
+                final float playerX = Player.getInstance().getXPosition();
+                final float playerY = Player.getInstance().getYPosition();
+                Bullet bullet = new Bullet(playerX, playerY, ATTACK_RANGE);
+                bullet.setOrigin(new Vec2(playerX, playerY));
+//                bullet.getBulletSprite().setRotate(30);
                 BulletManager.addBullets(bullet);
-                float targetMag = MathUtils.sqrt(start.x * start.x + start.y * start.y);
-                // get the unit vector to apply linear velocity
-                Vec2 normalized = new Vec2(start.x / targetMag, start.y / targetMag);
-                bullet.getBody().setLinearVelocity(normalized.mul(500));
-                System.out.println(start);
+                applyVelocity(bullet, target);
             }
         }
     }
