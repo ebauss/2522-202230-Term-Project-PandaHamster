@@ -14,12 +14,11 @@ public final class GameTimer extends AnimationTimer {
         new GameTimer().start();
     }
     private static float elapsedSeconds;
-    private static float timerLastFrameInSeconds;
     private static float timerLastFrameElapsedTimeInNanoSeconds;
     private GameTimer() { }
     @Override
     public void handle(final long now) {
-        timerLastFrameInSeconds = (now - timerLastFrameElapsedTimeInNanoSeconds) / NANOSECONDS_TO_SECONDS;
+        float timerLastFrameInSeconds = (now - timerLastFrameElapsedTimeInNanoSeconds) / NANOSECONDS_TO_SECONDS;
         timerLastFrameElapsedTimeInNanoSeconds = now;
         if (timerLastFrameInSeconds < MAX_FRAME_TIME_IN_SECONDS) {
             elapsedSeconds += timerLastFrameInSeconds;
