@@ -1,8 +1,15 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.AssaultRifle;
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.GrenadeLauncher;
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Pistol;
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Shotgun;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
+import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +22,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private static final long MAX_LEVEL = 20;
     private static final int THREE = 3;
     private static final int ONE_HUNDRED = 100;
+    private static Player player;
     private String name;
     private long level;
     private long currentExp;
@@ -24,7 +32,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private AbstractWeapon currentWeapon;
     private short lifeCount;
     private Rectangle playerSprite;
-    private final float speed = 50f;
+    private final float speed = 40f;
     private final float angularVelocity = 10;
 
     /**
@@ -32,18 +40,21 @@ public class Player extends GameEntity implements DynamicEntity {
      *
      * @param someName the name of the player as a String
      */
-    public Player(final String someName) {
+    private Player(final String someName) {
         super(0, 0, 16, 16);
         this.name = someName;
         this.level = 1;
-//        weaponInventory = new ArrayList<>();
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
+        playerSprite = new Rectangle(0, 0, 16, 16);
+        weaponInventory = new ArrayList<>();
+        AbstractWeapon pistol = new GrenadeLauncher();
+        weaponInventory.add(pistol);
+        currentWeapon = pistol;
         playerSprite = new Rectangle(0, 0 , 16, 16);
         // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
         playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            System.out.println(MousePositionTracker.getMouseLocation());
             switch (event.getCode()) {
                 case W -> moveUp();
                 case A -> moveLeft();
@@ -64,6 +75,16 @@ public class Player extends GameEntity implements DynamicEntity {
         });
     }
 
+    /**
+     * Returns an instance of the player. Subsequent calls will return the same player.
+     * @return the player instance
+     */
+    public static Player getInstance() {
+        if (player == null) {
+            player = new Player("");
+        }
+        return player;
+    }
 
     /**
      * Gets the money value.
@@ -113,6 +134,14 @@ public class Player extends GameEntity implements DynamicEntity {
     }
 
     /**
+     * Gets the currentWeapon instance variable.
+     * @return currentWeapon variable as an AbstractWeapon
+     */
+    public AbstractWeapon getCurrentWeapon() {
+        return currentWeapon;
+    }
+
+    /**
      * Gets the playerSprite instance variable.
      * @return playerSprite instance variable as a Rectangle
      */
@@ -120,8 +149,10 @@ public class Player extends GameEntity implements DynamicEntity {
         return playerSprite;
     }
 
-    /* Calls attack() method for currentWeapon. */
-    private void pullTrigger() {
+    /**
+     * Calls the attack() method for currentWeapon.
+     */
+    public void pullTrigger() {
         this.currentWeapon.attack();
     }
 

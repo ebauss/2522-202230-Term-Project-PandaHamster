@@ -1,6 +1,9 @@
 package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
-import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
+import ca.bcit.comp2522.termproject.pandahamster.*;
+import javafx.geometry.Point2D;
+import org.jbox2d.common.MathUtils;
+import org.jbox2d.common.Vec2;
 
 /**
  * Represents an object of type AssaultRifle.
@@ -25,7 +28,7 @@ public class AssaultRifle extends AbstractWeapon {
     /**
      * The assault rifle attack range in pixels.
      */
-    public static final long ATTACK_RANGE = 100;
+    public static final long ATTACK_RANGE = 300;
     /**
      * The assault rifle cost in the shop.
      */
@@ -53,10 +56,19 @@ public class AssaultRifle extends AbstractWeapon {
     }
 
     /**
-     * Deals damage to the enemy.
+     * Performs the attack method for an assault rifle. Shoots a single bullet in the direction of the mouse.
      */
     @Override
     public void attack() {
-        // TODO Implement this
+        if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
+            setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
+            Vec2 target = getMouseDirection();
+            fireSingleShot(ATTACK_RANGE, target);
+        }
+    }
+
+    @Override
+    public void createBulletEffect(Bullet bullet) {
+
     }
 }

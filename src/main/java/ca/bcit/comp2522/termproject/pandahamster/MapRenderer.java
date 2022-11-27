@@ -74,7 +74,7 @@ public final class MapRenderer {
             return new ImageView(image);
         } else {
             // since the image was not in the hashmap, make the image and add it into the hashmap
-            Image image = ImageCropper.cropImage(tile.getTileset().getImage().getSource(),
+            Image image = ImageCropper.cropImage("DesertTilemap16x16.png",
                     x * tile.getTileset().getTileWidth(), y * tile.getTileset().getTileHeight(),
                     tile.getTileset().getTileWidth(), tile.getTileset().getTileHeight());
             tiles.get(tilesetName).put(tile.getID(), image);

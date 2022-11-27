@@ -9,8 +9,11 @@ package ca.bcit.comp2522.termproject.pandahamster;
 public interface DynamicEntity {
     /**
      * Moves the object on the map.
+     *
+     * @param mapHeight the height dimension of the map
+     * @param mapWidth the width dimension of the map
      */
-    default void move() { }
+    default void move(final float mapHeight, final float mapWidth) { }
     /**
      * Moves the dynamic entity up.
      */
