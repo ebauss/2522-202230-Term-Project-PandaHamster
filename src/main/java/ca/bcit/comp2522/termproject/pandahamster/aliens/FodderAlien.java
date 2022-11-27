@@ -7,7 +7,7 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
  * @version 2022
  */
 public class FodderAlien extends AbstractEnemy {
-    private static final float FODDER_ALIEN_SPEED = 50f;
+    private static final float FODDER_ALIEN_SPEED = 10f;
     private static final long FODDER_ALIEN_HEALTH = 100;
 
     /**

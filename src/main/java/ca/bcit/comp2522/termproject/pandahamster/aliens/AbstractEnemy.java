@@ -3,7 +3,6 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
 import ca.bcit.comp2522.termproject.pandahamster.Attacker;
 import ca.bcit.comp2522.termproject.pandahamster.DynamicEntity;
 import ca.bcit.comp2522.termproject.pandahamster.GameEntity;
-import ca.bcit.comp2522.termproject.pandahamster.WorldManager;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.Vec2;
 
@@ -103,18 +102,14 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
         final float centerYPosition = mapHeight / 2;
 
         // Move the alien towards the base.
-        if (xPosition > centerXPosition) {
-            getBody().setLinearVelocity(new Vec2(speed, 0));
+        if (xPosition < centerXPosition && yPosition < centerYPosition) {
+            getBody().setLinearVelocity(new Vec2(speed, speed));
+        } else if (xPosition < centerXPosition && yPosition > centerYPosition) {
+            getBody().setLinearVelocity(new Vec2(speed, -speed));
+        } else if (xPosition > centerXPosition && yPosition < centerYPosition) {
+            getBody().setLinearVelocity(new Vec2(-speed, speed));
         } else {
-            getBody().setLinearVelocity(new Vec2(-speed, 0));
+            getBody().setLinearVelocity(new Vec2(-speed, -speed));
         }
-
-        if (yPosition > centerYPosition) {
-            getBody().setLinearVelocity(new Vec2(0, speed));
-        } else {
-            getBody().setLinearVelocity((new Vec2(0, -speed)));
-        }
-
-//        getBody().setLinearVelocity(new Vec2(speed, speed));
     }
 }
