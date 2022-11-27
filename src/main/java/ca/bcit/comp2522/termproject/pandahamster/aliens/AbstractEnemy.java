@@ -75,22 +75,24 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
      */
     @Override
     public void move(final float mapHeight, final float mapWidth) {
-        DynamicEntity.super.move(mapHeight, mapWidth);
+//        DynamicEntity.super.move(mapHeight, mapWidth);
         // The center of the map contains the base. The aliens need to move towards the base.
-        final float centerXPosition = mapWidth / 2;
-        final float centerYPosition = mapHeight / 2;
+//        final float centerXPosition = mapWidth / 2;
+//        final float centerYPosition = mapHeight / 2;
+//
+//        // Move the alien towards the base.
+//        if (xPosition > centerXPosition) {
+//            getBody().setLinearVelocity(new Vec2(speed, 0));
+//        } else {
+//            getBody().setLinearVelocity(new Vec2(-speed, 0));
+//        }
+//
+//        if (yPosition > centerYPosition) {
+//            getBody().setLinearVelocity(new Vec2(0, speed));
+//        } else {
+//            getBody().setLinearVelocity((new Vec2(0, -speed)));
+//        }
 
-        // Move the alien towards the base.
-        if (xPosition > centerXPosition) {
-            getBody().setLinearVelocity(new Vec2(speed, 0));
-        } else {
-            getBody().setLinearVelocity(new Vec2(-speed, 0));
-        }
-
-        if (yPosition > centerYPosition) {
-            getBody().setLinearVelocity(new Vec2(0, speed));
-        } else {
-            getBody().setLinearVelocity((new Vec2(0, -speed)));
-        }
+        getBody().setLinearVelocity(new Vec2(speed, speed));
     }
 }

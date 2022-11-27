@@ -67,12 +67,11 @@ public class AlienWaveGenerator {
      * Moves the aliens towards the base.
      */
     public void moveAliensTowardBase() {
-        while (true) {
-            // TODO add condition  so that this isn't infinite. Use isWaveComplete or something.
-            for (AbstractEnemy alien: alienCollection) {
-                alien.move(mapHeight, mapWidth);
-            }
-        }
+        // TODO add condition  so that this isn't infinite. Use isWaveComplete or something.
+//        for (AbstractEnemy alien: alienCollection) {
+//            alien.move(mapHeight, mapWidth);
+//        }
+        alienCollection.get(0).move(mapHeight, mapWidth);
     }
 
     public Rectangle getAlienSprites() {
