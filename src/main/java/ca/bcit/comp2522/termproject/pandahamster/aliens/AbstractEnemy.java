@@ -45,6 +45,27 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
     }
 
     /**
+     * Sets the x position of this alien. The alien rectangle position will also be updated accordingly.
+     * @param newXPosition of class as a long
+     */
+    @Override
+    public void setXPosition(final float newXPosition) {
+        super.xPosition = newXPosition;
+        alienSprite.setX(xPosition);
+    }
+
+    /**
+     * Sets the y position of this alien. The alien rectangle position will also be updated accordingly.
+     * @param newYPosition of class as a long
+     */
+    @Override
+    public void setYPosition(final float newYPosition) {
+        super.yPosition = newYPosition;
+        alienSprite.setY(yPosition);
+
+    }
+
+    /**
      * Gets the alienSprite Rectangle object.
      *
      * @return the alien Rectangle object
@@ -76,24 +97,24 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
      */
     @Override
     public void move(final float mapHeight, final float mapWidth) {
-//        DynamicEntity.super.move(mapHeight, mapWidth);
+        DynamicEntity.super.move(mapHeight, mapWidth);
         // The center of the map contains the base. The aliens need to move towards the base.
-//        final float centerXPosition = mapWidth / 2;
-//        final float centerYPosition = mapHeight / 2;
-//
-//        // Move the alien towards the base.
-//        if (xPosition > centerXPosition) {
-//            getBody().setLinearVelocity(new Vec2(speed, 0));
-//        } else {
-//            getBody().setLinearVelocity(new Vec2(-speed, 0));
-//        }
-//
-//        if (yPosition > centerYPosition) {
-//            getBody().setLinearVelocity(new Vec2(0, speed));
-//        } else {
-//            getBody().setLinearVelocity((new Vec2(0, -speed)));
-//        }
+        final float centerXPosition = mapWidth / 2;
+        final float centerYPosition = mapHeight / 2;
 
-        getBody().setLinearVelocity(new Vec2(speed, speed));
+        // Move the alien towards the base.
+        if (xPosition > centerXPosition) {
+            getBody().setLinearVelocity(new Vec2(speed, 0));
+        } else {
+            getBody().setLinearVelocity(new Vec2(-speed, 0));
+        }
+
+        if (yPosition > centerYPosition) {
+            getBody().setLinearVelocity(new Vec2(0, speed));
+        } else {
+            getBody().setLinearVelocity((new Vec2(0, -speed)));
+        }
+
+//        getBody().setLinearVelocity(new Vec2(speed, speed));
     }
 }
