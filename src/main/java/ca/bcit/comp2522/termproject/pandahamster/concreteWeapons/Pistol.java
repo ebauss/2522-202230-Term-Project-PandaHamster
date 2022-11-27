@@ -26,7 +26,7 @@ public class Pistol extends AbstractWeapon {
     /**
      * The pistol attack range in pixels.
      */
-    public static final long ATTACK_RANGE = 250;
+    public static final long ATTACK_RANGE = 200;
     /**
      * The pistol cost in the shop.
      */
