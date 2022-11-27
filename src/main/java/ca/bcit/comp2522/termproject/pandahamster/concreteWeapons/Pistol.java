@@ -44,7 +44,6 @@ public class Pistol extends AbstractWeapon {
      * A string representation of the name of the class.
      */
     public static final String NAME = "Pistol";
-    private float lastAttackTimeInSeconds;
     /**
      * Constructs an object of type Pistol.
      */
@@ -57,8 +56,8 @@ public class Pistol extends AbstractWeapon {
      */
     @Override
     public void attack() {
-        if (GameTimer.getElapsedSeconds() - lastAttackTimeInSeconds >= getAttackSpeed()) {
-            lastAttackTimeInSeconds = GameTimer.getElapsedSeconds();
+        if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
+            setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
             Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
                     / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
             // get the position of the mouse
