@@ -44,7 +44,7 @@ public class Pistol extends AbstractWeapon {
      * A string representation of the name of the class.
      */
     public static final String NAME = "Pistol";
-
+    private float lastAttackTimeInSeconds;
     /**
      * Constructs an object of type Pistol.
      */
