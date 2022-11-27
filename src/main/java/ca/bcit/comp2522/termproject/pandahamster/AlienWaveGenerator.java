@@ -2,6 +2,7 @@ package ca.bcit.comp2522.termproject.pandahamster;
 
 import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
 import ca.bcit.comp2522.termproject.pandahamster.aliens.FodderAlien;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
@@ -66,8 +67,15 @@ public class AlienWaveGenerator {
      * Moves the aliens towards the base.
      */
     public void moveAliensTowardBase() {
-        for (AbstractEnemy alien: alienCollection) {
-            alien.move();
+        while (true) {
+            // TODO add condition  so that this isn't infinite. Use isWaveComplete or something.
+            for (AbstractEnemy alien: alienCollection) {
+                alien.move(mapHeight, mapWidth);
+            }
         }
+    }
+
+    public Rectangle getAlienSprites() {
+        return alienCollection.get(0).getAlienSprite();
     }
 }

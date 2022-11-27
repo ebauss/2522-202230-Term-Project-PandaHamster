@@ -47,6 +47,12 @@ public class PandaHamster extends Application {
                 player.faceMouseDirection();
             }
         };
+
+        // Instantiate single instance of AlienWaveGenerator
+        AlienWaveGenerator alienWaveGenerator = AlienWaveGenerator.getInstance(map.getHeight(), map.getWidth());
+        alienWaveGenerator.generateWaveOfAliens();
+        root.getChildren().add(alienWaveGenerator.getAlienSprites());
+
         animationTimer.start();
     }
 

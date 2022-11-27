@@ -39,7 +39,7 @@ public class Player extends GameEntity implements DynamicEntity {
 //        weaponInventory = new ArrayList<>();
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
-        playerSprite = new Rectangle(0, 0 , 16, 16);
+        playerSprite = new Rectangle(0, 0, 16, 16);
         // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
         playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
