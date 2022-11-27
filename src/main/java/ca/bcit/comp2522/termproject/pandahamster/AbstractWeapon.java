@@ -79,7 +79,9 @@ public abstract class AbstractWeapon extends AbstractShooter {
      * @param target the direction vector of where to fire the bullet
      */
     public void fireSingleShot(final float attackRange, final Vec2 target) {
-        Bullet bullet = new Bullet(Player.getInstance().getXPosition(), Player.getInstance().getYPosition(), attackRange);
+        Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
+                / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
+        Bullet bullet = new Bullet(playerPos.x, playerPos.y, attackRange);
         bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
         BulletManager.addBullets(bullet);
         Vec2 vec2 = new Vec2((float) MousePositionTracker.getMouseLocation().getX(),
