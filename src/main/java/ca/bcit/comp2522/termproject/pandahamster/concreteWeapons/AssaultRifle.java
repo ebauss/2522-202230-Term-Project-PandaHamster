@@ -1,6 +1,8 @@
 package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
-import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
+import ca.bcit.comp2522.termproject.pandahamster.*;
+import org.jbox2d.common.MathUtils;
+import org.jbox2d.common.Vec2;
 
 /**
  * Represents an object of type AssaultRifle.
@@ -53,10 +55,34 @@ public class AssaultRifle extends AbstractWeapon {
     }
 
     /**
-     * Deals damage to the enemy.
+     * Performs the attack method for an assault rifle. Shoots a single bullet in the direction of the mouse.
      */
     @Override
     public void attack() {
-        // TODO Implement this
+        if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
+            setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
+            Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
+                    / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
+            // get the position of the mouse
+            Vec2 mousePos = new Vec2(
+                    (float) MousePositionTracker.getMouseLocation().getX(),
+                    (float) MousePositionTracker.getMouseLocation().getY());
+            // calculate target position
+            Vec2 targetPos = mousePos.sub(playerPos);
+            // gets the angle in radians
+            float desiredAngle = (float) Math.atan2(-targetPos.x, targetPos.y);
+            final float radToDeg = 57.2958f;
+            Bullet bullet = new Bullet(playerPos.x, playerPos.y, Pistol.ATTACK_RANGE);
+            bullet.getBulletSprite().setRotate(desiredAngle * radToDeg);
+            bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
+            BulletManager.addBullets(bullet);
+//        bullet.getBody().setBullet(true);
+            // get the length of the vector
+            float targetMag = MathUtils.sqrt(mousePos.x * mousePos.x + mousePos.y * mousePos.y);
+
+            // get the unit vector to apply impulses
+            Vec2 normalized = new Vec2(targetPos.x / targetMag, targetPos.y / targetMag);
+            bullet.getBody().setLinearVelocity(normalized.mul(500));
+        }
     }
 }
