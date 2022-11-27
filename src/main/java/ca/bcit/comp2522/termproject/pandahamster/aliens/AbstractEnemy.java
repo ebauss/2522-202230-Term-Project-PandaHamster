@@ -3,6 +3,7 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
 import ca.bcit.comp2522.termproject.pandahamster.Attacker;
 import ca.bcit.comp2522.termproject.pandahamster.DynamicEntity;
 import ca.bcit.comp2522.termproject.pandahamster.GameEntity;
+import ca.bcit.comp2522.termproject.pandahamster.WorldManager;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.Vec2;
 
