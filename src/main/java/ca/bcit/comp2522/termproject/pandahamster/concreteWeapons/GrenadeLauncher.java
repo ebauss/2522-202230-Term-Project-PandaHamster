@@ -9,7 +9,7 @@ import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
  * @author Evon Bausa & Alex Liu
  * @version 0.0
  */
-public class Grenade extends AbstractWeapon {
+public class GrenadeLauncher extends AbstractWeapon {
     /**
      * The grenade damage.
      */
@@ -46,7 +46,7 @@ public class Grenade extends AbstractWeapon {
     /**
      * Constructs an object of type Grenade.
      */
-    public Grenade() {
+    public GrenadeLauncher() {
         super(DAMAGE, ATTACK_SPEED, HAS_AOE, ATTACK_RANGE, COST, AMMO_CAPACITY, CLIP_SIZE, NAME);
     }
 
