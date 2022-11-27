@@ -75,7 +75,6 @@ public class Player extends GameEntity implements DynamicEntity {
 
     /**
      * Returns an instance of the player. Subsequent calls will return the same player.
-     * @param name name of the player
      * @return the player instance
      */
     public static Player getInstance() {
