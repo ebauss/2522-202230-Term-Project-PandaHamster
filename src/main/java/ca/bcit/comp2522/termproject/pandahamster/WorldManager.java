@@ -69,6 +69,11 @@ public final class WorldManager {
                 gameEntity.setXPosition((long) firstBody.getPosition().x - gameEntity.getWidth() / 2f);
                 gameEntity.setYPosition((long) firstBody.getPosition().y - gameEntity.getHeight() / 2f);
             }
+            if (gameEntity instanceof Bullet) {
+                if (((Bullet) gameEntity).reachedMaxRange()) {
+                    ((Bullet) gameEntity).setMarkedForRemoval(true);
+                }
+            }
             firstBody = firstBody.getNext();
         }
     }
@@ -194,6 +199,7 @@ public final class WorldManager {
             public void beginContact(final Contact contact) {
                 Body bodyA = contact.getFixtureA().getBody();
                 Body bodyB = contact.getFixtureB().getBody();
+                // checks for bullet colliding with obstacles
                 if (bodyA.getUserData() == null && bodyB.getUserData() instanceof Bullet) {
                     ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
                 } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() == null) {
