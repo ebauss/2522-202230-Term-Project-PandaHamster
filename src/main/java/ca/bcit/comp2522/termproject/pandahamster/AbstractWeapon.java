@@ -105,6 +105,7 @@ public abstract class AbstractWeapon extends AbstractShooter {
     }
     /**
      * Creates a bullet effect when a bullet has hit an obstacle or enemy.
+     * @param bullet the bullet for the effect
      */
-    public abstract void createBulletEffect();
+    public abstract void createBulletEffect(Bullet bullet);
 }
