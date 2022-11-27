@@ -41,7 +41,6 @@ public class Player extends GameEntity implements DynamicEntity {
         super(0, 0, 16, 16);
         this.name = someName;
         this.level = 1;
-//        weaponInventory = new ArrayList<>();
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
         weaponInventory = new ArrayList<>();
