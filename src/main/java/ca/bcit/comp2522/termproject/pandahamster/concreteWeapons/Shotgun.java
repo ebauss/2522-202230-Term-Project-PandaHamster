@@ -1,6 +1,8 @@
 package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
-import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
+import ca.bcit.comp2522.termproject.pandahamster.*;
+import org.jbox2d.common.MathUtils;
+import org.jbox2d.common.Vec2;
 
 /**
  * Represents an object of type Shotgun.
@@ -25,7 +27,7 @@ public class Shotgun extends AbstractWeapon {
     /**
      * The shotgun attack range in pixels.
      */
-    public static final long ATTACK_RANGE = 40;
+    public static final long ATTACK_RANGE = 400;
     /**
      * The shotgun cost in the shop.
      */
@@ -51,10 +53,41 @@ public class Shotgun extends AbstractWeapon {
     }
 
     /**
-     * Deals damage to the enemy.
+     * Performs the attack method for a shotgun. Shoots a fan of bullets in the direction of the mouse.
      */
     @Override
     public void attack() {
-        // TODO Implement this
+        if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
+            setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
+            Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
+                    / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
+            Vec2 target = getMouseDirection();
+            /*
+                Since each bullet will be (15, 15) away from each other, subtract 45 so the center bullet is
+                where mouse position was when pressed. Bullets will be initially placed in a cone arrangement.
+             */
+            final float bulletDistance = 15;
+            final int totalPellets = 5;
+            final int middlePellet = totalPellets / 2 + 1;
+            Vec2 start = target.sub(
+                    new Vec2(bulletDistance * (middlePellet), bulletDistance * (middlePellet)));
+            for (int i = 0; i < totalPellets; i++) {
+                // first 3 bullets will be first half of the cone
+                if (i < totalPellets / 2 + 1) {
+                    start = start.add(new Vec2(bulletDistance, bulletDistance));
+                } else {
+                    start = start.sub(new Vec2(0, bulletDistance));
+                }
+                Bullet bullet = new Bullet(playerPos.x, playerPos.y, ATTACK_RANGE, GameEntityType.Player);
+                bullet.setOrigin(new Vec2(playerPos.x, playerPos.y));
+                BulletManager.addBullets(bullet);
+                applyVelocity(bullet, start, start);
+            }
+        }
+    }
+
+    @Override
+    public void createBulletEffect(Bullet bullet) {
+
     }
 }

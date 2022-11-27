@@ -29,7 +29,7 @@ public abstract class GameEntity {
      * @param someWidth width of class as a long
      * @param someHeight height of class as a long
      */
-    public GameEntity(final long someXPosition, final long someYPosition, final long someWidth, final long someHeight) {
+    public GameEntity(final float someXPosition, final float someYPosition, final long someWidth, final long someHeight) {
         this.xPosition = someXPosition;
         this.yPosition = someYPosition;
         this.width = someWidth;

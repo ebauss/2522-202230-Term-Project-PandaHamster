@@ -77,7 +77,7 @@ public class AlienWaveGenerator {
             AbstractEnemy newAlien = new FodderAlien(randomXCoordinate, randomYCoordinate, 16, 16,
                     100, 100);
             alienCollection.add(newAlien);
-            WorldManager.getInstance().createDynamicRectangle(newAlien);
+            WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
         }
 
         for (int gunnerCount = 0; gunnerCount < gunnerWaveArray[waveCount]; gunnerCount++) {
@@ -87,7 +87,7 @@ public class AlienWaveGenerator {
             AbstractEnemy newAlien = new GunnerAlien(randomXCoordinate, randomYCoordinate, 20, 20,
                     100, 100);
             alienCollection.add(newAlien);
-            WorldManager.getInstance().createDynamicRectangle(newAlien);
+            WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
         }
 
         for (int speedyCount = 0; speedyCount < speedyWaveArray[waveCount]; speedyCount++) {
@@ -97,7 +97,7 @@ public class AlienWaveGenerator {
             AbstractEnemy newAlien = new SpeedyAlien(randomXCoordinate, randomYCoordinate, 10, 10,
                     100, 100);
             alienCollection.add(newAlien);
-            WorldManager.getInstance().createDynamicRectangle(newAlien);
+            WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
         }
 
         for (int tankCount = 0; tankCount < tankWaveArray[waveCount]; tankCount++) {
@@ -107,7 +107,7 @@ public class AlienWaveGenerator {
             AbstractEnemy newAlien = new TankAlien(randomXCoordinate, randomYCoordinate, 30, 30,
                     100, 100);
             alienCollection.add(newAlien);
-            WorldManager.getInstance().createDynamicRectangle(newAlien);
+            WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
         }
     }
 

@@ -37,6 +37,13 @@ public abstract class AbstractShooter implements Attacker {
     }
 
     /**
+     * Get method for attackSpeed variable.
+     * @return the attackSpeed variable.
+     */
+    public float getAttackSpeed() {
+        return attackSpeed;
+    }
+    /**
      * Gets method for the name variable.
      *
      * @return the name variable
