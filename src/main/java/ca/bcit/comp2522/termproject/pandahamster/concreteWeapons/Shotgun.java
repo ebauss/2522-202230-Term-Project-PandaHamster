@@ -66,14 +66,15 @@ public class Shotgun extends AbstractWeapon {
              */
             final float bulletDistance = 15;
             final int totalPellets = 5;
+            final int middlePellet = totalPellets / 2 + 1;
             Vec2 start = target.sub(
-                    new Vec2(bulletDistance * (totalPellets / 2 + 1), bulletDistance * (totalPellets / 2 + 1)));
+                    new Vec2(bulletDistance * (middlePellet), bulletDistance * (middlePellet)));
             for (int i = 0; i < totalPellets; i++) {
                 // first 3 bullets will be first half of the cone
                 if (i < totalPellets / 2 + 1) {
                     start = start.add(new Vec2(bulletDistance, bulletDistance));
                     // second half of the cone
-                } else if (i >= totalPellets / 2 + 1) {
+                } else {
                     start = start.sub(new Vec2(0, bulletDistance));
                 }
                 final float playerX = Player.getInstance().getXPosition();
