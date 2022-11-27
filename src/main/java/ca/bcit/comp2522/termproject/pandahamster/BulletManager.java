@@ -27,7 +27,6 @@ public final class BulletManager {
     /**
      * Removes all unnecessary bullets from the game. Conditions for a bullet to be removed:
      * <ul>
-     *     <li>When a bullet remained on screen for too long</li>
      *     <li>When a bullet hit a valid collidable object</li>
      *     <li>When a bullet travelled its max range</li>
      * </ul>
