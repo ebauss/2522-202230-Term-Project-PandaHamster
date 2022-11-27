@@ -7,6 +7,9 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
  * @version 2022
  */
 public class FodderAlien extends AbstractEnemy {
+    private static final float FODDER_ALIEN_SPEED = 50f;
+    private static final long FODDER_ALIEN_HEALTH = 100;
+
     /**
      * Constructs an object of type FodderAlien.
      *
@@ -16,15 +19,12 @@ public class FodderAlien extends AbstractEnemy {
      * @param someHeight              height of class as a long
      * @param someKillMoneyValue the amount of money the player receives for killing the enemy
      * @param someKillExperienceValue the amount of experience the player receives for killing the enemy
-     * @param someSpeed               the speed of the alien
-     * @param someHealthPoints        the health of the alien
      */
     public FodderAlien(final long someXPosition, final long someYPosition,
                        final long someWidth, final long someHeight,
-                       final long someKillMoneyValue, final long someKillExperienceValue, final float someSpeed,
-                       final long someHealthPoints) {
+                       final long someKillMoneyValue, final long someKillExperienceValue) {
         super(someXPosition, someYPosition, someWidth, someHeight, someKillMoneyValue, someKillExperienceValue,
-                someSpeed, someHealthPoints);
+                FODDER_ALIEN_SPEED, FODDER_ALIEN_HEALTH);
     }
 
     /**

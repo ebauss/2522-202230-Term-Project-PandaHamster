@@ -50,7 +50,7 @@ public class AlienWaveGenerator {
     public void generateWaveOfAliens() {
         //TODO Implement this.
         alienCollection.add(new FodderAlien(100, 100, 16, 16,
-                100, 100, 50f, 100));
+                100, 100));
     }
 
     /**
