@@ -1,9 +1,13 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import org.jbox2d.callbacks.ContactFilter;
+import org.jbox2d.callbacks.ContactImpulse;
+import org.jbox2d.callbacks.ContactListener;
+import org.jbox2d.collision.Manifold;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
+import org.jbox2d.dynamics.contacts.Contact;
 import org.tiledreader.TiledReader;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
@@ -37,6 +41,7 @@ public final class WorldManager {
             bodyDef = new BodyDef();
             fixtureDef = new FixtureDef();
             addCollisionRules();
+            addCollisionCallBack();
         }
         return worldManager;
     }
@@ -131,7 +136,7 @@ public final class WorldManager {
      * @param width width of the rectangle body
      * @param height height of the rectangle body
      */
-    public void createStaticRectangle(final float x, final float y, final float width, final float height) {
+    public Body createStaticRectangle(final float x, final float y, final float width, final float height) {
         // body won't move
         bodyDef.type = BodyType.STATIC;
         /*
@@ -146,6 +151,7 @@ public final class WorldManager {
         fixtureDef.friction = 0;
         fixtureDef.restitution = 0;
         body.createFixture(fixtureDef);
+        return body;
     }
     private void createObstacles() {
         TiledReader reader = new FileSystemTiledReader();
@@ -155,7 +161,7 @@ public final class WorldManager {
             if (layer instanceof TiledObjectLayer tiledObjectLayer) {
                 // build and each body of the object
                 for (TiledObject tiledObject: tiledObjectLayer.getObjects()) {
-                    createStaticRectangle(
+                    Body body = createStaticRectangle(
                             tiledObject.getX(), tiledObject.getY(),
                             tiledObject.getWidth(), tiledObject.getHeight()
                     );
@@ -180,6 +186,37 @@ public final class WorldManager {
             }
         }
         world.setContactFilter(new CollisionRules());
+    }
+    private static void addCollisionCallBack() {
+        class CollisionListenerRules implements ContactListener {
+
+            @Override
+            public void beginContact(final Contact contact) {
+                Body bodyA = contact.getFixtureA().getBody();
+                Body bodyB = contact.getFixtureB().getBody();
+                if (bodyA.getUserData() == null && bodyB.getUserData() instanceof Bullet) {
+                    ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
+                } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() == null) {
+                    ((Bullet) bodyA.getUserData()).setMarkedForRemoval(true);
+                }
+            }
+
+            @Override
+            public void endContact(final Contact contact) {
+
+            }
+
+            @Override
+            public void preSolve(final Contact contact, final Manifold manifold) {
+
+            }
+
+            @Override
+            public void postSolve(final Contact contact, final ContactImpulse contactImpulse) {
+
+            }
+        }
+        world.setContactListener(new CollisionListenerRules());
     }
     /**
      * Removes the body from the world.
