@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Pistol;
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Shotgun;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.MathUtils;
@@ -44,14 +45,13 @@ public class Player extends GameEntity implements DynamicEntity {
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
         weaponInventory = new ArrayList<>();
-        AbstractWeapon pistol = new Pistol();
+        AbstractWeapon pistol = new Shotgun();
         weaponInventory.add(pistol);
         currentWeapon = pistol;
         playerSprite = new Rectangle(0, 0 , 16, 16);
         // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
         playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            System.out.println(MousePositionTracker.getMouseLocation());
             switch (event.getCode()) {
                 case W -> moveUp();
                 case A -> moveLeft();
