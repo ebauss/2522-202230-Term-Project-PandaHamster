@@ -82,19 +82,20 @@ public abstract class AbstractWeapon extends AbstractShooter {
         Bullet bullet = new Bullet(Player.getInstance().getXPosition(), Player.getInstance().getYPosition(), attackRange);
         bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
         BulletManager.addBullets(bullet);
-        applyVelocity(bullet, target);
+        Vec2 vec2 = new Vec2((float) MousePositionTracker.getMouseLocation().getX(),
+                (float) MousePositionTracker.getMouseLocation().getY());
+        applyVelocity(bullet, vec2, target);
     }
 
     /**
-     * Sets the bullet's linear velocity in the target direction.
+     * Sets the bullet's linear velocity in the target direction. Only for weapons that shoot a single bullet.
      * @param bullet the bullet to move
+     * @param vecForMag vector for calculating the magnitude
      * @param target the direction to fire
      */
-    public void applyVelocity(final Bullet bullet, final Vec2 target) {
+    public void applyVelocity(final Bullet bullet, final Vec2 vecForMag, final Vec2 target) {
         // get the length of the vector
-        Vec2 mouseLocation = new Vec2((float) MousePositionTracker.getMouseLocation().getX(),
-                (float) MousePositionTracker.getMouseLocation().getY());
-        float targetMag = MathUtils.sqrt(mouseLocation.x * mouseLocation.x + mouseLocation.y * mouseLocation.y);
+        float targetMag = MathUtils.sqrt(vecForMag.x * vecForMag.x + vecForMag.y * vecForMag.y);
         // get the unit vector to apply impulses
         Vec2 normalized = new Vec2(target.x / targetMag, target.y / targetMag);
         final int speed = 500;
