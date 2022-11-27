@@ -1,7 +1,8 @@
 package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
-import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
-import ca.bcit.comp2522.termproject.pandahamster.GameTimer;
+import ca.bcit.comp2522.termproject.pandahamster.*;
+import org.jbox2d.common.MathUtils;
+import org.jbox2d.common.Vec2;
 
 /**
  * Represents an object of type Shotgun.
@@ -26,7 +27,7 @@ public class Shotgun extends AbstractWeapon {
     /**
      * The shotgun attack range in pixels.
      */
-    public static final long ATTACK_RANGE = 40;
+    public static final long ATTACK_RANGE = 400;
     /**
      * The shotgun cost in the shop.
      */
@@ -58,6 +59,30 @@ public class Shotgun extends AbstractWeapon {
     public void attack() {
         if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
             setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
+            Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
+                    / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
+            // get the position of the mouse
+            Vec2 mousePos = new Vec2(
+                    (float) MousePositionTracker.getMouseLocation().getX(),
+                    (float) MousePositionTracker.getMouseLocation().getY());
+            Vec2 target = mousePos.sub(playerPos);
+            Vec2 start = target.sub(new Vec2(45, 45));
+            for (int i = 0; i < 5; i++) {
+                if (i < 3) {
+                    start = start.add(new Vec2(15, 15));
+                } else if (i >= 3){
+                    start = start.sub(new Vec2(0, 15));
+                }
+                Bullet bullet = new Bullet(playerPos.x, playerPos.y, ATTACK_RANGE);
+                bullet.setOrigin(new Vec2(playerPos.x, playerPos.y));
+                bullet.getBulletSprite().setRotate(30);
+                BulletManager.addBullets(bullet);
+                float targetMag = MathUtils.sqrt(start.x * start.x + start.y * start.y);
+                // get the unit vector to apply linear velocity
+                Vec2 normalized = new Vec2(start.x / targetMag, start.y / targetMag);
+                bullet.getBody().setLinearVelocity(normalized.mul(500));
+                System.out.println(start);
+            }
         }
     }
 }
