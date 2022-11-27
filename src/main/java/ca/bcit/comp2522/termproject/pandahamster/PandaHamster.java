@@ -1,5 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -54,7 +55,9 @@ public class PandaHamster extends Application {
                         map.getWidth() * map.getTileWidth());
         System.out.println(map.getHeight() * map.getTileHeight());
         alienWaveGenerator.generateWaveOfAliens();
-        root.getChildren().add(alienWaveGenerator.getAlienSprites());
+        for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
+            root.getChildren().add(alienSprite.getAlienSprite());
+        }
         alienWaveGenerator.moveAliensTowardBase();
 
         animationTimer.start();

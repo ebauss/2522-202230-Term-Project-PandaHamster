@@ -5,6 +5,7 @@ import ca.bcit.comp2522.termproject.pandahamster.aliens.FodderAlien;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Contains logic for alien waves.
@@ -45,14 +46,31 @@ public class AlienWaveGenerator {
     }
 
     /**
+     * Gets the alienCollection.
+     *
+     * @return the alienCollection ArrayList
+     */
+    public ArrayList<AbstractEnemy> getAlienCollection() {
+        return alienCollection;
+    }
+
+    /**
      * Generates the wave of aliens.
      */
     public void generateWaveOfAliens() {
-        //TODO Implement this.
-        AbstractEnemy newAlien = new FodderAlien(100, 100, 16, 16,
-                100, 100);
-        alienCollection.add(newAlien);
-        WorldManager.getInstance().createDynamicRectangle(newAlien);
+        Random randomNumber = new Random();
+        long leftLimit = 0L;
+        long rightLimit = (long) mapHeight;
+
+        for (int i = 0; i < 10; i++) {
+            long generatedLongOne = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+            long generatedLongTwo = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+
+            AbstractEnemy newAlien = new FodderAlien(generatedLongOne, generatedLongTwo, 16, 16,
+                    100, 100);
+            alienCollection.add(newAlien);
+            WorldManager.getInstance().createDynamicRectangle(newAlien);
+        }
     }
 
     /**
@@ -70,13 +88,8 @@ public class AlienWaveGenerator {
      */
     public void moveAliensTowardBase() {
         // TODO add condition  so that this isn't infinite. Use isWaveComplete or something.
-//        for (AbstractEnemy alien: alienCollection) {
-//            alien.move(mapHeight, mapWidth);
-//        }
-        alienCollection.get(0).move(mapHeight, mapWidth);
-    }
-
-    public Rectangle getAlienSprites() {
-        return alienCollection.get(0).getAlienSprite();
+        for (AbstractEnemy alien: alienCollection) {
+            alien.move(mapHeight, mapWidth);
+        }
     }
 }
