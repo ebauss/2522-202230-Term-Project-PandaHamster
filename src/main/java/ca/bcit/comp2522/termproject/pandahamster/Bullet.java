@@ -59,6 +59,13 @@ public class Bullet extends GameEntity {
     }
 
     /**
+     * Returns the originator of this bullet.
+     * @return the originator of the bullet as a GameEntityType
+     */
+    public GameEntityType getOriginator() {
+        return originator;
+    }
+    /**
      * Returns the origin.
      * @return the origin
      */
