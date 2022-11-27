@@ -25,7 +25,7 @@ public class Sniper extends AbstractWeapon {
     /**
      * The sniper attack range in pixels.
      */
-    public static final long ATTACK_RANGE = 180;
+    public static final long ATTACK_RANGE = 500;
     /**
      * The sniper cost in the shop.
      */
