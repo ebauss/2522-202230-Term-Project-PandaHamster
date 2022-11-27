@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
 import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
+import ca.bcit.comp2522.termproject.pandahamster.Bullet;
 
 /**
  * Represents an object of type SubMachineGun.
@@ -56,5 +57,10 @@ public class SubMachineGun extends AbstractWeapon {
     @Override
     public void attack() {
         // TODO Implement this
+    }
+
+    @Override
+    public void createBulletEffect(Bullet bullet) {
+
     }
 }

@@ -85,4 +85,9 @@ public class Shotgun extends AbstractWeapon {
             }
         }
     }
+
+    @Override
+    public void createBulletEffect(Bullet bullet) {
+
+    }
 }

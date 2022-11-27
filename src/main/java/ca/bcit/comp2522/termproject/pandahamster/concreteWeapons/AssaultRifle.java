@@ -66,4 +66,9 @@ public class AssaultRifle extends AbstractWeapon {
             fireSingleShot(ATTACK_RANGE, target);
         }
     }
+
+    @Override
+    public void createBulletEffect(Bullet bullet) {
+
+    }
 }

@@ -63,4 +63,9 @@ public class Pistol extends AbstractWeapon {
             fireSingleShot(ATTACK_RANGE, targetPos);
         }
     }
+
+    @Override
+    public void createBulletEffect(Bullet bullet) {
+
+    }
 }
