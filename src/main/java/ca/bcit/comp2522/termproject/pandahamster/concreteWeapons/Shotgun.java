@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
 import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
+import ca.bcit.comp2522.termproject.pandahamster.GameTimer;
 
 /**
  * Represents an object of type Shotgun.
@@ -51,10 +52,12 @@ public class Shotgun extends AbstractWeapon {
     }
 
     /**
-     * Deals damage to the enemy.
+     * Performs the attack method for a shotgun. Shoots a fan of bullets in the direction of the mouse.
      */
     @Override
     public void attack() {
-        // TODO Implement this
+        if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
+            setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
+        }
     }
 }
