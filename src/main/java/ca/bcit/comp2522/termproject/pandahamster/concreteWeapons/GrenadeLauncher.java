@@ -2,6 +2,7 @@ package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
 import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
 import ca.bcit.comp2522.termproject.pandahamster.GameTimer;
+import org.jbox2d.common.Vec2;
 
 /**
  * Represents an object of type GrenadeLauncher.
@@ -58,6 +59,8 @@ public class GrenadeLauncher extends AbstractWeapon {
     public void attack() {
         if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
             setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
+            Vec2 target = getMouseDirection();
+            fireSingleShot(ATTACK_RANGE, target);
         }
     }
 }
