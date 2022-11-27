@@ -1,8 +1,16 @@
 package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
-import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
-import ca.bcit.comp2522.termproject.pandahamster.GameTimer;
+import ca.bcit.comp2522.termproject.pandahamster.*;
+import javafx.application.Platform;
+import javafx.scene.shape.Circle;
+import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.FixtureDef;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Represents an object of type GrenadeLauncher.
@@ -62,5 +70,40 @@ public class GrenadeLauncher extends AbstractWeapon {
             Vec2 target = getMouseDirection();
             fireSingleShot(ATTACK_RANGE, target);
         }
+    }
+
+    @Override
+    public void createBulletEffect(final Bullet bullet) {
+        Vec2 bulletLocation = new Vec2(bullet.getXPosition(), bullet.getYPosition());
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(bulletLocation.x, bulletLocation.y);
+        Body explosion = WorldManager.getInstance().createBody(bodyDef);
+        CircleShape explosionRadius = new CircleShape();
+        explosionRadius.setRadius(4);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = explosionRadius;
+        fixtureDef.isSensor = true;
+        explosion.createFixture(fixtureDef);
+        Circle circle = new Circle();
+        circle.setRadius(30);
+        circle.setCenterX(bulletLocation.x);
+        circle.setCenterY(bulletLocation.y);
+        PandaHamster.getGroup().getChildren().add(circle);
+        Timer timer = new Timer();
+        final float start = GameTimer.getElapsedSeconds();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    if (GameTimer.getElapsedSeconds() - start >= 1) {
+                        PandaHamster.getGroup().getChildren().remove(circle);
+                        WorldManager.getInstance().removeBody(explosion);
+                        timer.cancel();
+                    }
+                });
+            }
+        };
+        final long period = (long) ((1 / 60f) * 1000);
+        timer.schedule(timerTask, 0, period);
     }
 }
