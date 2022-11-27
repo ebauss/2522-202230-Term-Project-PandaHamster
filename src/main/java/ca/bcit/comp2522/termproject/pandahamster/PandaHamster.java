@@ -15,6 +15,8 @@ import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledReader;
 
+import java.text.NumberFormat;
+
 /**
  * Entry point into the game.
  * @author Evon Bausa & Alex Liu
@@ -51,6 +53,7 @@ public class PandaHamster extends Application {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(final long now) {
+                System.out.println(GameTimer.getElapsedSeconds());
                 WorldManager.getInstance().updateWorld();
                 player.faceMouseDirection();
                 BulletManager.cleanup();
