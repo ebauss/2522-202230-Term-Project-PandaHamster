@@ -20,10 +20,10 @@ public class Bullet extends GameEntity {
      * @param x x
      * @param y y
      */
-    public Bullet(final float x, final float y) {
+    public Bullet(final float x, final float y, final float maxRange) {
         super(x, y, 2, 2);
         bulletSprite = new Rectangle(x, y, 2, 2);
-        maxRange = 100;
+        this.maxRange = maxRange;
     }
 
     /**
