@@ -10,6 +10,7 @@ public abstract class AbstractWeapon extends AbstractShooter {
     private long ammoCapacity;
     private long clipSize;
     private long currentClipCount;
+    private float lastAttackTimeInSeconds;
 
     /**
      * Constructs an object of type AbstractWeapon.
@@ -37,5 +38,19 @@ public abstract class AbstractWeapon extends AbstractShooter {
      */
     public void reload() {
         this.currentClipCount = this.clipSize;
+    }
+    /**
+     * Gets the last attack time for the current weapon in seconds.
+     * @return last attack time of current weapon in seconds
+     */
+    public float getLastAttackTimeInSeconds() {
+        return lastAttackTimeInSeconds;
+    }
+    /**
+     * Sets the last attack time in seconds of the current weapon to the specified value.
+     * @param lastAttackTimeInSeconds a float representing the time when the current weapon attack was triggered.
+     */
+    public void setLastAttackTimeInSeconds(final float lastAttackTimeInSeconds) {
+        this.lastAttackTimeInSeconds = lastAttackTimeInSeconds;
     }
 }
