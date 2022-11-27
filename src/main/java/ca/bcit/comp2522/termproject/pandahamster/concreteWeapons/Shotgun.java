@@ -62,12 +62,18 @@ public class Shotgun extends AbstractWeapon {
             Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
                     / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
             Vec2 target = getMouseDirection();
-            final int bulletDistance = 15;
+            /*
+                Since each bullet will be (15, 15) away from each other, subtract 45 so the center bullet is
+                where mouse position was when pressed. Bullets will be initially placed in a cone arrangement.
+             */
+            final float bulletDistance = 15;
             final int totalPellets = 5;
             final int middlePellet = totalPellets / 2 + 1;
-            Vec2 start = target.sub(new Vec2(bulletDistance, bulletDistance));
+            Vec2 start = target.sub(
+                    new Vec2(bulletDistance * (middlePellet), bulletDistance * (middlePellet)));
             for (int i = 0; i < totalPellets; i++) {
-                if (i < middlePellet) {
+                // first 3 bullets will be first half of the cone
+                if (i < totalPellets / 2 + 1) {
                     start = start.add(new Vec2(bulletDistance, bulletDistance));
                 } else {
                     start = start.sub(new Vec2(0, bulletDistance));
