@@ -231,4 +231,7 @@ public final class WorldManager {
     public void removeBody(final Body body) {
         world.destroyBody(body);
     }
+    public Body createBody(final BodyDef bodyDef) {
+        return world.createBody(bodyDef);
+    }
 }
