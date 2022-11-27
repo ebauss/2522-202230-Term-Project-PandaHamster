@@ -1,5 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.AssaultRifle;
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.GrenadeLauncher;
 import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Pistol;
 import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Shotgun;
 import javafx.scene.input.KeyEvent;
@@ -45,7 +47,7 @@ public class Player extends GameEntity implements DynamicEntity {
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
         weaponInventory = new ArrayList<>();
-        AbstractWeapon pistol = new Shotgun();
+        AbstractWeapon pistol = new GrenadeLauncher();
         weaponInventory.add(pistol);
         currentWeapon = pistol;
         playerSprite = new Rectangle(0, 0 , 16, 16);
@@ -128,6 +130,14 @@ public class Player extends GameEntity implements DynamicEntity {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Gets the currentWeapon instance variable.
+     * @return currentWeapon variable as an AbstractWeapon
+     */
+    public AbstractWeapon getCurrentWeapon() {
+        return currentWeapon;
     }
 
     /**
