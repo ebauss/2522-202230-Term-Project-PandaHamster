@@ -1,7 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
-import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
-import ca.bcit.comp2522.termproject.pandahamster.aliens.FodderAlien;
+import ca.bcit.comp2522.termproject.pandahamster.aliens.*;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -58,15 +57,54 @@ public class AlienWaveGenerator {
      * Generates the wave of aliens.
      */
     public void generateWaveOfAliens() {
-        Random randomNumber = new Random();
+        // TODO Add a function parameter that sends the current wave count as an int.
+        int waveCount = 0;
+
+        // hard coded counts for spawn amounts for each alien type.
+        int[] fodderWaveArray = {10, 20, 30, 40, 50};
+        int[] gunnerWaveArray = {5, 10, 15, 20, 25};
+        int[] speedyWaveArray = {10, 11, 12, 13, 14};
+        int[] tankWaveArray = {5, 6, 7, 8, 9};
+
+        // Sets the bounds for generated x and y values.
         long leftLimit = 0L;
         long rightLimit = (long) mapHeight;
 
-        for (int i = 0; i < 10; i++) {
-            long generatedLongOne = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
-            long generatedLongTwo = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+        for (int fodderCount = 0; fodderCount < fodderWaveArray[waveCount]; fodderCount++) {
+            long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+            long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 
-            AbstractEnemy newAlien = new FodderAlien(generatedLongOne, generatedLongTwo, 16, 16,
+            AbstractEnemy newAlien = new FodderAlien(randomXCoordinate, randomYCoordinate, 16, 16,
+                    100, 100);
+            alienCollection.add(newAlien);
+            WorldManager.getInstance().createDynamicRectangle(newAlien);
+        }
+
+        for (int gunnerCount = 0; gunnerCount < gunnerWaveArray[waveCount]; gunnerCount++) {
+            long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+            long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+
+            AbstractEnemy newAlien = new GunnerAlien(randomXCoordinate, randomYCoordinate, 20, 20,
+                    100, 100);
+            alienCollection.add(newAlien);
+            WorldManager.getInstance().createDynamicRectangle(newAlien);
+        }
+
+        for (int speedyCount = 0; speedyCount < speedyWaveArray[waveCount]; speedyCount++) {
+            long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+            long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+
+            AbstractEnemy newAlien = new SpeedyAlien(randomXCoordinate, randomYCoordinate, 10, 10,
+                    100, 100);
+            alienCollection.add(newAlien);
+            WorldManager.getInstance().createDynamicRectangle(newAlien);
+        }
+
+        for (int tankCount = 0; tankCount < tankWaveArray[waveCount]; tankCount++) {
+            long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+            long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+
+            AbstractEnemy newAlien = new TankAlien(randomXCoordinate, randomYCoordinate, 30, 30,
                     100, 100);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien);
