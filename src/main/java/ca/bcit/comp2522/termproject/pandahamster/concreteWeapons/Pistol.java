@@ -64,7 +64,7 @@ public class Pistol extends AbstractWeapon {
         // gets the angle in radians
         float desiredAngle = (float) Math.atan2(-targetPos.x, targetPos.y);
         final float radToDeg = 57.2958f;
-        Bullet bullet = new Bullet(playerPos.x, playerPos.y);
+        Bullet bullet = new Bullet(playerPos.x, playerPos.y, Pistol.ATTACK_RANGE);
         bullet.getBulletSprite().setRotate(desiredAngle * radToDeg);
         bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
         BulletManager.addBullets(bullet);
