@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
 import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
+import ca.bcit.comp2522.termproject.pandahamster.GameTimer;
 
 /**
  * Represents an object of type GrenadeLauncher.
@@ -51,10 +52,12 @@ public class GrenadeLauncher extends AbstractWeapon {
     }
 
     /**
-     * Deals damage to the enemy.
+     * Performs the attack method for a grenade launcher. Shoots a single bullet which will explode in a radius.
      */
     @Override
     public void attack() {
-        // TODO Implement this
+        if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
+            setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
+        }
     }
 }
