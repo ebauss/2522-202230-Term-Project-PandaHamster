@@ -2,6 +2,8 @@ package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
 import ca.bcit.comp2522.termproject.pandahamster.AbstractWeapon;
 import ca.bcit.comp2522.termproject.pandahamster.Bullet;
+import ca.bcit.comp2522.termproject.pandahamster.GameTimer;
+import org.jbox2d.common.Vec2;
 
 /**
  * Represents an object of type Sniper.
@@ -56,7 +58,11 @@ public class Sniper extends AbstractWeapon {
      */
     @Override
     public void attack() {
-        // TODO Implement this
+        if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
+            setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
+            Vec2 target = getMouseDirection();
+            fireSingleShot(ATTACK_RANGE, target);
+        }
     }
 
     @Override
