@@ -38,5 +38,9 @@
  </layer>
  <objectgroup id="2" name="Object Layer 1">
   <object id="6" name="base" x="208" y="208" width="64" height="64"/>
+  <object id="9" x="1.33333" y="478.667" width="478.667" height="2.66667"/>
+    <object id="11" x="-1.00017" y="-1.33333" width="480" height="2.66667"/>
+    <object id="12" x="480" y="-0.666667" width="3.33333" height="482"/>
+    <object id="13" x="-3.33333" y="-1" width="3.33333" height="482"/>
  </objectgroup>
 </map>
