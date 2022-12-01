@@ -3,6 +3,8 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
 import ca.bcit.comp2522.termproject.pandahamster.Attacker;
 import ca.bcit.comp2522.termproject.pandahamster.DynamicEntity;
 import ca.bcit.comp2522.termproject.pandahamster.GameEntity;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.Vec2;
 
@@ -17,7 +19,7 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
     private final long killExperienceValue;
     private final float speed;
     private long healthPoints;
-    private Rectangle alienSprite;
+    private ImageView alienSprite;
 
     /**
      * Constructs an object of type AbstractEnemy.
@@ -40,7 +42,11 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
         this.killExperienceValue = someKillExperienceValue;
         this.speed = someSpeed;
         this.healthPoints = someHealthPoints;
-        alienSprite = new Rectangle(someXPosition, someYPosition, someHeight, someWidth);
+        this.xPosition = someXPosition;
+        this.yPosition = someYPosition;
+        alienSprite = new ImageView(new Image("fodderAlien.png"));
+        alienSprite.setFitHeight(someHeight);
+        alienSprite.setFitWidth(someWidth);
     }
 
     /**
@@ -69,7 +75,7 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
      *
      * @return the alien Rectangle object
      */
-    public Rectangle getAlienSprite() {
+    public ImageView getAlienSprite() {
         return alienSprite;
     }
 
