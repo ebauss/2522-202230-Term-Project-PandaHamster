@@ -6,6 +6,7 @@ import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Pistol;
 import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Shotgun;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.MathUtils;
@@ -54,9 +55,11 @@ public class Player extends GameEntity implements DynamicEntity {
         setXPosition(0);
         setYPosition(0);
         weaponInventory = new ArrayList<>();
-        AbstractWeapon pistol = new GrenadeLauncher();
-        weaponInventory.add(pistol);
-        currentWeapon = pistol;
+        AbstractWeapon grenadeLauncher = new GrenadeLauncher();
+        AbstractWeapon shotgun = new Shotgun();
+        weaponInventory.add(grenadeLauncher);
+        weaponInventory.add(shotgun);
+        currentWeapon = grenadeLauncher;
         // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
         playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -65,6 +68,7 @@ public class Player extends GameEntity implements DynamicEntity {
                 case A -> moveLeft();
                 case S -> moveDown();
                 case D -> moveRight();
+                case Q, E -> switchWeapon(event.getCode());
                 case LEFT -> rotateCounterClockwise();
                 case RIGHT -> rotateClockwise();
                 default -> { }
@@ -144,6 +148,32 @@ public class Player extends GameEntity implements DynamicEntity {
      */
     public AbstractWeapon getCurrentWeapon() {
         return currentWeapon;
+    }
+
+    /**
+     * Switches the current the player is holding. Q will go to the previous weapon, E will go to the next weapon.
+     * @param keyCode code of the key pressed
+     */
+    public void switchWeapon(final KeyCode keyCode) {
+        final int currentWeaponIndex = weaponInventory.indexOf(currentWeapon);
+        switch (keyCode) {
+            case Q -> {
+                int prevWeaponIndex = currentWeaponIndex - 1;
+                if (prevWeaponIndex < 0) {
+                    prevWeaponIndex = weaponInventory.size() - 1;
+                }
+                currentWeapon = weaponInventory.get(prevWeaponIndex);
+            }
+            case E -> {
+                int nextWeaponIndex = currentWeaponIndex + 1;
+                if (nextWeaponIndex >= weaponInventory.size()) {
+                    nextWeaponIndex = 0;
+                }
+                currentWeapon = weaponInventory.get(nextWeaponIndex);
+            }
+            default -> { }
+        }
+        System.out.println(currentWeapon.getName());
     }
 
     /**
