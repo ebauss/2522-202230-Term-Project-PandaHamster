@@ -9,22 +9,20 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
 public class FodderAlien extends AbstractEnemy {
     private static final float FODDER_ALIEN_SPEED = 10f;
     private static final long FODDER_ALIEN_HEALTH = 100;
+    private static final long FODDER_ALIEN_WIDTH = 16;
+    private static final long FODDER_ALIEN_HEIGHT = 16;
+    private static final long FODDER_ALIEN_KILL_MONEY = 50;
+    private static final long FODDER_ALIEN_KILL_EXPERIENCE = 50;
 
     /**
      * Constructs an object of type FodderAlien.
      *
      * @param someXPosition           xPosition of class as a long
      * @param someYPosition           yPosition of class as a long
-     * @param someWidth               width of class as a long
-     * @param someHeight              height of class as a long
-     * @param someKillMoneyValue the amount of money the player receives for killing the enemy
-     * @param someKillExperienceValue the amount of experience the player receives for killing the enemy
      */
-    public FodderAlien(final long someXPosition, final long someYPosition,
-                       final long someWidth, final long someHeight,
-                       final long someKillMoneyValue, final long someKillExperienceValue) {
-        super(someXPosition, someYPosition, someWidth, someHeight, someKillMoneyValue, someKillExperienceValue,
-                FODDER_ALIEN_SPEED, FODDER_ALIEN_HEALTH);
+    public FodderAlien(final long someXPosition, final long someYPosition) {
+        super(someXPosition, someYPosition, FODDER_ALIEN_WIDTH, FODDER_ALIEN_HEIGHT,
+                FODDER_ALIEN_KILL_MONEY, FODDER_ALIEN_KILL_EXPERIENCE, FODDER_ALIEN_SPEED, FODDER_ALIEN_HEALTH);
     }
 
     /**

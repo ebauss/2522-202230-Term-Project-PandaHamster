@@ -74,8 +74,7 @@ public class AlienWaveGenerator {
             long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
             long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 
-            AbstractEnemy newAlien = new FodderAlien(randomXCoordinate, randomYCoordinate, 16, 16,
-                    100, 100);
+            AbstractEnemy newAlien = new FodderAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
         }
