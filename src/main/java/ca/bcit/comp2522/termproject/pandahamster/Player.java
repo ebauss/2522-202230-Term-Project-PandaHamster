@@ -4,6 +4,8 @@ import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.AssaultRifle;
 import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.GrenadeLauncher;
 import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Pistol;
 import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Shotgun;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.MathUtils;
@@ -31,7 +33,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private List<AbstractWeapon> weaponInventory;
     private AbstractWeapon currentWeapon;
     private short lifeCount;
-    private Rectangle playerSprite;
+    private ImageView playerSprite;
     private final float speed = 40f;
     private final float angularVelocity = 10;
 
@@ -46,12 +48,15 @@ public class Player extends GameEntity implements DynamicEntity {
         this.level = 1;
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
-        playerSprite = new Rectangle(0, 0, 16, 16);
+        playerSprite = new ImageView(new Image("fodderAlien.png"));
+        playerSprite.setFitHeight(16);
+        playerSprite.setFitWidth(16);
+        setXPosition(0);
+        setYPosition(0);
         weaponInventory = new ArrayList<>();
         AbstractWeapon pistol = new GrenadeLauncher();
         weaponInventory.add(pistol);
         currentWeapon = pistol;
-        playerSprite = new Rectangle(0, 0 , 16, 16);
         // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
         playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -145,7 +150,7 @@ public class Player extends GameEntity implements DynamicEntity {
      * Gets the playerSprite instance variable.
      * @return playerSprite instance variable as a Rectangle
      */
-    public Rectangle getPlayerSprite() {
+    public ImageView getPlayerSprite() {
         return playerSprite;
     }
 

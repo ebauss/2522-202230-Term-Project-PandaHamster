@@ -1,5 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
 import org.jbox2d.callbacks.ContactFilter;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
@@ -204,6 +205,13 @@ public final class WorldManager {
                     ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
                 } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() == null) {
                     ((Bullet) bodyA.getUserData()).setMarkedForRemoval(true);
+                }
+                if (bodyA.getUserData() instanceof AbstractEnemy && bodyB.getUserData() instanceof Bullet) {
+                    ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
+                    System.out.println("hit enemy");
+                } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() instanceof AbstractEnemy) {
+                    ((Bullet) bodyA.getUserData()).setMarkedForRemoval(true);
+                    System.out.println("hit enemy");
                 }
             }
 
