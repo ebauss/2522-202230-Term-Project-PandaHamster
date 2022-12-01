@@ -200,6 +200,7 @@ public final class WorldManager {
                 Body bodyA = contact.getFixtureA().getBody();
                 Body bodyB = contact.getFixtureB().getBody();
                 // checks for bullet colliding with obstacles
+                // TODO This is where I can decrease the health of the alien
                 if (bodyA.getUserData() == null && bodyB.getUserData() instanceof Bullet) {
                     ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
                 } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() == null) {
