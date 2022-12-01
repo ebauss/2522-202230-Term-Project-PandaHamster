@@ -83,8 +83,7 @@ public class AlienWaveGenerator {
             long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
             long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 
-            AbstractEnemy newAlien = new GunnerAlien(randomXCoordinate, randomYCoordinate, 20, 20,
-                    100, 100);
+            AbstractEnemy newAlien = new GunnerAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
         }
@@ -93,8 +92,7 @@ public class AlienWaveGenerator {
             long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
             long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 
-            AbstractEnemy newAlien = new SpeedyAlien(randomXCoordinate, randomYCoordinate, 10, 10,
-                    100, 100);
+            AbstractEnemy newAlien = new SpeedyAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
         }
@@ -103,8 +101,7 @@ public class AlienWaveGenerator {
             long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
             long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 
-            AbstractEnemy newAlien = new TankAlien(randomXCoordinate, randomYCoordinate, 30, 30,
-                    100, 100);
+            AbstractEnemy newAlien = new TankAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
         }
