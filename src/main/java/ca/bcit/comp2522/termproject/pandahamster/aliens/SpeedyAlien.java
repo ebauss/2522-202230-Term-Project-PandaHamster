@@ -13,6 +13,7 @@ public class SpeedyAlien extends AbstractEnemy {
     private static final long SPEEDY_ALIEN_HEIGHT = 10;
     private static final long SPEEDY_ALIEN_KILL_MONEY = 70;
     private static final long SPEEDY_ALIEN_KILL_EXPERIENCE = 70;
+    private static final String SPEEDY_ALIEN_SPRITE_IMAGE_FILE_NAME = "speedyAlien.png";
 
     /**
      * Constructs an object of type SpeedyAlien.
@@ -22,7 +23,8 @@ public class SpeedyAlien extends AbstractEnemy {
      */
     public SpeedyAlien(final long someXPosition, final long someYPosition) {
         super(someXPosition, someYPosition, SPEEDY_ALIEN_WIDTH, SPEEDY_ALIEN_HEIGHT,
-                SPEEDY_ALIEN_KILL_MONEY, SPEEDY_ALIEN_KILL_EXPERIENCE, SPEEDY_ALIEN_SPEED, SPEEDY_ALIEN_HEALTH);
+                SPEEDY_ALIEN_KILL_MONEY, SPEEDY_ALIEN_KILL_EXPERIENCE, SPEEDY_ALIEN_SPEED, SPEEDY_ALIEN_HEALTH,
+                SPEEDY_ALIEN_SPRITE_IMAGE_FILE_NAME);
     }
 
     /**

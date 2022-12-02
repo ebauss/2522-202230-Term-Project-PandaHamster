@@ -13,6 +13,7 @@ public class FodderAlien extends AbstractEnemy {
     private static final long FODDER_ALIEN_HEIGHT = 16;
     private static final long FODDER_ALIEN_KILL_MONEY = 50;
     private static final long FODDER_ALIEN_KILL_EXPERIENCE = 50;
+    private static final String FODDER_ALIEN_SPRITE_IMAGE_FILE_NAME = "fodderAlien.png";
 
     /**
      * Constructs an object of type FodderAlien.
@@ -22,7 +23,8 @@ public class FodderAlien extends AbstractEnemy {
      */
     public FodderAlien(final long someXPosition, final long someYPosition) {
         super(someXPosition, someYPosition, FODDER_ALIEN_WIDTH, FODDER_ALIEN_HEIGHT,
-                FODDER_ALIEN_KILL_MONEY, FODDER_ALIEN_KILL_EXPERIENCE, FODDER_ALIEN_SPEED, FODDER_ALIEN_HEALTH);
+                FODDER_ALIEN_KILL_MONEY, FODDER_ALIEN_KILL_EXPERIENCE, FODDER_ALIEN_SPEED, FODDER_ALIEN_HEALTH,
+                FODDER_ALIEN_SPRITE_IMAGE_FILE_NAME);
     }
 
     /**

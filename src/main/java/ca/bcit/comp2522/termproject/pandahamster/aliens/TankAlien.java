@@ -13,6 +13,7 @@ public class TankAlien extends AbstractEnemy {
     private static final long TANK_ALIEN_HEIGHT = 30;
     private static final long TANK_ALIEN_KILL_MONEY = 100;
     private static final long TANK_ALIEN_KILL_EXPERIENCE = 100;
+    private static final String TANK_ALIEN_SPRITE_IMAGE_FILE_NAME = "tankAlien.png";
 
     /**
      * Constructs an object of type TankAlien.
@@ -22,7 +23,8 @@ public class TankAlien extends AbstractEnemy {
      */
     public TankAlien(final long someXPosition, final long someYPosition) {
         super(someXPosition, someYPosition, TANK_ALIEN_WIDTH, TANK_ALIEN_HEIGHT,
-                TANK_ALIEN_KILL_MONEY, TANK_ALIEN_KILL_EXPERIENCE, TANK_ALIEN_SPEED, TANK_ALIEN_HEALTH);
+                TANK_ALIEN_KILL_MONEY, TANK_ALIEN_KILL_EXPERIENCE, TANK_ALIEN_SPEED, TANK_ALIEN_HEALTH,
+                TANK_ALIEN_SPRITE_IMAGE_FILE_NAME);
     }
 
     /**

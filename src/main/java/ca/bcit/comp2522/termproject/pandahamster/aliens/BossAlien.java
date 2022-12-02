@@ -13,6 +13,7 @@ public class BossAlien extends AbstractEnemy {
     private static final long BOSS_ALIEN_HEIGHT = 50;
     private static final long BOSS_ALIEN_KILL_MONEY = 200;
     private static final long BOSS_ALIEN_KILL_EXPERIENCE = 200;
+    private static final String BOSS_ALIEN_SPRITE_IMAGE_FILE_NAME = "bossAlien.png";
 
     /**
      * Constructs an object of type BossAlien.
@@ -22,7 +23,7 @@ public class BossAlien extends AbstractEnemy {
      */
     public BossAlien(final long someXPosition, final long someYPosition) {
         super(someXPosition, someYPosition, BOSS_ALIEN_WIDTH, BOSS_ALIEN_HEIGHT, BOSS_ALIEN_KILL_MONEY,
-                BOSS_ALIEN_KILL_EXPERIENCE, BOSS_ALIEN_SPEED, BOSS_ALIEN_HEALTH);
+                BOSS_ALIEN_KILL_EXPERIENCE, BOSS_ALIEN_SPEED, BOSS_ALIEN_HEALTH, BOSS_ALIEN_SPRITE_IMAGE_FILE_NAME);
     }
 
     /**

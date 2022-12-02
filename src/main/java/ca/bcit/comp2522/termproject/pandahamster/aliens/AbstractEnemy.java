@@ -23,19 +23,20 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
     /**
      * Constructs an object of type AbstractEnemy.
      *
-     * @param someXPosition           xPosition of class as a long
-     * @param someYPosition           yPosition of class as a long
-     * @param someWidth               width of class as a long
-     * @param someHeight              height of class as a long
-     * @param someKillMoneyValue      the amount of money the player receives for killing the enemy
-     * @param someKillExperienceValue the amount of experience the player receives for killing the enemy
-     * @param someSpeed               the speed of the alien
-     * @param someHealthPoints        the health of the alien
+     * @param someXPosition            xPosition of class as a long
+     * @param someYPosition            yPosition of class as a long
+     * @param someWidth                width of class as a long
+     * @param someHeight               height of class as a long
+     * @param someKillMoneyValue       the amount of money the player receives for killing the enemy
+     * @param someKillExperienceValue  the amount of experience the player receives for killing the enemy
+     * @param someSpeed                the speed of the alien
+     * @param someHealthPoints         the health of the alien
+     * @param someAlienSpriteImageFileName the file name of the image
      */
     public AbstractEnemy(final long someXPosition, final long someYPosition,
                          final long someWidth, final long someHeight,
                          final long someKillMoneyValue, final long someKillExperienceValue, final float someSpeed,
-                         final long someHealthPoints) {
+                         final long someHealthPoints, final String someAlienSpriteImageFileName) {
         super(someXPosition, someYPosition, someWidth, someHeight);
         this.killMoneyValue = someKillMoneyValue;
         this.killExperienceValue = someKillExperienceValue;
@@ -43,7 +44,7 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
         this.healthPoints = someHealthPoints;
         this.xPosition = someXPosition;
         this.yPosition = someYPosition;
-        alienSprite = new ImageView(new Image("fodderAlien.png"));
+        alienSprite = new ImageView(new Image(someAlienSpriteImageFileName));
         alienSprite.setFitHeight(someHeight);
         alienSprite.setFitWidth(someWidth);
     }
