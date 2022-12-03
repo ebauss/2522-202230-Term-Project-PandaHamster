@@ -79,6 +79,7 @@ public abstract class AbstractWeapon extends AbstractShooter {
      * @param target the direction vector of where to fire the bullet
      */
     public void fireSingleShot(final float attackRange, final Vec2 target) {
+        decreaseCurrentClip(1);
         Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
                 / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
         Bullet bullet = new Bullet(playerPos.x, playerPos.y, attackRange, GameEntityType.Player);
@@ -109,4 +110,7 @@ public abstract class AbstractWeapon extends AbstractShooter {
      * @param bullet the bullet for the effect
      */
     public abstract void createBulletEffect(Bullet bullet);
+    private void decreaseCurrentClip(final int bulletsShot) {
+        currentClipCount -= bulletsShot;
+    }
 }
