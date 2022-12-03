@@ -66,7 +66,7 @@ public class AlienWaveGenerator {
 
         // Sets the bounds for generated x and y values.
         long leftLimit = 0L;
-        long rightLimit = (long) mapHeight;
+        long rightLimit = (long) mapHeight - 50;
 
         for (int fodderCount = 0; fodderCount < fodderWaveArray[currentWave]; fodderCount++) {
             long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
