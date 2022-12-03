@@ -56,6 +56,9 @@ public abstract class AbstractWeapon extends AbstractShooter {
     public void setLastAttackTimeInSeconds(final float lastAttackTimeInSeconds) {
         this.lastAttackTimeInSeconds = lastAttackTimeInSeconds;
     }
+    public long getCurrentClipCount() {
+        return currentClipCount;
+    }
 
     /**
      * Gets the direction vector of the mouse in relation to the center of the player.
