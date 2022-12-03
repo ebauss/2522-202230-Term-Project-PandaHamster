@@ -54,7 +54,7 @@ public class Player extends GameEntity implements DynamicEntity {
         setXPosition(0);
         setYPosition(0);
         weaponInventory = new ArrayList<>();
-        AbstractWeapon pistol = new GrenadeLauncher();
+        AbstractWeapon pistol = new Shotgun();
         weaponInventory.add(pistol);
         currentWeapon = pistol;
         // allows the rectangle to 'listen' to key events

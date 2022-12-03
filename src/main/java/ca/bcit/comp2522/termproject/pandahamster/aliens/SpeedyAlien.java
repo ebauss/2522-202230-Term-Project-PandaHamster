@@ -9,22 +9,22 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
 public class SpeedyAlien extends AbstractEnemy {
     private static final float SPEEDY_ALIEN_SPEED = 10f;
     private static final long SPEEDY_ALIEN_HEALTH = 100;
+    private static final long SPEEDY_ALIEN_WIDTH = 10;
+    private static final long SPEEDY_ALIEN_HEIGHT = 10;
+    private static final long SPEEDY_ALIEN_KILL_MONEY = 70;
+    private static final long SPEEDY_ALIEN_KILL_EXPERIENCE = 70;
+    private static final String SPEEDY_ALIEN_SPRITE_IMAGE_FILE_NAME = "speedyAlien.png";
 
     /**
      * Constructs an object of type SpeedyAlien.
      *
      * @param someXPosition           xPosition of class as a long
      * @param someYPosition           yPosition of class as a long
-     * @param someWidth               width of class as a long
-     * @param someHeight              height of class as a long
-     * @param someKillMoneyValue the amount of money the player receives for killing the enemy
-     * @param someKillExperienceValue the amount of experience the player receives for killing the enemy
      */
-    public SpeedyAlien(final long someXPosition, final long someYPosition,
-                       final long someWidth, final long someHeight,
-                       final long someKillMoneyValue, final long someKillExperienceValue) {
-        super(someXPosition, someYPosition, someWidth, someHeight, someKillMoneyValue, someKillExperienceValue,
-                SPEEDY_ALIEN_SPEED, SPEEDY_ALIEN_HEALTH);
+    public SpeedyAlien(final long someXPosition, final long someYPosition) {
+        super(someXPosition, someYPosition, SPEEDY_ALIEN_WIDTH, SPEEDY_ALIEN_HEIGHT,
+                SPEEDY_ALIEN_KILL_MONEY, SPEEDY_ALIEN_KILL_EXPERIENCE, SPEEDY_ALIEN_SPEED, SPEEDY_ALIEN_HEALTH,
+                SPEEDY_ALIEN_SPRITE_IMAGE_FILE_NAME);
     }
 
     /**
