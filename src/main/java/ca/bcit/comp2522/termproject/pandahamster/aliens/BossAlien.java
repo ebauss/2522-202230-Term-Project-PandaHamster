@@ -8,7 +8,7 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
  */
 public class BossAlien extends AbstractEnemy {
     private static final float BOSS_ALIEN_SPEED = 10f;
-    private static final long BOSS_ALIEN_HEALTH = 100;
+    private static final long BOSS_ALIEN_HEALTH = 1000;
     private static final long BOSS_ALIEN_WIDTH =  50;
     private static final long BOSS_ALIEN_HEIGHT = 50;
     private static final long BOSS_ALIEN_KILL_MONEY = 200;

@@ -7,8 +7,8 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
  * @version 2022
  */
 public class SpeedyAlien extends AbstractEnemy {
-    private static final float SPEEDY_ALIEN_SPEED = 10f;
-    private static final long SPEEDY_ALIEN_HEALTH = 100;
+    private static final float SPEEDY_ALIEN_SPEED = 20f;
+    private static final long SPEEDY_ALIEN_HEALTH = 50;
     private static final long SPEEDY_ALIEN_WIDTH = 10;
     private static final long SPEEDY_ALIEN_HEIGHT = 10;
     private static final long SPEEDY_ALIEN_KILL_MONEY = 70;

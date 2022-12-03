@@ -8,7 +8,7 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
  */
 public class FodderAlien extends AbstractEnemy {
     private static final float FODDER_ALIEN_SPEED = 10f;
-    private static final long FODDER_ALIEN_HEALTH = 100;
+    private static final long FODDER_ALIEN_HEALTH = 50;
     private static final long FODDER_ALIEN_WIDTH = 16;
     private static final long FODDER_ALIEN_HEIGHT = 16;
     private static final long FODDER_ALIEN_KILL_MONEY = 50;
