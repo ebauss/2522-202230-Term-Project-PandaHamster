@@ -78,11 +78,7 @@ public class Shotgun extends AbstractWeapon {
                 } else {
                     start = start.sub(new Vec2(0, bulletDistance));
                 }
-                Bullet bullet = new Bullet(playerPos.x, playerPos.y, ATTACK_RANGE, GameEntityType.Player);
-                bullet.setOrigin(new Vec2(playerPos.x, playerPos.y));
-                BulletManager.addBullets(bullet);
-                bullet.getBody().getFixtureList().m_isSensor = true;
-                applyVelocity(bullet, start, start);
+                fireSingleShot(ATTACK_RANGE, start, start);
             }
         }
     }
