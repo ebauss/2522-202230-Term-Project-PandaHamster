@@ -40,6 +40,11 @@ public class PandaHamster extends Application {
         StackPane stackPane = MapRenderer.render(map);
         root = new Group(stackPane);
         Player player = Player.getInstance();
+        // Instantiate single instance of AlienWaveGenerator
+        AlienWaveGenerator alienWaveGenerator = AlienWaveGenerator
+                .getInstance(map.getHeight() * map.getTileHeight(),
+                        map.getWidth() * map.getTileWidth());
+
         root.getChildren().add(player.getPlayerSprite());
         root.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
             MousePositionTracker.setMouseLocation(event.getX(), event.getY());
@@ -51,25 +56,30 @@ public class PandaHamster extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        // Generate aliens
+        alienWaveGenerator.generateWaveOfAliens();
+        for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
+            root.getChildren().add(alienSprite.getAlienSprite());
+        }
+        alienWaveGenerator.moveAliensTowardBase();
+
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(final long now) {
                 WorldManager.getInstance().updateWorld();
                 player.faceMouseDirection();
                 BulletManager.cleanup();
+
+                // TODO Remove alien from map if it is dead.
+                for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
+                    if (alienSprite.getHealthPoints() <= 0) {
+                        root.getChildren().remove(alienSprite.getAlienSprite());
+                        WorldManager.getInstance().removeBody(alienSprite.getBody());
+                    }
+                }
             }
         };
-
-        // Instantiate single instance of AlienWaveGenerator
-        AlienWaveGenerator alienWaveGenerator = AlienWaveGenerator
-                .getInstance(map.getHeight() * map.getTileHeight(),
-                        map.getWidth() * map.getTileWidth());
-        System.out.println(map.getHeight() * map.getTileHeight());
-        alienWaveGenerator.generateWaveOfAliens();
-        for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
-            root.getChildren().add(alienSprite.getAlienSprite());
-        }
-        alienWaveGenerator.moveAliensTowardBase();
 
         animationTimer.start();
         AnimationTimer bulletShooting = new AnimationTimer() {

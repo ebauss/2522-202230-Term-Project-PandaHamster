@@ -48,7 +48,7 @@ public class Player extends GameEntity implements DynamicEntity {
         this.money = ONE_HUNDRED;
         playerSprite = new Rectangle(0, 0, 16, 16);
         weaponInventory = new ArrayList<>();
-        AbstractWeapon pistol = new GrenadeLauncher();
+        AbstractWeapon pistol = new Shotgun();
         weaponInventory.add(pistol);
         currentWeapon = pistol;
         playerSprite = new Rectangle(0, 0 , 16, 16);
