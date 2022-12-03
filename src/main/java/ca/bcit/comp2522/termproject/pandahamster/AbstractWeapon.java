@@ -3,6 +3,9 @@ package ca.bcit.comp2522.termproject.pandahamster;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Represents an abstract class of type AbstractWeapon.
  *
@@ -40,7 +43,26 @@ public abstract class AbstractWeapon extends AbstractShooter {
      * Reloads the current magazine.
      */
     public void reload() {
-        this.currentClipCount = this.clipSize;
+        final AbstractWeapon currentWeapon = Player.getInstance().getCurrentWeapon();
+        final float timeOfReload = GameTimer.getElapsedSeconds();
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                // if player switches weapon when reloading, stop reloading
+                if (Player.getInstance().getCurrentWeapon() != currentWeapon) {
+                    timer.cancel();
+                }
+                // if one second passed without switching weapon, reload the weapon
+                if (GameTimer.getElapsedSeconds() - timeOfReload >= 1) {
+                    setCurrentClipCount(getCurrentClipCount());
+                    timer.cancel();
+                }
+            }
+        };
+        final long period = (long) ((1 / 60f) * 1000);
+        // runs the timer task every frame
+        timer.schedule(timerTask, 0, period);
     }
     /**
      * Gets the last attack time for the current weapon in seconds.
@@ -58,6 +80,30 @@ public abstract class AbstractWeapon extends AbstractShooter {
     }
     public long getCurrentClipCount() {
         return currentClipCount;
+    }
+    public void setCurrentClipCount(final long currentClipCount) {
+        // get amount required to fill magazine back to full
+        long amountToReload = clipSize - currentClipCount;
+        // check if there is enough ammo to fill the clip back up
+        if (amountToReload > ammoCapacity) {
+            // if there isn't, the amount to reload will just be whatever ammo is left
+            amountToReload = ammoCapacity;
+        }
+        // decrease ammo by how much was filled in the magazine
+        ammoCapacity -= amountToReload;
+        // fill up the clip
+        this.currentClipCount = currentClipCount + amountToReload;
+        System.out.println("amount reloaded: " + amountToReload);
+    }
+    public long getClipSize() {
+        return clipSize;
+    }
+
+    public long getAmmoCapacity() {
+        return ammoCapacity;
+    }
+    public void setAmmoCapacity(long ammoCapacity) {
+        this.ammoCapacity = ammoCapacity;
     }
 
     /**
