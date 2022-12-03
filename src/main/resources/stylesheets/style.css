@@ -1,0 +1,10 @@
+.game-bar {
+    -fx-border-width: 3px;
+    -fx-border-color: darkgray;
+    -fx-background-color: lightgray;
+}
+
+.game-label {
+    -fx-text-alignment: center;
+    -fx-padding: 3px;
+}
