@@ -186,7 +186,9 @@ public class Player extends GameEntity implements DynamicEntity {
      * Calls the attack() method for currentWeapon.
      */
     public void pullTrigger() {
-        this.currentWeapon.attack();
+        if (currentWeapon.getCurrentClipCount() > 0) {
+            this.currentWeapon.attack();
+        }
         System.out.println(currentWeapon.getCurrentClipCount());
     }
 
