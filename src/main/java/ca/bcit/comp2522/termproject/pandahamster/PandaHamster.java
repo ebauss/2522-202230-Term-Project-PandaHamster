@@ -1,6 +1,8 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
+import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWeaponInfo;
+import ca.bcit.comp2522.termproject.pandahamster.components.DynamicUiUpdater;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
@@ -8,6 +10,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -48,8 +52,7 @@ public class PandaHamster extends Application {
         StackPane stackPane = MapRenderer.render(map);
         HBox hBox = new HBox();
         hBox.getStyleClass().add("game-bar");
-        Label label = new Label("Current Weapon");
-        hBox.getChildren().add(label);
+        hBox.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoLabel());
         VBox vBox = new VBox();
         vBox.getStyleClass().add("game-bar");
         vBox.getChildren().add(new Label("Towers"));
@@ -86,7 +89,7 @@ public class PandaHamster extends Application {
                 WorldManager.getInstance().updateWorld();
                 player.faceMouseDirection();
                 BulletManager.cleanup();
-
+                DynamicUiUpdater.updateUi();
                 // TODO Remove alien from map if it is dead.
                 for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
                     if (alienSprite.getHealthPoints() <= 0) {
