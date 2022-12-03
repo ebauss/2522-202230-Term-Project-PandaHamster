@@ -39,7 +39,7 @@ public class Shotgun extends AbstractWeapon {
     /**
      * The shotgun clip size, how many shots can be fired before reloading is required.
      */
-    public static final long CLIP_SIZE = 8;
+    public static final long CLIP_SIZE = 40;
     /**
      * A string representation of the object.
      */
