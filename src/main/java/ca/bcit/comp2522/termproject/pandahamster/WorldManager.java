@@ -200,24 +200,29 @@ public final class WorldManager {
             public void beginContact(final Contact contact) {
                 Body bodyA = contact.getFixtureA().getBody();
                 Body bodyB = contact.getFixtureB().getBody();
-                // checks for bullet colliding with obstacles
+                // checks for bullet colliding with aliens
                 if (bodyA.getUserData() instanceof AbstractEnemy && bodyB.getUserData() instanceof Bullet) {
                     ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
                     // Reduce the health of the enemy.
                     long currentAlienHealth = ((AbstractEnemy) bodyA.getUserData()).getHealthPoints();
-                    long newAlienHealth = currentAlienHealth - 20; // Set the bullet damage
+                    long newAlienHealth = currentAlienHealth - 50; // Set the bullet damage
                     ((AbstractEnemy) bodyA.getUserData()).setHealthPoints(newAlienHealth);
                     System.out.println("hit enemy");
                 } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() instanceof AbstractEnemy) {
                     ((Bullet) bodyA.getUserData()).setMarkedForRemoval(true);
                     // Reduce the health of the enemy.
                     long currentAlienHealth = ((AbstractEnemy) bodyB.getUserData()).getHealthPoints();
-                    long newAlienHealth = currentAlienHealth - 20; // Set the bullet damage
+                    long newAlienHealth = currentAlienHealth - 50; // Set the bullet damage
                     ((AbstractEnemy) bodyB.getUserData()).setHealthPoints(newAlienHealth);
                     System.out.println("hit enemy");
                 }
 
-
+                // check for bullet collisions with objects
+                if (bodyA.getUserData() == null && bodyB.getUserData() instanceof Bullet) {
+                    ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
+                } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() == null) {
+                    ((Bullet) bodyA.getUserData()).setMarkedForRemoval(true);
+                }
             }
 
             @Override
