@@ -65,9 +65,7 @@ public abstract class AbstractWeapon extends AbstractShooter {
         Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
                 / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
         // get the position of the mouse
-        Vec2 mousePos = new Vec2(
-                (float) MousePositionTracker.getMouseLocation().getX(),
-                (float) MousePositionTracker.getMouseLocation().getY());
+        Vec2 mousePos = new Vec2(MousePositionTracker.getMouseLocation());
         // calculate target position
         return mousePos.sub(playerPos);
     }
@@ -76,9 +74,10 @@ public abstract class AbstractWeapon extends AbstractShooter {
      * Fires a single bullet in the direction of the mouse. Should only be used by weapons that just require a single
      * bullet to be fired in the direction of the mouse.
      * @param attackRange attack range of the weapon this method
+     * @param vecForMag vector to use to calculate magnitude
      * @param target the direction vector of where to fire the bullet
      */
-    public void fireSingleShot(final float attackRange, final Vec2 target) {
+    public void fireSingleShot(final float attackRange, final Vec2 vecForMag, final Vec2 target) {
         decreaseCurrentClip(1);
         Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
                 / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
@@ -86,9 +85,7 @@ public abstract class AbstractWeapon extends AbstractShooter {
         bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
         BulletManager.addBullets(bullet);
         bullet.getBody().getFixtureList().m_isSensor = true;
-        Vec2 vec2 = new Vec2((float) MousePositionTracker.getMouseLocation().getX(),
-                (float) MousePositionTracker.getMouseLocation().getY());
-        applyVelocity(bullet, vec2, target);
+        applyVelocity(bullet, vecForMag, target);
     }
 
     /**

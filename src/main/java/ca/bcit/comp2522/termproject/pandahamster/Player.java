@@ -247,9 +247,7 @@ public class Player extends GameEntity implements DynamicEntity {
         Vec2 playerPos = new Vec2(xPosition + getWidth()
                 / 2f, yPosition + getHeight() / 2f);
         // get the position of the mouse
-        Vec2 mousePos = new Vec2(
-                (float) MousePositionTracker.getMouseLocation().getX(),
-                (float) MousePositionTracker.getMouseLocation().getY());
+        Vec2 mousePos = new Vec2(MousePositionTracker.getMouseLocation());
         // calculate target position
         Vec2 targetPos = mousePos.sub(playerPos);
         // gets the angle in radians

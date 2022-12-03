@@ -68,7 +68,7 @@ public class GrenadeLauncher extends AbstractWeapon {
         if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
             setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
             Vec2 target = getMouseDirection();
-            fireSingleShot(ATTACK_RANGE, target);
+            fireSingleShot(ATTACK_RANGE, new Vec2(MousePositionTracker.getMouseLocation()), target);
         }
     }
 

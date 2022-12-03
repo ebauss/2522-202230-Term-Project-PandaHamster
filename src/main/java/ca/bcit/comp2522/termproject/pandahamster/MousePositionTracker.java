@@ -1,18 +1,18 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
-import javafx.geometry.Point2D;
+import org.jbox2d.common.Vec2;
 
 /**
  * Keeps track of the mouse position on the screen.
  */
 public final class MousePositionTracker {
-    private static Point2D mouseLocation = new Point2D(0, 0);
+    private static Vec2 mouseLocation = new Vec2(0, 0);
     private MousePositionTracker() { }
     /**
      * Returns the current mouse location.
      * @return the current mouse location as a Point2D
      */
-    public static Point2D getMouseLocation() {
+    public static Vec2 getMouseLocation() {
         return mouseLocation;
     }
     /**
@@ -21,6 +21,6 @@ public final class MousePositionTracker {
      * @param y
      */
     public static void setMouseLocation(final double x, final  double y) {
-        mouseLocation = new Point2D(x, y);
+        mouseLocation.set((float) x, (float) y);
     }
 }

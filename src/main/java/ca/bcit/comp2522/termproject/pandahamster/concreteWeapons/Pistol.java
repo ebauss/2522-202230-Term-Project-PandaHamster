@@ -60,7 +60,7 @@ public class Pistol extends AbstractWeapon {
         if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
             setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
             Vec2 targetPos = getMouseDirection();
-            fireSingleShot(ATTACK_RANGE, targetPos);
+            fireSingleShot(ATTACK_RANGE, MousePositionTracker.getMouseLocation(), targetPos);
         }
     }
 
