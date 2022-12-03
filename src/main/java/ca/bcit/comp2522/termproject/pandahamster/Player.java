@@ -172,7 +172,6 @@ public class Player extends GameEntity implements DynamicEntity {
             }
             default -> { }
         }
-        System.out.println(currentWeapon.getName());
     }
 
     /**
@@ -188,6 +187,7 @@ public class Player extends GameEntity implements DynamicEntity {
      */
     public void pullTrigger() {
         this.currentWeapon.attack();
+        System.out.println(currentWeapon.getCurrentClipCount());
     }
 
     /* Calls reload() method for currentWeapon. */
