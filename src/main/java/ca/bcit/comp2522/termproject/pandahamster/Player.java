@@ -6,6 +6,7 @@ import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Pistol;
 import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Shotgun;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.MathUtils;
@@ -54,7 +55,7 @@ public class Player extends GameEntity implements DynamicEntity {
         setXPosition(0);
         setYPosition(0);
         weaponInventory = new ArrayList<>();
-        AbstractWeapon pistol = new Shotgun();
+        AbstractWeapon pistol = new GrenadeLauncher();
         weaponInventory.add(pistol);
         currentWeapon = pistol;
         // allows the rectangle to 'listen' to key events
