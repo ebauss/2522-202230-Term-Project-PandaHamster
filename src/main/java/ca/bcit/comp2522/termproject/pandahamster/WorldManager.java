@@ -1,5 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
 import org.jbox2d.callbacks.ContactFilter;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
@@ -203,9 +204,21 @@ public final class WorldManager {
                 // TODO This is where I can decrease the health of the alien
                 if (bodyA.getUserData() == null && bodyB.getUserData() instanceof Bullet) {
                     ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
+                    if (bodyA.getUserData() instanceof AbstractEnemy) {
+                        // Reduce the health of the enemy.
+                        // Check if enemy has 0 health
+                        // If Enemy has 0 health, then delete the enemy from the alienCollection in alienWaveGenerator
+                    }
                 } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() == null) {
                     ((Bullet) bodyA.getUserData()).setMarkedForRemoval(true);
+                    if (bodyB.getUserData() instanceof AbstractEnemy) {
+                        // Reduce the health of the enemy.
+                        // Check if enemy has 0 health
+                        // If Enemy has 0 health, then delete the enemy from the alienCollection in alienWaveGenerator
+                    }
                 }
+
+
             }
 
             @Override
