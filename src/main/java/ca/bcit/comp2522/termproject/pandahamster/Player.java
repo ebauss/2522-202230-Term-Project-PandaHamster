@@ -55,9 +55,11 @@ public class Player extends GameEntity implements DynamicEntity {
         setXPosition(0);
         setYPosition(0);
         weaponInventory = new ArrayList<>();
-        AbstractWeapon pistol = new GrenadeLauncher();
-        weaponInventory.add(pistol);
-        currentWeapon = pistol;
+        AbstractWeapon shotgun = new Shotgun();
+        AbstractWeapon grenadeLauncher = new GrenadeLauncher();
+        weaponInventory.add(grenadeLauncher);
+        weaponInventory.add(shotgun);
+        currentWeapon = shotgun;
         // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
         playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -68,6 +70,7 @@ public class Player extends GameEntity implements DynamicEntity {
                 case D -> moveRight();
                 case LEFT -> rotateCounterClockwise();
                 case RIGHT -> rotateClockwise();
+                case Q, E -> switchWeapon(event.getCode());
                 default -> { }
             }
         });
@@ -145,6 +148,31 @@ public class Player extends GameEntity implements DynamicEntity {
      */
     public AbstractWeapon getCurrentWeapon() {
         return currentWeapon;
+    }
+    /**
+     * Switches the current the player is holding. Q will go to the previous weapon, E will go to the next weapon.
+     * @param keyCode code of the key pressed
+     */
+    public void switchWeapon(final KeyCode keyCode) {
+        final int currentWeaponIndex = weaponInventory.indexOf(currentWeapon);
+        switch (keyCode) {
+            case Q -> {
+                int prevWeaponIndex = currentWeaponIndex - 1;
+                if (prevWeaponIndex < 0) {
+                    prevWeaponIndex = weaponInventory.size() - 1;
+                }
+                currentWeapon = weaponInventory.get(prevWeaponIndex);
+            }
+            case E -> {
+                int nextWeaponIndex = currentWeaponIndex + 1;
+                if (nextWeaponIndex >= weaponInventory.size()) {
+                    nextWeaponIndex = 0;
+                }
+                currentWeapon = weaponInventory.get(nextWeaponIndex);
+            }
+            default -> { }
+        }
+        System.out.println(currentWeapon.getName());
     }
 
     /**
