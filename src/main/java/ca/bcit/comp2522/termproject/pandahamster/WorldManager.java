@@ -201,25 +201,20 @@ public final class WorldManager {
                 Body bodyA = contact.getFixtureA().getBody();
                 Body bodyB = contact.getFixtureB().getBody();
                 // checks for bullet colliding with obstacles
-                // TODO This is where I can decrease the health of the alien
-                if (bodyA.getUserData() == null && bodyB.getUserData() instanceof Bullet) {
+                if (bodyA.getUserData() instanceof AbstractEnemy && bodyB.getUserData() instanceof Bullet) {
                     ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
-                    if (bodyA.getUserData() instanceof AbstractEnemy) {
-                        System.out.println("Alien hit");
-                        // Reduce the health of the enemy.
-                        long currentAlienHealth = ((AbstractEnemy) bodyA.getUserData()).getHealthPoints();
-                        long newAlienHealth = currentAlienHealth - 500; // Set the bullet damage
-                        ((AbstractEnemy) bodyA.getUserData()).setHealthPoints(newAlienHealth);
-                    }
-                } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() == null) {
+                    // Reduce the health of the enemy.
+                    long currentAlienHealth = ((AbstractEnemy) bodyA.getUserData()).getHealthPoints();
+                    long newAlienHealth = currentAlienHealth - 20; // Set the bullet damage
+                    ((AbstractEnemy) bodyA.getUserData()).setHealthPoints(newAlienHealth);
+                    System.out.println("hit enemy");
+                } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() instanceof AbstractEnemy) {
                     ((Bullet) bodyA.getUserData()).setMarkedForRemoval(true);
-                    if (bodyB.getUserData() instanceof AbstractEnemy) {
-                        System.out.println("alien hit");
-                        // Reduce the health of the enemy.
-                        long currentAlienHealth = ((AbstractEnemy) bodyB.getUserData()).getHealthPoints();
-                        long newAlienHealth = currentAlienHealth - 500; // Set the bullet damage
-                        ((AbstractEnemy) bodyB.getUserData()).setHealthPoints(newAlienHealth);
-                    }
+                    // Reduce the health of the enemy.
+                    long currentAlienHealth = ((AbstractEnemy) bodyB.getUserData()).getHealthPoints();
+                    long newAlienHealth = currentAlienHealth - 20; // Set the bullet damage
+                    ((AbstractEnemy) bodyB.getUserData()).setHealthPoints(newAlienHealth);
+                    System.out.println("hit enemy");
                 }
 
 
