@@ -209,7 +209,6 @@ public final class WorldManager {
                         long currentAlienHealth = ((AbstractEnemy) bodyA.getUserData()).getHealthPoints();
                         long newAlienHealth = currentAlienHealth - 30; // Set the bullet damage
                         ((AbstractEnemy) bodyA.getUserData()).setHealthPoints(newAlienHealth);
-                        // If Enemy has 0 health, then delete the enemy from the alienCollection in alienWaveGenerator
                     }
                 } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() == null) {
                     ((Bullet) bodyA.getUserData()).setMarkedForRemoval(true);
@@ -218,7 +217,6 @@ public final class WorldManager {
                         long currentAlienHealth = ((AbstractEnemy) bodyB.getUserData()).getHealthPoints();
                         long newAlienHealth = currentAlienHealth - 30; // Set the bullet damage
                         ((AbstractEnemy) bodyB.getUserData()).setHealthPoints(newAlienHealth);
-                        // If Enemy has 0 health, then delete the enemy from the alienCollection in alienWaveGenerator
                     }
                 }
 
