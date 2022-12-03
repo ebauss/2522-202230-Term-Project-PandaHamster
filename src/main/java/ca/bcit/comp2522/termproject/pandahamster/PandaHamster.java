@@ -2,21 +2,25 @@ package ca.bcit.comp2522.termproject.pandahamster;
 
 import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
 import javafx.animation.AnimationTimer;
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
-import javafx.event.EventHandler;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledReader;
-
-import java.text.NumberFormat;
 
 /**
  * Entry point into the game.
@@ -35,10 +39,23 @@ public class PandaHamster extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
+        GridPane layout = new GridPane();
+        root = new Group(layout);
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(PandaHamster.class.getResource("/stylesheets/style.css").toExternalForm());
         TiledReader reader = new FileSystemTiledReader();
         TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
         StackPane stackPane = MapRenderer.render(map);
-        root = new Group(stackPane);
+        HBox hBox = new HBox();
+        hBox.getStyleClass().add("game-bar");
+        Label label = new Label("Current Weapon");
+        hBox.getChildren().add(label);
+        VBox vBox = new VBox();
+        vBox.getStyleClass().add("game-bar");
+        vBox.getChildren().add(new Label("Towers"));
+        layout.add(stackPane, 0, 0);
+        layout.add(hBox, 0, 1);
+        layout.add(vBox, 1, 0, 1, 2);
         Player player = Player.getInstance();
         root.getChildren().add(player.getPlayerSprite());
         root.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
@@ -48,7 +65,6 @@ public class PandaHamster extends Application {
             player.pullTrigger();
         });
         WorldManager.getInstance().createDynamicRectangle(player, 1f);
-        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
         AnimationTimer animationTimer = new AnimationTimer() {
