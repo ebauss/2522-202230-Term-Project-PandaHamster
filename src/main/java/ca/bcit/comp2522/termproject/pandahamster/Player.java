@@ -71,6 +71,7 @@ public class Player extends GameEntity implements DynamicEntity {
                 case LEFT -> rotateCounterClockwise();
                 case RIGHT -> rotateClockwise();
                 case Q, E -> switchWeapon(event.getCode());
+                case R -> reloadWeapon();
                 default -> { }
             }
         });
