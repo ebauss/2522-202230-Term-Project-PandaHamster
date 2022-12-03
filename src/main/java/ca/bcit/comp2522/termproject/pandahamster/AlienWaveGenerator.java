@@ -18,6 +18,7 @@ public class AlienWaveGenerator {
     private ArrayList<AbstractEnemy> alienCollection;
     private final float mapHeight;
     private final float mapWidth;
+    private boolean alienDead;
 
     /**
      * Constructs an object of type AlienWaveGenerator.
@@ -29,6 +30,25 @@ public class AlienWaveGenerator {
         this.mapHeight = someMapHeight;
         this.mapWidth = someMapWidth;
         this.alienCollection = new ArrayList<>();
+        this.alienDead = false;
+    }
+
+    /**
+     * Gets the alienDead variable.
+     *
+     * @return the alienDead variable as a boolean
+     */
+    public boolean isAlienDead() {
+        return alienDead;
+    }
+
+    /**
+     * Sets the alienDead variable.
+     *
+     * @param alienDead variable as a boolean
+     */
+    public void setAlienDead(final boolean alienDead) {
+        this.alienDead = alienDead;
     }
 
     /**
@@ -103,6 +123,19 @@ public class AlienWaveGenerator {
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
         }
+    }
+
+    /**
+     * Removes dead aliens from the alien collection.
+     */
+    public void removeDeadAliensFromCollection() {
+        ArrayList<AbstractEnemy> newAlienCollection = new ArrayList<>();
+        for (AbstractEnemy alien: alienCollection) {
+            if (alien.getHealthPoints() > 0) {
+                newAlienCollection.add(alien);
+            }
+        }
+        alienCollection = newAlienCollection;
     }
 
     /**

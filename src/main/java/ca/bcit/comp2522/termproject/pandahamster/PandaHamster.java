@@ -92,7 +92,12 @@ public class PandaHamster extends Application {
                     if (alienSprite.getHealthPoints() <= 0) {
                         root.getChildren().remove(alienSprite.getAlienSprite());
                         WorldManager.getInstance().removeBody(alienSprite.getBody());
+                        alienWaveGenerator.setAlienDead(true);
                     }
+                }
+
+                if (alienWaveGenerator.isAlienDead()) {
+                    alienWaveGenerator.removeDeadAliensFromCollection();
                 }
             }
         };
