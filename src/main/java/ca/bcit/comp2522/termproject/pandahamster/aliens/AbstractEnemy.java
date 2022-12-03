@@ -50,6 +50,24 @@ public abstract class AbstractEnemy extends GameEntity implements Attacker, Dyna
     }
 
     /**
+     * Gets the healthPoints variable.
+     *
+     * @return the healthPoints of the alien as a long
+     */
+    public long getHealthPoints() {
+        return healthPoints;
+    }
+
+    /**
+     * Sets the healthPoints variable.
+     *
+     * @param healthPoints the health of the alien as a long
+     */
+    public void setHealthPoints(final long healthPoints) {
+        this.healthPoints = healthPoints;
+    }
+
+    /**
      * Sets the x position of this alien. The alien rectangle position will also be updated accordingly.
      * @param newXPosition of class as a long
      */
