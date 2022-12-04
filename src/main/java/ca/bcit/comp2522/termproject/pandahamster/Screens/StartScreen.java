@@ -64,6 +64,7 @@ public final class StartScreen extends Scene {
                 System.out.println("Illegal IO operation");
             }
             AlienWaveGenerator.getInstance(GameMap.getMapHeight(), GameMap.getMapWidth()).removeAllAliensFromCollection();
+            AlienWaveGenerator.getInstance(GameMap.getMapHeight(), GameMap.getMapWidth()).generateWaveOfAliens();
             ScreenManager.changeScreen(ScreenManager.GAME_SCREEN);
         });
         Button quitButton = new Button("Quit");
