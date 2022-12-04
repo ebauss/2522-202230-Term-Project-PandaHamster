@@ -11,16 +11,20 @@ public final class GameSaveAndLoad {
     public static void load() throws IOException {
         Gson gson = new Gson();
         JsonReader jsonReader = new JsonReader(new FileReader(PandaHamster.class.getResource("/save/savefile.json").getFile()));
-        HashMap<String, Integer> save = gson.fromJson(jsonReader, HashMap.class);
-        Player.getInstance().setCurrentHealth(save.get("currentHealth"));
-        Base.getInstance().setHealth(save.get("baseHealth"));
+        HashMap<String, Double> save = gson.fromJson(jsonReader, HashMap.class);
+        final double savedPlayerHealth = save.get("currentHealth");
+        final double savedBaseHealth = save.get("baseHealth");
+        final double savedCurrentWave = save.get("currentWave");
+        Player.getInstance().setCurrentHealth((int) savedPlayerHealth);
+        Base.getInstance().setHealth((int) savedBaseHealth);
+        AlienWaveGenerator.getInstance(GameMap.getMapHeight(), GameMap.getMapWidth()).setCurrentWave((int) savedCurrentWave);
     }
     public static void save() throws FileNotFoundException {
         Gson gson = new Gson();
         JsonReader jsonReader = new JsonReader(new FileReader(PandaHamster.class.getResource("/save/savefile.json").getFile()));
-        HashMap<String, Integer> save = gson.fromJson(jsonReader, HashMap.class);
-        save.put("currentHealth", Player.getInstance().getCurrentHealth());
-        save.put("currentWave", AlienWaveGenerator.getInstance(GameMap.getMapHeight(), GameMap.getMapWidth()).getCurrentWave());
-        save.put("baseHealth", (int) Base.getInstance().getHealth());
+        HashMap<String, Double> save = gson.fromJson(jsonReader, HashMap.class);
+        save.put("currentHealth", (double) Player.getInstance().getCurrentHealth());
+        save.put("currentWave", (double) AlienWaveGenerator.getInstance(GameMap.getMapHeight(), GameMap.getMapWidth()).getCurrentWave());
+        save.put("baseHealth", (double) Base.getInstance().getHealth());
     }
 }
