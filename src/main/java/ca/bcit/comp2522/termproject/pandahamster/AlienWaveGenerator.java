@@ -19,6 +19,7 @@ public class AlienWaveGenerator {
     private final float mapHeight;
     private final float mapWidth;
     private boolean alienDead;
+    private boolean bossSpawned;
 
     /**
      * Constructs an object of type AlienWaveGenerator.
@@ -31,6 +32,7 @@ public class AlienWaveGenerator {
         this.mapWidth = someMapWidth;
         this.alienCollection = new ArrayList<>();
         this.alienDead = false;
+        this.bossSpawned = false;
     }
 
     /**
@@ -139,13 +141,61 @@ public class AlienWaveGenerator {
     }
 
     /**
+     * Spawns the bossAlien.
+     */
+    public void spawnBoss() {
+        // Sets the bounds for generated x and y values.
+        long leftLimit = 0L;
+        long rightLimit = (long) mapHeight - 50;
+        long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+        long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+        AbstractEnemy newAlien = new BossAlien(randomXCoordinate, randomYCoordinate);
+        alienCollection.add(newAlien);
+        WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+    }
+
+    /**
+     * Checks whether all non boss aliens are dead.
+     *
+     * @return a boolean; true if all non boss aliens are dead, otherwise false
+     */
+    public boolean isAllNonBossAliensDead() {
+        if (!bossSpawned) {
+            for (AbstractEnemy alien: alienCollection) {
+                if (alien.getHealthPoints() > 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+         return true; // return true if boss is spawned.
+    }
+
+    /**
+     * Checks whether the boss is dead.
+     *
+     * @return a boolean; true if boss is dead else false
+     */
+    public boolean isBossAlienDead() {
+        if (bossSpawned) {
+            if (alienCollection.get(0).getHealthPoints() > 0) {
+                return false;
+            }
+            return true;
+        }
+        return false; // if boss is not spawned, return false since it doesn't exist yet.
+    }
+
+    /**
      * Determines whether the wave is complete; all enemies are dead.
      *
      * @return true if wave is complete, otherwise false
      */
     public boolean isWaveComplete() {
-        // TODO Implement this
-        currentWave++;
+         if (this.isAllNonBossAliensDead() && this.isBossAlienDead()) {
+             currentWave++;
+             return true;
+         }
         return false;
     }
 
