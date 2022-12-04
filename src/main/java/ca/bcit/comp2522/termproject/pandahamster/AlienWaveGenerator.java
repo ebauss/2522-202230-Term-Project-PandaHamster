@@ -152,6 +152,13 @@ public class AlienWaveGenerator {
     }
 
     /**
+     * Removes all aliens from alienCollection.
+     */
+    public void removeAllAliensFromCollection() {
+        alienCollection = new ArrayList<>();
+    }
+
+    /**
      * Spawns the bossAlien.
      */
     public void spawnBoss() {
