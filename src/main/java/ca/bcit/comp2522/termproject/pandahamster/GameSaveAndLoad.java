@@ -15,7 +15,11 @@ public final class GameSaveAndLoad {
         final double savedPlayerHealth = save.get("currentHealth");
         final double savedBaseHealth = save.get("baseHealth");
         final double savedCurrentWave = save.get("currentWave");
+        final double playerX = save.get("x");
+        final double playerY = save.get("y");
         Player.getInstance().setCurrentHealth((int) savedPlayerHealth);
+        Player.getInstance().setXPosition((float) playerX);
+        Player.getInstance().setYPosition((float) playerY);
         Base.getInstance().setHealth((int) savedBaseHealth);
         AlienWaveGenerator.getInstance(GameMap.getMapHeight(), GameMap.getMapWidth()).setCurrentWave((int) savedCurrentWave);
     }
@@ -26,5 +30,7 @@ public final class GameSaveAndLoad {
         save.put("currentHealth", (double) Player.getInstance().getCurrentHealth());
         save.put("currentWave", (double) AlienWaveGenerator.getInstance(GameMap.getMapHeight(), GameMap.getMapWidth()).getCurrentWave());
         save.put("baseHealth", (double) Base.getInstance().getHealth());
+        save.put("x", (double) Player.getInstance().getXPosition());
+        save.put("y", (double) Player.getInstance().getYPosition());
     }
 }
