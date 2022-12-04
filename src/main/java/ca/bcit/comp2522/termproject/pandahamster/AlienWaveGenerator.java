@@ -152,6 +152,7 @@ public class AlienWaveGenerator {
         AbstractEnemy newAlien = new BossAlien(randomXCoordinate, randomYCoordinate);
         alienCollection.add(newAlien);
         WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+        bossSpawned = true;
     }
 
     /**
@@ -181,6 +182,7 @@ public class AlienWaveGenerator {
             if (alienCollection.get(0).getHealthPoints() > 0) {
                 return false;
             }
+            bossSpawned = false;
             return true;
         }
         return false; // if boss is not spawned, return false since it doesn't exist yet.

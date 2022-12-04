@@ -97,6 +97,16 @@ public class PandaHamster extends Application {
 
                 if (alienWaveGenerator.isAlienDead()) {
                     alienWaveGenerator.removeDeadAliensFromCollection();
+                    alienWaveGenerator.setAlienDead(false);
+                }
+
+                if (alienWaveGenerator.isAllNonBossAliensDead()) {
+                    alienWaveGenerator.spawnBoss();
+                    System.out.println("Boss is spawned!!!!");
+                }
+
+                if (alienWaveGenerator.isWaveComplete()) {
+                    System.out.println("Wave is complete. Here is the next wave for you!");
                 }
             }
         };
