@@ -1,9 +1,9 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
-import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.AssaultRifle;
-import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.GrenadeLauncher;
-import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Pistol;
-import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Shotgun;
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import org.jbox2d.common.MathUtils;
@@ -22,16 +22,17 @@ public class Player extends GameEntity implements DynamicEntity {
     private static final long MAX_LEVEL = 20;
     private static final int THREE = 3;
     private static final int ONE_HUNDRED = 100;
+    private static final int MAX_HEALTH = 100;
     private static Player player;
     private String name;
     private long level;
     private long currentExp;
     private long money;
-    // TODO make AbstractWeapon so that the line below can be uncommented
     private List<AbstractWeapon> weaponInventory;
     private AbstractWeapon currentWeapon;
     private short lifeCount;
-    private Rectangle playerSprite;
+    private int currentHealth;
+    private ImageView playerSprite;
     private final float speed = 40f;
     private final float angularVelocity = 10;
 
@@ -46,12 +47,20 @@ public class Player extends GameEntity implements DynamicEntity {
         this.level = 1;
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
-        playerSprite = new Rectangle(0, 0, 16, 16);
+        currentHealth = MAX_HEALTH;
+        playerSprite = new ImageView(new Image("player.png"));
+        playerSprite.setFitHeight(16);
+        playerSprite.setFitWidth(16);
+        setXPosition(0);
+        setYPosition(0);
         weaponInventory = new ArrayList<>();
-        AbstractWeapon pistol = new GrenadeLauncher();
-        weaponInventory.add(pistol);
+        AbstractWeapon pistol = new Pistol();
+        weaponInventory.add(new Pistol());
+        weaponInventory.add(new AssaultRifle());
+        weaponInventory.add(new Sniper());
+        weaponInventory.add(new Shotgun());
+        weaponInventory.add(new GrenadeLauncher());
         currentWeapon = pistol;
-        playerSprite = new Rectangle(0, 0 , 16, 16);
         // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
         playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -62,6 +71,8 @@ public class Player extends GameEntity implements DynamicEntity {
                 case D -> moveRight();
                 case LEFT -> rotateCounterClockwise();
                 case RIGHT -> rotateClockwise();
+                case Q, E -> switchWeapon(event.getCode());
+                case R -> reloadWeapon();
                 default -> { }
             }
         });
@@ -140,24 +151,62 @@ public class Player extends GameEntity implements DynamicEntity {
     public AbstractWeapon getCurrentWeapon() {
         return currentWeapon;
     }
+    /**
+     * Switches the current the player is holding. Q will go to the previous weapon, E will go to the next weapon.
+     * @param keyCode code of the key pressed
+     */
+    public void switchWeapon(final KeyCode keyCode) {
+        final int currentWeaponIndex = weaponInventory.indexOf(currentWeapon);
+        switch (keyCode) {
+            case Q -> {
+                int prevWeaponIndex = currentWeaponIndex - 1;
+                if (prevWeaponIndex < 0) {
+                    prevWeaponIndex = weaponInventory.size() - 1;
+                }
+                currentWeapon = weaponInventory.get(prevWeaponIndex);
+            }
+            case E -> {
+                int nextWeaponIndex = currentWeaponIndex + 1;
+                if (nextWeaponIndex >= weaponInventory.size()) {
+                    nextWeaponIndex = 0;
+                }
+                currentWeapon = weaponInventory.get(nextWeaponIndex);
+            }
+            default -> { }
+        }
+    }
 
     /**
      * Gets the playerSprite instance variable.
      * @return playerSprite instance variable as a Rectangle
      */
-    public Rectangle getPlayerSprite() {
+    public ImageView getPlayerSprite() {
         return playerSprite;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(final int currentHealth) {
+        this.currentHealth = currentHealth;
+    }
+    public int getMaxHealth() {
+        return MAX_HEALTH;
     }
 
     /**
      * Calls the attack() method for currentWeapon.
      */
     public void pullTrigger() {
-        this.currentWeapon.attack();
+        if (currentWeapon.getCurrentClipCount() > 0) {
+            this.currentWeapon.attack();
+        }
+        System.out.println(currentWeapon.getCurrentClipCount());
     }
 
     /* Calls reload() method for currentWeapon. */
-    private void reloadWeapon() {
+    public void reloadWeapon() {
         this.currentWeapon.reload();
     }
     /**
@@ -213,9 +262,7 @@ public class Player extends GameEntity implements DynamicEntity {
         Vec2 playerPos = new Vec2(xPosition + getWidth()
                 / 2f, yPosition + getHeight() / 2f);
         // get the position of the mouse
-        Vec2 mousePos = new Vec2(
-                (float) MousePositionTracker.getMouseLocation().getX(),
-                (float) MousePositionTracker.getMouseLocation().getY());
+        Vec2 mousePos = new Vec2(MousePositionTracker.getMouseLocation());
         // calculate target position
         Vec2 targetPos = mousePos.sub(playerPos);
         // gets the angle in radians

@@ -63,12 +63,7 @@ public class AssaultRifle extends AbstractWeapon {
         if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
             setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
             Vec2 target = getMouseDirection();
-            fireSingleShot(ATTACK_RANGE, target);
+            fireSingleShot(ATTACK_RANGE, MousePositionTracker.getMouseLocation(), target, DAMAGE, 5f, 0.1f);
         }
-    }
-
-    @Override
-    public void createBulletEffect(Bullet bullet) {
-
     }
 }

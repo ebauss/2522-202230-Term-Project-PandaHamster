@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
 import ca.bcit.comp2522.termproject.pandahamster.*;
+import ca.bcit.comp2522.termproject.pandahamster.Screens.GameScreen;
 import javafx.application.Platform;
 import javafx.scene.shape.Circle;
 import org.jbox2d.collision.shapes.CircleShape;
@@ -23,7 +24,7 @@ public class GrenadeLauncher extends AbstractWeapon {
     /**
      * The grenade launcher damage.
      */
-    public static final float DAMAGE = 50f;
+    public static final float DAMAGE = 100f;
     /**
      * The grenade launchere attack speed. The time it takes to do a single attack in seconds.
      */
@@ -68,42 +69,7 @@ public class GrenadeLauncher extends AbstractWeapon {
         if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
             setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
             Vec2 target = getMouseDirection();
-            fireSingleShot(ATTACK_RANGE, target);
+            fireSingleShot(ATTACK_RANGE, new Vec2(MousePositionTracker.getMouseLocation()), target, DAMAGE, 30f, 1f);
         }
-    }
-
-    @Override
-    public void createBulletEffect(final Bullet bullet) {
-        Vec2 bulletLocation = new Vec2(bullet.getXPosition(), bullet.getYPosition());
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(bulletLocation.x, bulletLocation.y);
-        Body explosion = WorldManager.getInstance().createBody(bodyDef);
-        CircleShape explosionRadius = new CircleShape();
-        explosionRadius.setRadius(4);
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = explosionRadius;
-        fixtureDef.isSensor = true;
-        explosion.createFixture(fixtureDef);
-        Circle circle = new Circle();
-        circle.setRadius(30);
-        circle.setCenterX(bulletLocation.x);
-        circle.setCenterY(bulletLocation.y);
-        PandaHamster.getGroup().getChildren().add(circle);
-        Timer timer = new Timer();
-        final float start = GameTimer.getElapsedSeconds();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    if (GameTimer.getElapsedSeconds() - start >= 1) {
-                        PandaHamster.getGroup().getChildren().remove(circle);
-                        WorldManager.getInstance().removeBody(explosion);
-                        timer.cancel();
-                    }
-                });
-            }
-        };
-        final long period = (long) ((1 / 60f) * 1000);
-        timer.schedule(timerTask, 0, period);
     }
 }

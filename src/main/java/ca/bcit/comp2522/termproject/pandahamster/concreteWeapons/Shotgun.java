@@ -15,7 +15,7 @@ public class Shotgun extends AbstractWeapon {
     /**
      * The shotgun damage.
      */
-    public static final float DAMAGE = 25f;
+    public static final float DAMAGE = 40f;
     /**
      * The shotgun attack speed. The time it takes to do a single attack in seconds.
      */
@@ -39,7 +39,7 @@ public class Shotgun extends AbstractWeapon {
     /**
      * The shotgun clip size, how many shots can be fired before reloading is required.
      */
-    public static final long CLIP_SIZE = 8;
+    public static final long CLIP_SIZE = 40;
     /**
      * A string representation of the object.
      */
@@ -78,16 +78,8 @@ public class Shotgun extends AbstractWeapon {
                 } else {
                     start = start.sub(new Vec2(0, bulletDistance));
                 }
-                Bullet bullet = new Bullet(playerPos.x, playerPos.y, ATTACK_RANGE, GameEntityType.Player);
-                bullet.setOrigin(new Vec2(playerPos.x, playerPos.y));
-                BulletManager.addBullets(bullet);
-                applyVelocity(bullet, start, start);
+                fireSingleShot(ATTACK_RANGE, start, start, DAMAGE, 5f, 0.1f);
             }
         }
-    }
-
-    @Override
-    public void createBulletEffect(Bullet bullet) {
-
     }
 }

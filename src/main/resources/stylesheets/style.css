@@ -1,0 +1,19 @@
+.game-bar {
+    -fx-border-width: 3px;
+    -fx-border-color: darkgray;
+    -fx-background-color: lightgray;
+    -fx-padding: 5px;
+}
+
+.grid {
+    -fx-hgap: 1px;
+    -fx-vgap: 1px;
+    -fx-padding: 1px;
+    -fx-border-color: darkgray;
+    -fx-border-width: 1px;
+}
+
+.game-label {
+    -fx-text-alignment: center;
+    -fx-padding: 0px;
+}

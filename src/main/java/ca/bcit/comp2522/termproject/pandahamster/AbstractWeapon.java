@@ -1,7 +1,17 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.Screens.GameScreen;
+import javafx.application.Platform;
+import javafx.scene.shape.Circle;
+import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.FixtureDef;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Represents an abstract class of type AbstractWeapon.
@@ -40,7 +50,26 @@ public abstract class AbstractWeapon extends AbstractShooter {
      * Reloads the current magazine.
      */
     public void reload() {
-        this.currentClipCount = this.clipSize;
+        final AbstractWeapon currentWeapon = Player.getInstance().getCurrentWeapon();
+        final float timeOfReload = GameTimer.getElapsedSeconds();
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                // if player switches weapon when reloading, stop reloading
+                if (Player.getInstance().getCurrentWeapon() != currentWeapon) {
+                    timer.cancel();
+                }
+                // if one second passed without switching weapon, reload the weapon
+                if (GameTimer.getElapsedSeconds() - timeOfReload >= 1) {
+                    setCurrentClipCount(getCurrentClipCount());
+                    timer.cancel();
+                }
+            }
+        };
+        final long period = (long) ((1 / 60f) * 1000);
+        // runs the timer task every frame
+        timer.schedule(timerTask, 0, period);
     }
     /**
      * Gets the last attack time for the current weapon in seconds.
@@ -56,6 +85,23 @@ public abstract class AbstractWeapon extends AbstractShooter {
     public void setLastAttackTimeInSeconds(final float lastAttackTimeInSeconds) {
         this.lastAttackTimeInSeconds = lastAttackTimeInSeconds;
     }
+    public long getCurrentClipCount() {
+        return currentClipCount;
+    }
+    public void setCurrentClipCount(final long currentClipCount) {
+        // fill up the clip
+        this.currentClipCount = clipSize;
+    }
+    public long getClipSize() {
+        return clipSize;
+    }
+
+    public long getAmmoCapacity() {
+        return ammoCapacity;
+    }
+    public void setAmmoCapacity(long ammoCapacity) {
+        this.ammoCapacity = ammoCapacity;
+    }
 
     /**
      * Gets the direction vector of the mouse in relation to the center of the player.
@@ -65,9 +111,7 @@ public abstract class AbstractWeapon extends AbstractShooter {
         Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
                 / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
         // get the position of the mouse
-        Vec2 mousePos = new Vec2(
-                (float) MousePositionTracker.getMouseLocation().getX(),
-                (float) MousePositionTracker.getMouseLocation().getY());
+        Vec2 mousePos = new Vec2(MousePositionTracker.getMouseLocation());
         // calculate target position
         return mousePos.sub(playerPos);
     }
@@ -76,17 +120,19 @@ public abstract class AbstractWeapon extends AbstractShooter {
      * Fires a single bullet in the direction of the mouse. Should only be used by weapons that just require a single
      * bullet to be fired in the direction of the mouse.
      * @param attackRange attack range of the weapon this method
+     * @param vecForMag vector to use to calculate magnitude
      * @param target the direction vector of where to fire the bullet
      */
-    public void fireSingleShot(final float attackRange, final Vec2 target) {
+    public void fireSingleShot(final float attackRange, final Vec2 vecForMag, final Vec2 target, final float damage,
+                               final float effectRadius, final float removalTime) {
+        decreaseCurrentClip(1);
         Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
                 / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
-        Bullet bullet = new Bullet(playerPos.x, playerPos.y, attackRange, GameEntityType.Player);
+        Bullet bullet = new Bullet(playerPos.x, playerPos.y, attackRange, GameEntityType.Player, damage, effectRadius, removalTime);
         bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
         BulletManager.addBullets(bullet);
-        Vec2 vec2 = new Vec2((float) MousePositionTracker.getMouseLocation().getX(),
-                (float) MousePositionTracker.getMouseLocation().getY());
-        applyVelocity(bullet, vec2, target);
+        bullet.getBody().getFixtureList().m_isSensor = true;
+        applyVelocity(bullet, vecForMag, target);
     }
 
     /**
@@ -107,5 +153,41 @@ public abstract class AbstractWeapon extends AbstractShooter {
      * Creates a bullet effect when a bullet has hit an obstacle or enemy.
      * @param bullet the bullet for the effect
      */
-    public abstract void createBulletEffect(Bullet bullet);
+    public void createBulletEffect(final Bullet bullet, final float effectRadius, final float removalTime) {
+        Vec2 bulletLocation = new Vec2(bullet.getXPosition(), bullet.getYPosition());
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(bulletLocation.x, bulletLocation.y);
+        Body explosion = WorldManager.getInstance().createBody(bodyDef);
+        explosion.setUserData("explosion");
+        CircleShape explosionRadius = new CircleShape();
+        explosionRadius.setRadius(effectRadius);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = explosionRadius;
+        fixtureDef.isSensor = true;
+        explosion.createFixture(fixtureDef);
+        Circle circle = new Circle();
+        circle.setRadius(effectRadius);
+        circle.setCenterX(bulletLocation.x);
+        circle.setCenterY(bulletLocation.y);
+        GameScreen.getRootNode().getChildren().add(circle);
+        Timer timer = new Timer();
+        final float start = GameTimer.getElapsedSeconds();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    if (GameTimer.getElapsedSeconds() - start >= removalTime) {
+                        GameScreen.getRootNode().getChildren().remove(circle);
+                        WorldManager.getInstance().removeBody(explosion);
+                        timer.cancel();
+                    }
+                });
+            }
+        };
+        final long period = (long) ((1 / 60f) * 1000);
+        timer.schedule(timerTask, 0, period);
+    }
+    private void decreaseCurrentClip(final int bulletsShot) {
+        currentClipCount -= bulletsShot;
+    }
 }

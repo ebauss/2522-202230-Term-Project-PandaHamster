@@ -1,9 +1,11 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.Screens.GameScreen;
 import ca.bcit.comp2522.termproject.pandahamster.aliens.*;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -14,9 +16,13 @@ import java.util.Random;
  */
 public class AlienWaveGenerator {
     private static AlienWaveGenerator singleInstance = null;
+    private static int currentWave = 0;
     private ArrayList<AbstractEnemy> alienCollection;
     private final float mapHeight;
     private final float mapWidth;
+    private boolean alienDead;
+    private boolean bossSpawned;
+    private boolean waveCompleted;
 
     /**
      * Constructs an object of type AlienWaveGenerator.
@@ -28,6 +34,36 @@ public class AlienWaveGenerator {
         this.mapHeight = someMapHeight;
         this.mapWidth = someMapWidth;
         this.alienCollection = new ArrayList<>();
+        this.alienDead = false;
+        this.bossSpawned = false;
+        this.waveCompleted = false;
+    }
+
+    /**
+     * Gets the bossSpawned variable.
+     *
+     * @return the bossSpawned boolean
+     */
+    public boolean isBossSpawned() {
+        return bossSpawned;
+    }
+
+    /**
+     * Gets the alienDead variable.
+     *
+     * @return the alienDead variable as a boolean
+     */
+    public boolean isAlienDead() {
+        return alienDead;
+    }
+
+    /**
+     * Sets the alienDead variable.
+     *
+     * @param alienDead variable as a boolean
+     */
+    public void setAlienDead(final boolean alienDead) {
+        this.alienDead = alienDead;
     }
 
     /**
@@ -57,58 +93,132 @@ public class AlienWaveGenerator {
      * Generates the wave of aliens.
      */
     public void generateWaveOfAliens() {
-        // TODO Add a function parameter that sends the current wave count as an int.
-        int waveCount = 0;
-
         // hard coded counts for spawn amounts for each alien type.
         int[] fodderWaveArray = {10, 20, 30, 40, 50};
         int[] gunnerWaveArray = {5, 10, 15, 20, 25};
-        int[] speedyWaveArray = {10, 11, 12, 13, 14};
-        int[] tankWaveArray = {5, 6, 7, 8, 9};
+        int[] speedyWaveArray = {6, 11, 12, 13, 14};
+        int[] tankWaveArray = {1, 6, 7, 8, 9};
 
         // Sets the bounds for generated x and y values.
         long leftLimit = 0L;
-        long rightLimit = (long) mapHeight;
+        long rightLimit = (long) mapHeight - 50;
 
-        for (int fodderCount = 0; fodderCount < fodderWaveArray[waveCount]; fodderCount++) {
+        for (int fodderCount = 0; fodderCount < fodderWaveArray[currentWave]; fodderCount++) {
             long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
             long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 
-            AbstractEnemy newAlien = new FodderAlien(randomXCoordinate, randomYCoordinate, 16, 16,
-                    100, 100);
+            AbstractEnemy newAlien = new FodderAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+            GameScreen.getRootNode().getChildren().add(newAlien.getAlienSprite());
         }
 
-        for (int gunnerCount = 0; gunnerCount < gunnerWaveArray[waveCount]; gunnerCount++) {
+        for (int gunnerCount = 0; gunnerCount < gunnerWaveArray[currentWave]; gunnerCount++) {
             long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
             long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 
-            AbstractEnemy newAlien = new GunnerAlien(randomXCoordinate, randomYCoordinate, 20, 20,
-                    100, 100);
+            AbstractEnemy newAlien = new GunnerAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+            GameScreen.getRootNode().getChildren().add(newAlien.getAlienSprite());
         }
 
-        for (int speedyCount = 0; speedyCount < speedyWaveArray[waveCount]; speedyCount++) {
+        for (int speedyCount = 0; speedyCount < speedyWaveArray[currentWave]; speedyCount++) {
             long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
             long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 
-            AbstractEnemy newAlien = new SpeedyAlien(randomXCoordinate, randomYCoordinate, 10, 10,
-                    100, 100);
+            AbstractEnemy newAlien = new SpeedyAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+            GameScreen.getRootNode().getChildren().add(newAlien.getAlienSprite());
         }
 
-        for (int tankCount = 0; tankCount < tankWaveArray[waveCount]; tankCount++) {
+        for (int tankCount = 0; tankCount < tankWaveArray[currentWave]; tankCount++) {
             long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
             long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 
-            AbstractEnemy newAlien = new TankAlien(randomXCoordinate, randomYCoordinate, 30, 30,
-                    100, 100);
+            AbstractEnemy newAlien = new TankAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+            GameScreen.getRootNode().getChildren().add(newAlien.getAlienSprite());
         }
+    }
+
+    /**
+     * Removes dead aliens from the alien collection.
+     */
+    public void removeDeadAliensFromCollection() {
+        ArrayList<AbstractEnemy> newAlienCollection = new ArrayList<>();
+        for (AbstractEnemy alien: alienCollection) {
+            if (alien.getHealthPoints() > 0) {
+                newAlienCollection.add(alien);
+            }
+        }
+        alienCollection = newAlienCollection;
+    }
+
+    /**
+     * Removes all aliens from alienCollection.
+     */
+    public void removeAllAliensFromCollection() {
+        Iterator<AbstractEnemy> itr = alienCollection.iterator();
+        while (itr.hasNext()) {
+            AbstractEnemy alien = itr.next();
+            WorldManager.getInstance().removeBody(alien.getBody());
+            GameScreen.getRootNode().getChildren().remove(alien.getAlienSprite());
+            itr.remove();
+        }
+    }
+
+    /**
+     * Spawns the bossAlien.
+     */
+    public void spawnBoss() {
+        // Sets the bounds for generated x and y values.
+        long leftLimit = 0L;
+        long rightLimit = (long) mapHeight - 50;
+        long randomXCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+        long randomYCoordinate = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+        AbstractEnemy newAlien = new BossAlien(randomXCoordinate, randomYCoordinate);
+        alienCollection.add(newAlien);
+        WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+        bossSpawned = true;
+    }
+
+    /**
+     * Checks whether all non boss aliens are dead.
+     *
+     * @return a boolean; true if all non boss aliens are dead, otherwise false
+     */
+    public boolean isAllNonBossAliensDead() {
+        if (!bossSpawned) {
+            for (AbstractEnemy alien: alienCollection) {
+                if (alien.getHealthPoints() > 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+         return true; // return true if boss is spawned.
+    }
+
+    /**
+     * Checks whether the boss is dead.
+     *
+     * @return a boolean; true if boss is dead else false
+     */
+    public boolean isBossAlienDead() {
+        if (bossSpawned) {
+            for (AbstractEnemy alien: alienCollection) {
+                if (alien.getHealthPoints() > 0) {
+                    return false;
+                }
+            }
+            bossSpawned = false;
+            waveCompleted = true;
+            return true;
+        }
+        return false; // if boss is not spawned, return false since it doesn't exist yet.
     }
 
     /**
@@ -117,17 +227,37 @@ public class AlienWaveGenerator {
      * @return true if wave is complete, otherwise false
      */
     public boolean isWaveComplete() {
-        // TODO Implement this
+         if (this.isAllNonBossAliensDead() && this.isBossAlienDead() && waveCompleted) {
+             if (currentWave <= 5) {
+                 currentWave++;
+                 waveCompleted = false;
+             } else {
+                 System.out.println("You beat the game!");
+             }
+
+             return true;
+         }
         return false;
+    }
+
+    /**
+     * Returns the current wave.
+     * @return the current wave as an int
+     */
+    public int getCurrentWave() {
+        return currentWave;
     }
 
     /**
      * Moves the aliens towards the base.
      */
     public void moveAliensTowardBase() {
-        // TODO add condition  so that this isn't infinite. Use isWaveComplete or something.
         for (AbstractEnemy alien: alienCollection) {
             alien.move(mapHeight, mapWidth);
         }
+    }
+
+    public void setCurrentWave(int currentWave) {
+        AlienWaveGenerator.currentWave = currentWave;
     }
 }
