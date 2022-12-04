@@ -17,11 +17,16 @@ public final class ScreenManager {
      */
     public static final int GAME_SCREEN = 1;
     private ScreenManager() { }
+
+    /**
+     * Changes the screen to the specified screen.
+     * @param screen the screen to change to
+     */
     public static void changeScreen(final int screen) {
         switch (screen) {
-            case START_SCREEN -> {
-
-            }
+            case START_SCREEN -> PandaHamster.changeScreen(StartScreen.getInstance());
+            case GAME_SCREEN -> PandaHamster.changeScreen(GameScreen.getInstance());
+            default -> { }
         }
     }
 }
