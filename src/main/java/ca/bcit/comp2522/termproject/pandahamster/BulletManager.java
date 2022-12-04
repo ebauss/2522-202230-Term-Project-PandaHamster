@@ -1,5 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.Screens.GameScreen;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +22,7 @@ public final class BulletManager {
     public static void addBullets(final Bullet... bullets) {
         for (Bullet bullet: bullets) {
             BULLET_LIST.add(bullet);
-            PandaHamster.getGroup().getChildren().add(bullet.getBulletSprite());
+            GameScreen.getRootNode().getChildren().add(bullet.getBulletSprite());
             WorldManager.getInstance().createDynamicRectangle(bullet, 0.2f);
         }
     }
@@ -48,7 +50,7 @@ public final class BulletManager {
      * @param bullet the bullet to remove
      */
     private static void remove(final Bullet bullet) {
-        PandaHamster.getGroup().getChildren().remove(bullet.getBulletSprite());
+        GameScreen.getRootNode().getChildren().remove(bullet.getBulletSprite());
         WorldManager.getInstance().removeBody(bullet.getBody());
     }
     private static void makeBulletEffect(final Bullet bullet) {

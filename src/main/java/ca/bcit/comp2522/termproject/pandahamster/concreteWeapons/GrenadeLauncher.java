@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster.concreteWeapons;
 
 import ca.bcit.comp2522.termproject.pandahamster.*;
+import ca.bcit.comp2522.termproject.pandahamster.Screens.GameScreen;
 import javafx.application.Platform;
 import javafx.scene.shape.Circle;
 import org.jbox2d.collision.shapes.CircleShape;
@@ -88,7 +89,7 @@ public class GrenadeLauncher extends AbstractWeapon {
         circle.setRadius(30);
         circle.setCenterX(bulletLocation.x);
         circle.setCenterY(bulletLocation.y);
-        PandaHamster.getGroup().getChildren().add(circle);
+        GameScreen.getRootNode().getChildren().add(circle);
         Timer timer = new Timer();
         final float start = GameTimer.getElapsedSeconds();
         TimerTask timerTask = new TimerTask() {
@@ -96,7 +97,7 @@ public class GrenadeLauncher extends AbstractWeapon {
             public void run() {
                 Platform.runLater(() -> {
                     if (GameTimer.getElapsedSeconds() - start >= 1) {
-                        PandaHamster.getGroup().getChildren().remove(circle);
+                        GameScreen.getRootNode().getChildren().remove(circle);
                         WorldManager.getInstance().removeBody(explosion);
                         timer.cancel();
                     }
