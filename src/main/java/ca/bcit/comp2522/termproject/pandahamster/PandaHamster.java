@@ -1,5 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.Screens.ScreenManager;
 import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
 import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWaveCounter;
 import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWeaponInfo;
@@ -37,117 +38,111 @@ public class PandaHamster extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
         stage = primaryStage;
-        GridPane layout = new GridPane();
-        root = new Group(layout);
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(PandaHamster.class.getResource("/stylesheets/style.css").toExternalForm());
-        TiledReader reader = new FileSystemTiledReader();
-        TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
-        GameMap.setMapWidth(map.getWidth() * map.getTileWidth());
-        GameMap.setMapHeight(map.getWidth() * map.getTileWidth());
-        StackPane stackPane = MapRenderer.render(map);
-        HBox hBox = new HBox();
-        hBox.setSpacing(10);
-        hBox.getStyleClass().add("game-bar");
-        hBox.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoGrid());
-        hBox.getChildren().add(PlayerInfo.createPlayerInfo().getPlayerInfo());
-        hBox.getChildren().add(CurrentWaveCounter.createCurrentWaveCounter().getCurrentWaveInfoGrid());
-        for (Node child: hBox.getChildren()) {
-            HBox.setHgrow(child, Priority.ALWAYS);
-        }
-        layout.add(stackPane, 0, 0);
-        layout.add(hBox, 0, 1);
-        Player player = Player.getInstance();
-        // Instantiate single instance of AlienWaveGenerator
-        AlienWaveGenerator alienWaveGenerator = AlienWaveGenerator
-                .getInstance(map.getHeight() * map.getTileHeight(),
-                        map.getWidth() * map.getTileWidth());
-
-        root.getChildren().add(player.getPlayerSprite());
-        root.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
-            MousePositionTracker.setMouseLocation(event.getX(), event.getY());
-        });
-        stackPane.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            player.pullTrigger();
-        });
-        WorldManager.getInstance().createDynamicRectangle(player, 1f);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        // Generate aliens
-        alienWaveGenerator.generateWaveOfAliens();
-        for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
-            root.getChildren().add(alienSprite.getAlienSprite());
-        }
-        alienWaveGenerator.moveAliensTowardBase();
-
-        AnimationTimer animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(final long now) {
-                WorldManager.getInstance().updateWorld();
-                player.faceMouseDirection();
-                BulletManager.cleanup();
-                DynamicUiUpdater.updateUi();
-                // TODO Remove alien from map if it is dead.
-                for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
-                    if (alienSprite.getHealthPoints() <= 0) {
-                        root.getChildren().remove(alienSprite.getAlienSprite());
-                        WorldManager.getInstance().removeBody(alienSprite.getBody());
-                        alienWaveGenerator.setAlienDead(true);
-                    }
-                }
-
-                if (alienWaveGenerator.isAlienDead()) {
-                    alienWaveGenerator.removeDeadAliensFromCollection();
-                    alienWaveGenerator.setAlienDead(false);
-                }
-
-                if (alienWaveGenerator.isAllNonBossAliensDead() && !alienWaveGenerator.isBossSpawned()) {
-                    alienWaveGenerator.spawnBoss();
-                    for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
-                        root.getChildren().add(alienSprite.getAlienSprite());
-                    }
-                    System.out.println("Boss is spawned!!!!");
-                }
-
-                if (alienWaveGenerator.isWaveComplete()) {
-                    System.out.println("Wave is complete. Here is the next wave for you!");
-                    alienWaveGenerator.generateWaveOfAliens();
-                    for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
-                        root.getChildren().add(alienSprite.getAlienSprite());
-                    }
-                    alienWaveGenerator.moveAliensTowardBase();
-                }
-            }
-        };
-
-        animationTimer.start();
-        AnimationTimer bulletShooting = new AnimationTimer() {
-            private long lastUpdate;
-            @Override
-            public void handle(final long now) {
-                if (lastUpdate >= 1e+9) {
-                    player.pullTrigger();
-                    lastUpdate = 0;
-                }
-                System.out.println(now);
-                lastUpdate += now - lastUpdate;
-            }
-        };
-//        stackPane.addEventFilter(MouseEvent.ANY, event -> {
-//            if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
-//                bulletShooting.start();
-//            } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
-//                bulletShooting.stop();
-//            }
+        ScreenManager.changeScreen(ScreenManager.START_SCREEN);
+//        GridPane layout = new GridPane();
+//        root = new Group(layout);
+//        Scene scene = new Scene(root);
+//        scene.getStylesheets().add(PandaHamster.class.getResource("/stylesheets/style.css").toExternalForm());
+//        TiledReader reader = new FileSystemTiledReader();
+//        TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
+//        GameMap.setMapWidth(map.getWidth() * map.getTileWidth());
+//        GameMap.setMapHeight(map.getWidth() * map.getTileWidth());
+//        StackPane stackPane = MapRenderer.render(map);
+//        HBox hBox = new HBox();
+//        hBox.setSpacing(10);
+//        hBox.getStyleClass().add("game-bar");
+//        hBox.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoGrid());
+//        hBox.getChildren().add(PlayerInfo.createPlayerInfo().getPlayerInfo());
+//        hBox.getChildren().add(CurrentWaveCounter.createCurrentWaveCounter().getCurrentWaveInfoGrid());
+//        for (Node child: hBox.getChildren()) {
+//            HBox.setHgrow(child, Priority.ALWAYS);
+//        }
+//        layout.add(stackPane, 0, 0);
+//        layout.add(hBox, 0, 1);
+//        Player player = Player.getInstance();
+//        // Instantiate single instance of AlienWaveGenerator
+//        AlienWaveGenerator alienWaveGenerator = AlienWaveGenerator
+//                .getInstance(map.getHeight() * map.getTileHeight(),
+//                        map.getWidth() * map.getTileWidth());
+//
+//        root.getChildren().add(player.getPlayerSprite());
+//        root.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
+//            MousePositionTracker.setMouseLocation(event.getX(), event.getY());
 //        });
-    }
-    /**
-     * Returns the group that contains all the elements.
-     * @return the group
-     */
-    public static Group getGroup() {
-        return root;
+//        stackPane.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//            player.pullTrigger();
+//        });
+//        WorldManager.getInstance().createDynamicRectangle(player, 1f);
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+//
+//        // Generate aliens
+//        alienWaveGenerator.generateWaveOfAliens();
+//        for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
+//            root.getChildren().add(alienSprite.getAlienSprite());
+//        }
+//        alienWaveGenerator.moveAliensTowardBase();
+//
+//        AnimationTimer animationTimer = new AnimationTimer() {
+//            @Override
+//            public void handle(final long now) {
+//                WorldManager.getInstance().updateWorld();
+//                player.faceMouseDirection();
+//                BulletManager.cleanup();
+//                DynamicUiUpdater.updateUi();
+//                // TODO Remove alien from map if it is dead.
+//                for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
+//                    if (alienSprite.getHealthPoints() <= 0) {
+//                        root.getChildren().remove(alienSprite.getAlienSprite());
+//                        WorldManager.getInstance().removeBody(alienSprite.getBody());
+//                        alienWaveGenerator.setAlienDead(true);
+//                    }
+//                }
+//
+//                if (alienWaveGenerator.isAlienDead()) {
+//                    alienWaveGenerator.removeDeadAliensFromCollection();
+//                    alienWaveGenerator.setAlienDead(false);
+//                }
+//
+//                if (alienWaveGenerator.isAllNonBossAliensDead() && !alienWaveGenerator.isBossSpawned()) {
+//                    alienWaveGenerator.spawnBoss();
+//                    for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
+//                        root.getChildren().add(alienSprite.getAlienSprite());
+//                    }
+//                    System.out.println("Boss is spawned!!!!");
+//                }
+//
+//                if (alienWaveGenerator.isWaveComplete()) {
+//                    System.out.println("Wave is complete. Here is the next wave for you!");
+//                    alienWaveGenerator.generateWaveOfAliens();
+//                    for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
+//                        root.getChildren().add(alienSprite.getAlienSprite());
+//                    }
+//                    alienWaveGenerator.moveAliensTowardBase();
+//                }
+//            }
+//        };
+//
+//        animationTimer.start();
+//        AnimationTimer bulletShooting = new AnimationTimer() {
+//            private long lastUpdate;
+//            @Override
+//            public void handle(final long now) {
+//                if (lastUpdate >= 1e+9) {
+//                    player.pullTrigger();
+//                    lastUpdate = 0;
+//                }
+//                System.out.println(now);
+//                lastUpdate += now - lastUpdate;
+//            }
+//        };
+////        stackPane.addEventFilter(MouseEvent.ANY, event -> {
+////            if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
+////                bulletShooting.start();
+////            } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
+////                bulletShooting.stop();
+////            }
+////        });
     }
 
     /**
@@ -156,6 +151,9 @@ public class PandaHamster extends Application {
      */
     public static void changeScreen(final Scene screen) {
         stage.setScene(screen);
+//        stage.setMinWidth(480);
+//        stage.setMinHeight(400);
+        stage.show();
     }
 
     /**
