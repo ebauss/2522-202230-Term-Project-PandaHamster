@@ -207,7 +207,7 @@ public class Player extends GameEntity implements DynamicEntity {
     }
 
     /* Calls reload() method for currentWeapon. */
-    private void reloadWeapon() {
+    public void reloadWeapon() {
         this.currentWeapon.reload();
     }
     /**
