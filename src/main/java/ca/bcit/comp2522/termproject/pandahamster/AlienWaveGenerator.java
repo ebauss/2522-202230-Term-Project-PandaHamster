@@ -152,6 +152,13 @@ public class AlienWaveGenerator {
     }
 
     /**
+     * Removes all aliens from alienCollection.
+     */
+    public void removeAllAliensFromCollection() {
+        alienCollection = new ArrayList<>();
+    }
+
+    /**
      * Spawns the bossAlien.
      */
     public void spawnBoss() {
@@ -236,5 +243,9 @@ public class AlienWaveGenerator {
         for (AbstractEnemy alien: alienCollection) {
             alien.move(mapHeight, mapWidth);
         }
+    }
+
+    public void setCurrentWave(int currentWave) {
+        AlienWaveGenerator.currentWave = currentWave;
     }
 }
