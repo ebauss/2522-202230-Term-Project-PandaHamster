@@ -82,18 +82,8 @@ public abstract class AbstractWeapon extends AbstractShooter {
         return currentClipCount;
     }
     public void setCurrentClipCount(final long currentClipCount) {
-        // get amount required to fill magazine back to full
-        long amountToReload = clipSize - currentClipCount;
-        // check if there is enough ammo to fill the clip back up
-        if (amountToReload > ammoCapacity) {
-            // if there isn't, the amount to reload will just be whatever ammo is left
-            amountToReload = ammoCapacity;
-        }
-        // decrease ammo by how much was filled in the magazine
-        ammoCapacity -= amountToReload;
         // fill up the clip
-        this.currentClipCount = currentClipCount + amountToReload;
-        System.out.println("amount reloaded: " + amountToReload);
+        this.currentClipCount = clipSize;
     }
     public long getClipSize() {
         return clipSize;
