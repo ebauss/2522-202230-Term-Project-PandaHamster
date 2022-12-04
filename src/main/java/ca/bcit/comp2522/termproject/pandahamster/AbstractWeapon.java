@@ -158,8 +158,9 @@ public abstract class AbstractWeapon extends AbstractShooter {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(bulletLocation.x, bulletLocation.y);
         Body explosion = WorldManager.getInstance().createBody(bodyDef);
+        explosion.setUserData("explosion");
         CircleShape explosionRadius = new CircleShape();
-        explosionRadius.setRadius(4);
+        explosionRadius.setRadius(effectRadius);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = explosionRadius;
         fixtureDef.isSensor = true;

@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.GrenadeLauncher;
 import org.jbox2d.callbacks.ContactFilter;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
@@ -60,7 +61,10 @@ public final class WorldManager {
         Body firstBody = world.getBodyList();
         // the body list is a linked list
         while (firstBody != null) {
-            GameEntity gameEntity = (GameEntity) firstBody.getUserData();
+            GameEntity gameEntity = null;
+            if (firstBody.getUserData() instanceof GameEntity) {
+                gameEntity = (GameEntity) firstBody.getUserData();
+            }
             if (gameEntity != null) {
                 // update the position based on the position in the body
                 /*
@@ -222,6 +226,19 @@ public final class WorldManager {
                     ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
                 } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() == null) {
                     ((Bullet) bodyA.getUserData()).setMarkedForRemoval(true);
+                }
+                if (bodyA.getUserData() != null && bodyA.getUserData().equals("explosion")
+                && bodyB.getUserData() instanceof AbstractEnemy) {
+                    long currentAlienHealth = ((AbstractEnemy) bodyB.getUserData()).getHealthPoints();
+                    long newAlienHealth = currentAlienHealth - (long) GrenadeLauncher.DAMAGE;
+                    ((AbstractEnemy) bodyB.getUserData()).setHealthPoints(newAlienHealth);
+                    System.out.println("hit enemy");
+                } else if (bodyA.getUserData() instanceof AbstractEnemy && bodyB.getUserData() != null
+                        && bodyB.getUserData().equals("explosion")) {
+                    long currentAlienHealth = ((AbstractEnemy) bodyA.getUserData()).getHealthPoints();
+                    long newAlienHealth = currentAlienHealth - (long) GrenadeLauncher.DAMAGE;
+                    ((AbstractEnemy) bodyA.getUserData()).setHealthPoints(newAlienHealth);
+                    System.out.println("hit enemy");
                 }
             }
 
