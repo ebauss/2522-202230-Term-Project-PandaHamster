@@ -1,9 +1,11 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.Screens.GameScreen;
 import ca.bcit.comp2522.termproject.pandahamster.aliens.*;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -108,6 +110,7 @@ public class AlienWaveGenerator {
             AbstractEnemy newAlien = new FodderAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+            GameScreen.getRootNode().getChildren().add(newAlien.getAlienSprite());
         }
 
         for (int gunnerCount = 0; gunnerCount < gunnerWaveArray[currentWave]; gunnerCount++) {
@@ -117,6 +120,7 @@ public class AlienWaveGenerator {
             AbstractEnemy newAlien = new GunnerAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+            GameScreen.getRootNode().getChildren().add(newAlien.getAlienSprite());
         }
 
         for (int speedyCount = 0; speedyCount < speedyWaveArray[currentWave]; speedyCount++) {
@@ -126,6 +130,7 @@ public class AlienWaveGenerator {
             AbstractEnemy newAlien = new SpeedyAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+            GameScreen.getRootNode().getChildren().add(newAlien.getAlienSprite());
         }
 
         for (int tankCount = 0; tankCount < tankWaveArray[currentWave]; tankCount++) {
@@ -135,6 +140,7 @@ public class AlienWaveGenerator {
             AbstractEnemy newAlien = new TankAlien(randomXCoordinate, randomYCoordinate);
             alienCollection.add(newAlien);
             WorldManager.getInstance().createDynamicRectangle(newAlien, 1f);
+            GameScreen.getRootNode().getChildren().add(newAlien.getAlienSprite());
         }
     }
 
@@ -155,7 +161,13 @@ public class AlienWaveGenerator {
      * Removes all aliens from alienCollection.
      */
     public void removeAllAliensFromCollection() {
-        alienCollection = new ArrayList<>();
+        Iterator<AbstractEnemy> itr = alienCollection.iterator();
+        while (itr.hasNext()) {
+            AbstractEnemy alien = itr.next();
+            WorldManager.getInstance().removeBody(alien.getBody());
+            GameScreen.getRootNode().getChildren().remove(alien.getAlienSprite());
+            itr.remove();
+        }
     }
 
     /**
