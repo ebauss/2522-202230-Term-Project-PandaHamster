@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Base {
     private long health;
-    private boolean isAlienDamagingBase;
+    private int alienAttackCounter;
     // TODO Implement towers so that you can uncomment this.
 //    private ArrayList<AbstractTower> towerCollection;
 
@@ -19,25 +19,19 @@ public class Base {
      */
     public Base() {
         this.health = 3000;
-        this.isAlienDamagingBase = false;
+        this.alienAttackCounter = 0;
     }
 
-    /**
-     * Gets the variable.
-     *
-     * @return a boolean
-     */
-    public boolean isAlienDamagingBase() {
-        return isAlienDamagingBase;
+    public int getAlienAttackCounter() {
+        return alienAttackCounter;
     }
 
-    /**
-     * Sets the variables
-     *
-     * @param alienDamagingBase a boolean
-     */
-    public void setAlienDamagingBase(final boolean alienDamagingBase) {
-        isAlienDamagingBase = alienDamagingBase;
+    public void incrementAlienAttackCounter() {
+        this.alienAttackCounter++;
+    }
+
+    public void resetAlienAttackCounter() {
+        this.alienAttackCounter = 0;
     }
 
     /**

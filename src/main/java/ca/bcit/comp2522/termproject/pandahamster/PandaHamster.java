@@ -27,6 +27,8 @@ import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledReader;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Entry point into the game.
  * @author Evon Bausa & Alex Liu
@@ -83,6 +85,7 @@ public class PandaHamster extends Application {
             root.getChildren().add(alienSprite.getAlienSprite());
         }
         alienWaveGenerator.moveAliensTowardBase();
+        Base base = new Base();
 
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
@@ -98,6 +101,16 @@ public class PandaHamster extends Application {
                         root.getChildren().remove(alienSprite.getAlienSprite());
                         WorldManager.getInstance().removeBody(alienSprite.getBody());
                         alienWaveGenerator.setAlienDead(true);
+                    }
+
+                    if (alienSprite.getXPosition() >= 206 && alienSprite.getXPosition() <= 208 + 66
+                    && alienSprite.getYPosition() >= 206 && alienSprite.getYPosition() <= 208 + 66) {
+                        if (base.getAlienAttackCounter() == 2000) {
+                            base.reduceBaseHealth();
+                            System.out.println(base.getHealth());
+                            base.resetAlienAttackCounter();
+                        }
+                        base.incrementAlienAttackCounter();
                     }
                 }
 
