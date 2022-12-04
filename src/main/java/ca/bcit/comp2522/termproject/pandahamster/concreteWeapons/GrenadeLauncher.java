@@ -24,7 +24,7 @@ public class GrenadeLauncher extends AbstractWeapon {
     /**
      * The grenade launcher damage.
      */
-    public static final float DAMAGE = 50f;
+    public static final float DAMAGE = 100f;
     /**
      * The grenade launchere attack speed. The time it takes to do a single attack in seconds.
      */
@@ -69,7 +69,7 @@ public class GrenadeLauncher extends AbstractWeapon {
         if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
             setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
             Vec2 target = getMouseDirection();
-            fireSingleShot(ATTACK_RANGE, new Vec2(MousePositionTracker.getMouseLocation()), target);
+            fireSingleShot(ATTACK_RANGE, new Vec2(MousePositionTracker.getMouseLocation()), target, DAMAGE);
         }
     }
 

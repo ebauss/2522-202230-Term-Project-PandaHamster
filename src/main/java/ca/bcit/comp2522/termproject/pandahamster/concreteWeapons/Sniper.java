@@ -17,7 +17,7 @@ public class Sniper extends AbstractWeapon {
     /**
      * The sniper damage.
      */
-    public static final float DAMAGE = 200f;
+    public static final float DAMAGE = 1000f;
     /**
      * The sniper attack speed. The time it takes to do a single attack in seconds.
      */
@@ -62,7 +62,7 @@ public class Sniper extends AbstractWeapon {
         if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
             setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
             Vec2 target = getMouseDirection();
-            fireSingleShot(ATTACK_RANGE, MousePositionTracker.getMouseLocation(), target);
+            fireSingleShot(ATTACK_RANGE, MousePositionTracker.getMouseLocation(), target, DAMAGE);
         }
     }
 

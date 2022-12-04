@@ -16,16 +16,18 @@ public class Bullet extends GameEntity {
     private Vec2 origin;
     private float maxRange;
     private boolean markedForRemoval;
+    private float damage;
     /**
      * Makes a new bullet.
      * @param x x
      * @param y y
      */
-    public Bullet(final float x, final float y, final float maxRange, final GameEntityType originator) {
+    public Bullet(final float x, final float y, final float maxRange, final GameEntityType originator, final float damage) {
         super(x, y, 2, 2);
         bulletSprite = new Rectangle(x, y, 2, 2);
         this.maxRange = maxRange;
         this.originator = originator;
+        this.damage = damage;
     }
 
     /**
@@ -80,6 +82,15 @@ public class Bullet extends GameEntity {
     public void setOrigin(final Vec2 origin) {
         this.origin = origin;
     }
+
+    public float getDamage() {
+        return damage;
+    }
+
+    public void setDamage(final float damage) {
+        this.damage = damage;
+    }
+
     /**
      * Returns boolean value of markedForRemoval.
      * @return a boolean

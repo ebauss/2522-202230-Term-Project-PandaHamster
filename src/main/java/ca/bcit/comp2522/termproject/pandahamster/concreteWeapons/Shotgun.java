@@ -15,7 +15,7 @@ public class Shotgun extends AbstractWeapon {
     /**
      * The shotgun damage.
      */
-    public static final float DAMAGE = 25f;
+    public static final float DAMAGE = 40f;
     /**
      * The shotgun attack speed. The time it takes to do a single attack in seconds.
      */
@@ -78,7 +78,7 @@ public class Shotgun extends AbstractWeapon {
                 } else {
                     start = start.sub(new Vec2(0, bulletDistance));
                 }
-                fireSingleShot(ATTACK_RANGE, start, start);
+                fireSingleShot(ATTACK_RANGE, start, start, DAMAGE);
             }
         }
     }

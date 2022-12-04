@@ -15,7 +15,7 @@ public class Pistol extends AbstractWeapon {
     /**
      * The pistol damage.
      */
-    public static final float DAMAGE = 5f;
+    public static final float DAMAGE = 30f;
     /**
      * The pistol attack speed. The time it takes to do a single attack in seconds.
      */
@@ -60,7 +60,7 @@ public class Pistol extends AbstractWeapon {
         if (GameTimer.getElapsedSeconds() - getLastAttackTimeInSeconds() >= getAttackSpeed()) {
             setLastAttackTimeInSeconds(GameTimer.getElapsedSeconds());
             Vec2 targetPos = getMouseDirection();
-            fireSingleShot(ATTACK_RANGE, MousePositionTracker.getMouseLocation(), targetPos);
+            fireSingleShot(ATTACK_RANGE, MousePositionTracker.getMouseLocation(), targetPos, DAMAGE);
         }
     }
 
