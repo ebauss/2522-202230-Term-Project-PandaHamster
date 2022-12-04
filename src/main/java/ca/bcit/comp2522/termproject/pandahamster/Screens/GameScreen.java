@@ -2,10 +2,7 @@ package ca.bcit.comp2522.termproject.pandahamster.Screens;
 
 import ca.bcit.comp2522.termproject.pandahamster.*;
 import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
-import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWaveCounter;
-import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWeaponInfo;
-import ca.bcit.comp2522.termproject.pandahamster.components.DynamicUiUpdater;
-import ca.bcit.comp2522.termproject.pandahamster.components.PlayerInfo;
+import ca.bcit.comp2522.termproject.pandahamster.components.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -55,17 +52,18 @@ public final class GameScreen extends Scene {
         GameMap.setMapWidth(map.getWidth() * map.getTileWidth());
         GameMap.setMapHeight(map.getWidth() * map.getTileWidth());
         StackPane stackPane = MapRenderer.render(map);
-        HBox hBox = new HBox();
-        hBox.setSpacing(10);
-        hBox.getStyleClass().add("game-bar");
-        hBox.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoGrid());
-        hBox.getChildren().add(PlayerInfo.createPlayerInfo().getPlayerInfo());
-        hBox.getChildren().add(CurrentWaveCounter.createCurrentWaveCounter().getCurrentWaveInfoGrid());
-        for (Node child: hBox.getChildren()) {
+        HBox bottomBar = new HBox();
+        bottomBar.setSpacing(10);
+        bottomBar.getStyleClass().add("game-bar");
+        bottomBar.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoGrid());
+        bottomBar.getChildren().add(PlayerInfo.createPlayerInfo().getPlayerInfo());
+        bottomBar.getChildren().add(CurrentWaveCounter.createCurrentWaveCounter().getCurrentWaveInfoGrid());
+        bottomBar.getChildren().add(BaseInfo.createBaseInfo().getBaseInfoGrid());
+        for (Node child: bottomBar.getChildren()) {
             HBox.setHgrow(child, Priority.ALWAYS);
         }
         layout.add(stackPane, 0, 0);
-        layout.add(hBox, 0, 1);
+        layout.add(bottomBar, 0, 1);
         Player player = Player.getInstance();
         // Instantiate single instance of AlienWaveGenerator
         AlienWaveGenerator alienWaveGenerator = AlienWaveGenerator
@@ -87,7 +85,7 @@ public final class GameScreen extends Scene {
             ROOT.getChildren().add(alienSprite.getAlienSprite());
         }
         alienWaveGenerator.moveAliensTowardBase();
-        Base base = new Base();
+        Base base = Base.getInstance();
 
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
@@ -96,6 +94,7 @@ public final class GameScreen extends Scene {
                 player.faceMouseDirection();
                 BulletManager.cleanup();
                 DynamicUiUpdater.updateUi();
+                System.out.println(Base.getInstance().getHealth());
 
                 alienWaveGenerator.moveAliensTowardBase();
                 for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
