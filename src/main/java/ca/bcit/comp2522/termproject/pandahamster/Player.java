@@ -1,9 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
-import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.AssaultRifle;
-import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.GrenadeLauncher;
-import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Pistol;
-import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.Shotgun;
+import ca.bcit.comp2522.termproject.pandahamster.concreteWeapons.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -57,11 +54,13 @@ public class Player extends GameEntity implements DynamicEntity {
         setXPosition(0);
         setYPosition(0);
         weaponInventory = new ArrayList<>();
-        AbstractWeapon shotgun = new Shotgun();
-        AbstractWeapon grenadeLauncher = new GrenadeLauncher();
-        weaponInventory.add(grenadeLauncher);
-        weaponInventory.add(shotgun);
-        currentWeapon = shotgun;
+        AbstractWeapon pistol = new Pistol();
+        weaponInventory.add(new Pistol());
+        weaponInventory.add(new AssaultRifle());
+        weaponInventory.add(new Sniper());
+        weaponInventory.add(new Shotgun());
+        weaponInventory.add(new GrenadeLauncher());
+        currentWeapon = pistol;
         // allows the rectangle to 'listen' to key events
         playerSprite.setFocusTraversable(true);
         playerSprite.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
