@@ -1,6 +1,9 @@
 package ca.bcit.comp2522.termproject.pandahamster.Screens;
 
 import javafx.application.Platform;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -42,6 +45,11 @@ public final class StartScreen extends Scene {
      */
     private static void initialize() {
         GridPane layout = new GridPane();
+        layout.setAlignment(Pos.CENTER);
+        layout.setPrefWidth(480);
+        layout.setPrefHeight(400);
+        layout.setHgap(10);
+        layout.setVgap(10);
         ROOT.getChildren().add(layout);
         Button playButton = new Button("Start");
         playButton.setOnAction((value) -> {
@@ -52,7 +60,9 @@ public final class StartScreen extends Scene {
             Platform.exit();
         });
         RowConstraints row = new RowConstraints();
+        row.setValignment(VPos.CENTER);
         ColumnConstraints column = new ColumnConstraints();
+        column.setHalignment(HPos.CENTER);
         layout.getRowConstraints().addAll(row, row);
         layout.getColumnConstraints().add(column);
         layout.add(playButton, 0, 0);
