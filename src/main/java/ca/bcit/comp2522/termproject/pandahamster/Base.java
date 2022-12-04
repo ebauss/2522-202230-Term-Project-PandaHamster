@@ -51,6 +51,10 @@ public class Base {
         return health;
     }
 
+    public void setHealth(final long health) {
+        this.health = health;
+    }
+
     public static long getMaxHealth() {
         return MAX_HEALTH;
     }
