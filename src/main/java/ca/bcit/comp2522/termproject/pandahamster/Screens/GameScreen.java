@@ -98,12 +98,8 @@ public final class GameScreen extends Scene {
             player.pullTrigger();
         });
         WorldManager.getInstance().createDynamicRectangle(player, 1f);
-
         // Generate aliens
         alienWaveGenerator.generateWaveOfAliens();
-        for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
-            ROOT.getChildren().add(alienSprite.getAlienSprite());
-        }
         alienWaveGenerator.moveAliensTowardBase();
         Base base = Base.getInstance();
 
@@ -151,9 +147,6 @@ public final class GameScreen extends Scene {
                 if (alienWaveGenerator.isWaveComplete()) {
                     System.out.println("Wave is complete. Here is the next wave for you!");
                     alienWaveGenerator.generateWaveOfAliens();
-                    for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
-                        ROOT.getChildren().add(alienSprite.getAlienSprite());
-                    }
                     alienWaveGenerator.moveAliensTowardBase();
                     base.resetAlienAttackCounter();
                 }
