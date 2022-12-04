@@ -92,9 +92,9 @@ public class AlienWaveGenerator {
      */
     public void generateWaveOfAliens() {
         // hard coded counts for spawn amounts for each alien type.
-        int[] fodderWaveArray = {1, 20, 30, 40, 50};
-        int[] gunnerWaveArray = {1, 10, 15, 20, 25};
-        int[] speedyWaveArray = {1, 11, 12, 13, 14};
+        int[] fodderWaveArray = {10, 20, 30, 40, 50};
+        int[] gunnerWaveArray = {5, 10, 15, 20, 25};
+        int[] speedyWaveArray = {6, 11, 12, 13, 14};
         int[] tankWaveArray = {1, 6, 7, 8, 9};
 
         // Sets the bounds for generated x and y values.
