@@ -8,7 +8,7 @@ package ca.bcit.comp2522.termproject.pandahamster.aliens;
  */
 public class TankAlien extends AbstractEnemy {
     private static final float TANK_ALIEN_SPEED = 10f;
-    private static final long TANK_ALIEN_HEALTH = 100;
+    private static final long TANK_ALIEN_HEALTH = 200;
     private static final long TANK_ALIEN_WIDTH = 30;
     private static final long TANK_ALIEN_HEIGHT = 30;
     private static final long TANK_ALIEN_KILL_MONEY = 100;
