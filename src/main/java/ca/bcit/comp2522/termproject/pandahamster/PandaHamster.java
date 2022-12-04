@@ -151,8 +151,8 @@ public class PandaHamster extends Application {
      */
     public static void changeScreen(final Scene screen) {
         stage.setScene(screen);
-//        stage.setMinWidth(480);
-//        stage.setMinHeight(400);
+        stage.setMinWidth(480);
+        stage.setMinHeight(400);
         stage.show();
     }
 
