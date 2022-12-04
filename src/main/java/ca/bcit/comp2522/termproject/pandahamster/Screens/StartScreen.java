@@ -1,5 +1,6 @@
 package ca.bcit.comp2522.termproject.pandahamster.Screens;
 
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,6 +33,7 @@ public final class StartScreen extends Scene {
         if (startScreen == null) {
             startScreen = new StartScreen(ROOT);
             initialize();
+
         }
         return startScreen;
     }
@@ -43,11 +45,11 @@ public final class StartScreen extends Scene {
         ROOT.getChildren().add(layout);
         Button playButton = new Button("Start");
         playButton.setOnAction((value) -> {
-            System.out.println("start");
+            ScreenManager.changeScreen(ScreenManager.GAME_SCREEN);
         });
         Button quitButton = new Button("Quit");
         quitButton.setOnAction((value) -> {
-            System.out.println("quit");
+            Platform.exit();
         });
         RowConstraints row = new RowConstraints();
         ColumnConstraints column = new ColumnConstraints();
