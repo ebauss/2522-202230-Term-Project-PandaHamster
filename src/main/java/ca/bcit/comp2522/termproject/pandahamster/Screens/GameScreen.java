@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import org.jbox2d.common.Vec2;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledReader;
@@ -52,6 +53,24 @@ public final class GameScreen extends Scene {
         GameMap.setMapWidth(map.getWidth() * map.getTileWidth());
         GameMap.setMapHeight(map.getWidth() * map.getTileWidth());
         StackPane stackPane = MapRenderer.render(map);
+        gameScreen.setOnKeyPressed((event -> {
+            switch (event.getCode()) {
+                case W -> Player.getInstance().moveUp();
+                case A -> Player.getInstance().moveLeft();
+                case S -> Player.getInstance().moveDown();
+                case D -> Player.getInstance().moveRight();
+                case Q, E -> Player.getInstance().switchWeapon(event.getCode());
+                case R -> Player.getInstance().reloadWeapon();
+                default -> { }
+            }
+        }));
+        gameScreen.setOnKeyReleased((event -> {
+            switch (event.getCode()) {
+                // when a movement key is released, stop the player from moving
+                case W, A, S, D -> Player.getInstance().getBody().setLinearVelocity(new Vec2(0, 0));
+                default -> { }
+            }
+        }));
         HBox bottomBar = new HBox();
         bottomBar.setSpacing(10);
         bottomBar.getStyleClass().add("game-bar");
@@ -59,6 +78,7 @@ public final class GameScreen extends Scene {
         bottomBar.getChildren().add(PlayerInfo.createPlayerInfo().getPlayerInfo());
         bottomBar.getChildren().add(CurrentWaveCounter.createCurrentWaveCounter().getCurrentWaveInfoGrid());
         bottomBar.getChildren().add(BaseInfo.createBaseInfo().getBaseInfoGrid());
+        bottomBar.getChildren().add(Menu.createMenu().getMenuGrid());
         for (Node child: bottomBar.getChildren()) {
             HBox.setHgrow(child, Priority.ALWAYS);
         }
@@ -78,12 +98,8 @@ public final class GameScreen extends Scene {
             player.pullTrigger();
         });
         WorldManager.getInstance().createDynamicRectangle(player, 1f);
-
         // Generate aliens
         alienWaveGenerator.generateWaveOfAliens();
-        for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
-            ROOT.getChildren().add(alienSprite.getAlienSprite());
-        }
         alienWaveGenerator.moveAliensTowardBase();
         Base base = Base.getInstance();
 
@@ -94,7 +110,6 @@ public final class GameScreen extends Scene {
                 player.faceMouseDirection();
                 BulletManager.cleanup();
                 DynamicUiUpdater.updateUi();
-                System.out.println(Base.getInstance().getHealth());
 
                 alienWaveGenerator.moveAliensTowardBase();
                 for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
@@ -132,9 +147,6 @@ public final class GameScreen extends Scene {
                 if (alienWaveGenerator.isWaveComplete()) {
                     System.out.println("Wave is complete. Here is the next wave for you!");
                     alienWaveGenerator.generateWaveOfAliens();
-                    for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
-                        ROOT.getChildren().add(alienSprite.getAlienSprite());
-                    }
                     alienWaveGenerator.moveAliensTowardBase();
                     base.resetAlienAttackCounter();
                 }

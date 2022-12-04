@@ -9,8 +9,8 @@ import java.util.ArrayList;
  * @version 2022
  */
 public class Base {
-    private static final long MAX_HEALTH = 3000;
-    private long health;
+    private static final int MAX_HEALTH = 3000;
+    private int health;
     private int alienAttackCounter;
     private static Base base;
     // TODO Implement towers so that you can uncomment this.
@@ -47,11 +47,15 @@ public class Base {
      *
      * @return base health
      */
-    public long getHealth() {
+    public int getHealth() {
         return health;
     }
 
-    public static long getMaxHealth() {
+    public void setHealth(final int health) {
+        this.health = health;
+    }
+
+    public static int getMaxHealth() {
         return MAX_HEALTH;
     }
 

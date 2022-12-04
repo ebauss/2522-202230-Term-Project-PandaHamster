@@ -189,7 +189,7 @@ public class Player extends GameEntity implements DynamicEntity {
         return currentHealth;
     }
 
-    public void setCurrentHealth(int currentHealth) {
+    public void setCurrentHealth(final int currentHealth) {
         this.currentHealth = currentHealth;
     }
     public int getMaxHealth() {
@@ -207,7 +207,7 @@ public class Player extends GameEntity implements DynamicEntity {
     }
 
     /* Calls reload() method for currentWeapon. */
-    private void reloadWeapon() {
+    public void reloadWeapon() {
         this.currentWeapon.reload();
     }
     /**

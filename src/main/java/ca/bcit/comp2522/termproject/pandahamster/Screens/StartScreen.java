@@ -1,5 +1,8 @@
 package ca.bcit.comp2522.termproject.pandahamster.Screens;
 
+import ca.bcit.comp2522.termproject.pandahamster.AlienWaveGenerator;
+import ca.bcit.comp2522.termproject.pandahamster.GameMap;
+import ca.bcit.comp2522.termproject.pandahamster.GameSaveAndLoad;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -11,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+
+import java.io.IOException;
 
 /**
  * Represents the start screen of the game.
@@ -53,6 +58,13 @@ public final class StartScreen extends Scene {
         ROOT.getChildren().add(layout);
         Button playButton = new Button("Start");
         playButton.setOnAction((value) -> {
+            try {
+                GameSaveAndLoad.load();
+            } catch (IOException e) {
+                System.out.println("Illegal IO operation");
+            }
+            AlienWaveGenerator.getInstance(GameMap.getMapHeight(), GameMap.getMapWidth()).removeAllAliensFromCollection();
+            AlienWaveGenerator.getInstance(GameMap.getMapHeight(), GameMap.getMapWidth()).generateWaveOfAliens();
             ScreenManager.changeScreen(ScreenManager.GAME_SCREEN);
         });
         Button quitButton = new Button("Quit");
