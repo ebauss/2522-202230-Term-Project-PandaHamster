@@ -3,6 +3,7 @@ package ca.bcit.comp2522.termproject.pandahamster;
 import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
 import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWeaponInfo;
 import ca.bcit.comp2522.termproject.pandahamster.components.DynamicUiUpdater;
+import ca.bcit.comp2522.termproject.pandahamster.components.PlayerInfo;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -41,8 +42,10 @@ public class PandaHamster extends Application {
         TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
         StackPane stackPane = MapRenderer.render(map);
         HBox hBox = new HBox();
+        hBox.setSpacing(10);
         hBox.getStyleClass().add("game-bar");
         hBox.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoGrid());
+        hBox.getChildren().add(PlayerInfo.createPlayerInfo().getPlayerInfo());
         for (Node child: hBox.getChildren()) {
             HBox.setHgrow(child, Priority.ALWAYS);
         }
