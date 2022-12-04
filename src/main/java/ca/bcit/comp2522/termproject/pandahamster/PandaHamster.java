@@ -87,7 +87,6 @@ public class PandaHamster extends Application {
                 player.faceMouseDirection();
                 BulletManager.cleanup();
 
-                // TODO Remove alien from map if it is dead.
                 for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
                     if (alienSprite.getHealthPoints() <= 0) {
                         root.getChildren().remove(alienSprite.getAlienSprite());

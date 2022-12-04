@@ -30,7 +30,6 @@ public class Player extends GameEntity implements DynamicEntity {
     private long level;
     private long currentExp;
     private long money;
-    // TODO make AbstractWeapon so that the line below can be uncommented
     private List<AbstractWeapon> weaponInventory;
     private AbstractWeapon currentWeapon;
     private short lifeCount;
