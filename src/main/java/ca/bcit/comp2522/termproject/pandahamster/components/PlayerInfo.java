@@ -31,7 +31,6 @@ public class PlayerInfo implements DynamicUi {
         column.setHgrow(Priority.ALWAYS);
         column.setHalignment(HPos.CENTER);
         playerHealthInfo.getRowConstraints().addAll(row, row);
-        playerHealthInfo.setGridLinesVisible(true);
         playerHealthInfo.getColumnConstraints().add(column);
         playerHealthInfo.add(playerHealthTitle, 0, 0);
         playerHealthInfo.add(playerHealth, 0, 1);
