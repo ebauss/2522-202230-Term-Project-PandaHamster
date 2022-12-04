@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
+import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWaveCounter;
 import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWeaponInfo;
 import ca.bcit.comp2522.termproject.pandahamster.components.DynamicUiUpdater;
 import ca.bcit.comp2522.termproject.pandahamster.components.PlayerInfo;
@@ -48,6 +49,7 @@ public class PandaHamster extends Application {
         hBox.getStyleClass().add("game-bar");
         hBox.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoGrid());
         hBox.getChildren().add(PlayerInfo.createPlayerInfo().getPlayerInfo());
+        hBox.getChildren().add(CurrentWaveCounter.createCurrentWaveCounter().getCurrentWaveInfoGrid());
         for (Node child: hBox.getChildren()) {
             HBox.setHgrow(child, Priority.ALWAYS);
         }
