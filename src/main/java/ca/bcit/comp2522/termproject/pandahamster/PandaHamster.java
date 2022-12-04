@@ -22,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import org.jbox2d.common.Vec2;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledReader;
@@ -90,7 +91,8 @@ public class PandaHamster extends Application {
                 player.faceMouseDirection();
                 BulletManager.cleanup();
                 DynamicUiUpdater.updateUi();
-                // TODO Remove alien from map if it is dead.
+
+                alienWaveGenerator.moveAliensTowardBase();
                 for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
                     if (alienSprite.getHealthPoints() <= 0) {
                         root.getChildren().remove(alienSprite.getAlienSprite());
