@@ -117,6 +117,14 @@ public class AlienWaveGenerator {
     }
 
     /**
+     * Returns the current wave.
+     * @return the current wave as an int
+     */
+    public static int getCurrentWave() {
+        return currentWave;
+    }
+
+    /**
      * Moves the aliens towards the base.
      */
     public void moveAliensTowardBase() {
