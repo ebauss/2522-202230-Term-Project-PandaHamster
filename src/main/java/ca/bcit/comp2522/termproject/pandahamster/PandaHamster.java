@@ -5,22 +5,12 @@ import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWeaponInfo;
 import ca.bcit.comp2522.termproject.pandahamster.components.DynamicUiUpdater;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
@@ -52,7 +42,10 @@ public class PandaHamster extends Application {
         StackPane stackPane = MapRenderer.render(map);
         HBox hBox = new HBox();
         hBox.getStyleClass().add("game-bar");
-        hBox.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoLabel());
+        hBox.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoGrid());
+        for (Node child: hBox.getChildren()) {
+            HBox.setHgrow(child, Priority.ALWAYS);
+        }
         VBox vBox = new VBox();
         vBox.getStyleClass().add("game-bar");
         vBox.getChildren().add(new Label("Towers"));
