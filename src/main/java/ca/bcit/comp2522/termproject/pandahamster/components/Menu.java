@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Menu implements DynamicUi {
@@ -19,8 +20,8 @@ public class Menu implements DynamicUi {
         Button save = new Button("Save");
         save.setOnAction((value) -> {
             try {
-                GameSaveAndLoad.readSaveFile();
-            } catch (IOException e) {
+                GameSaveAndLoad.save();
+            } catch (FileNotFoundException e) {
                 System.out.println("Could not locate the file.");
             }
         });
@@ -28,10 +29,10 @@ public class Menu implements DynamicUi {
         menu.setOnAction((value) -> ScreenManager.changeScreen(ScreenManager.START_SCREEN));
         menuGrid.getStyleClass().add("grid");
         RowConstraints row = new RowConstraints();
-//        row.setVgrow(Priority.ALWAYS);
+        row.setVgrow(Priority.ALWAYS);
         row.setValignment(VPos.CENTER);
         ColumnConstraints column = new ColumnConstraints();
-//        column.setHgrow(Priority.ALWAYS);
+        column.setHgrow(Priority.ALWAYS);
         column.setHalignment(HPos.CENTER);
         menuGrid.getRowConstraints().addAll(row, row);
         menuGrid.getColumnConstraints().add(column);
