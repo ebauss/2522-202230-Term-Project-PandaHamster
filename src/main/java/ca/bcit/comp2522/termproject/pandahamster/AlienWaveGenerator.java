@@ -209,8 +209,13 @@ public class AlienWaveGenerator {
      */
     public boolean isWaveComplete() {
          if (this.isAllNonBossAliensDead() && this.isBossAlienDead() && waveCompleted) {
-             currentWave++;
-             waveCompleted = false;
+             if (currentWave <= 5) {
+                 currentWave++;
+                 waveCompleted = false;
+             } else {
+                 System.out.println("You beat the game!");
+             }
+
              return true;
          }
         return false;
