@@ -193,6 +193,9 @@ public class Player extends GameEntity implements DynamicEntity {
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }
+    public int getMaxHealth() {
+        return MAX_HEALTH;
+    }
 
     /**
      * Calls the attack() method for currentWeapon.
