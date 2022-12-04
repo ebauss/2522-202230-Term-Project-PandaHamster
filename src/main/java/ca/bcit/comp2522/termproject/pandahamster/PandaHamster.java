@@ -105,7 +105,7 @@ public class PandaHamster extends Application {
 
                     if (alienSprite.getXPosition() >= 206 && alienSprite.getXPosition() <= 208 + 66
                     && alienSprite.getYPosition() >= 206 && alienSprite.getYPosition() <= 208 + 66) {
-                        if (base.getAlienAttackCounter() == 2000) {
+                        if (base.getAlienAttackCounter() == 5000) {
                             base.reduceBaseHealth();
                             System.out.println(base.getHealth());
                             base.resetAlienAttackCounter();
