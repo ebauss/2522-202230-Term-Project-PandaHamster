@@ -99,6 +99,7 @@ public final class GameScreen extends Scene {
         });
         WorldManager.getInstance().createDynamicRectangle(player, 1f);
         // Generate aliens
+        alienWaveGenerator.removeAllAliensFromCollection();
         alienWaveGenerator.generateWaveOfAliens();
         alienWaveGenerator.moveAliensTowardBase();
         Base base = Base.getInstance();
