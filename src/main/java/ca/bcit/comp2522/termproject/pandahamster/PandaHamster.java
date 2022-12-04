@@ -40,6 +40,8 @@ public class PandaHamster extends Application {
         scene.getStylesheets().add(PandaHamster.class.getResource("/stylesheets/style.css").toExternalForm());
         TiledReader reader = new FileSystemTiledReader();
         TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
+        GameMap.setMapWidth(map.getWidth() * map.getTileWidth());
+        GameMap.setMapHeight(map.getWidth() * map.getTileWidth());
         StackPane stackPane = MapRenderer.render(map);
         HBox hBox = new HBox();
         hBox.setSpacing(10);
