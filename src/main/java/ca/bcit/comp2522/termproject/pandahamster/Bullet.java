@@ -17,17 +17,22 @@ public class Bullet extends GameEntity {
     private float maxRange;
     private boolean markedForRemoval;
     private float damage;
+    private float effectRadius;
+    private float removalTime;
     /**
      * Makes a new bullet.
      * @param x x
      * @param y y
      */
-    public Bullet(final float x, final float y, final float maxRange, final GameEntityType originator, final float damage) {
+    public Bullet(final float x, final float y, final float maxRange, final GameEntityType originator, final float damage,
+                  final float effectRadius, final float removalTime) {
         super(x, y, 2, 2);
         bulletSprite = new Rectangle(x, y, 2, 2);
         this.maxRange = maxRange;
         this.originator = originator;
         this.damage = damage;
+        this.effectRadius = effectRadius;
+        this.removalTime = removalTime;
     }
 
     /**
@@ -89,6 +94,14 @@ public class Bullet extends GameEntity {
 
     public void setDamage(final float damage) {
         this.damage = damage;
+    }
+
+    public float getEffectRadius() {
+        return effectRadius;
+    }
+
+    public float getRemovalTime() {
+        return removalTime;
     }
 
     /**

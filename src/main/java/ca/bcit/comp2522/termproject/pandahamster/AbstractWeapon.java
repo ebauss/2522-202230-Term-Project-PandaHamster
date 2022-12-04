@@ -1,7 +1,14 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
+import ca.bcit.comp2522.termproject.pandahamster.Screens.GameScreen;
+import javafx.application.Platform;
+import javafx.scene.shape.Circle;
+import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.FixtureDef;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -116,11 +123,12 @@ public abstract class AbstractWeapon extends AbstractShooter {
      * @param vecForMag vector to use to calculate magnitude
      * @param target the direction vector of where to fire the bullet
      */
-    public void fireSingleShot(final float attackRange, final Vec2 vecForMag, final Vec2 target, final float damage) {
+    public void fireSingleShot(final float attackRange, final Vec2 vecForMag, final Vec2 target, final float damage,
+                               final float effectRadius, final float removalTime) {
         decreaseCurrentClip(1);
         Vec2 playerPos = new Vec2(Player.getInstance().getXPosition() + Player.getInstance().getWidth()
                 / 2f, Player.getInstance().getYPosition() + Player.getInstance().getHeight() / 2f);
-        Bullet bullet = new Bullet(playerPos.x, playerPos.y, attackRange, GameEntityType.Player, damage);
+        Bullet bullet = new Bullet(playerPos.x, playerPos.y, attackRange, GameEntityType.Player, damage, effectRadius, removalTime);
         bullet.setOrigin(new Vec2(bullet.getXPosition(), bullet.getYPosition()));
         BulletManager.addBullets(bullet);
         bullet.getBody().getFixtureList().m_isSensor = true;
@@ -145,7 +153,39 @@ public abstract class AbstractWeapon extends AbstractShooter {
      * Creates a bullet effect when a bullet has hit an obstacle or enemy.
      * @param bullet the bullet for the effect
      */
-    public abstract void createBulletEffect(Bullet bullet);
+    public void createBulletEffect(final Bullet bullet, final float effectRadius, final float removalTime) {
+        Vec2 bulletLocation = new Vec2(bullet.getXPosition(), bullet.getYPosition());
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(bulletLocation.x, bulletLocation.y);
+        Body explosion = WorldManager.getInstance().createBody(bodyDef);
+        CircleShape explosionRadius = new CircleShape();
+        explosionRadius.setRadius(4);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = explosionRadius;
+        fixtureDef.isSensor = true;
+        explosion.createFixture(fixtureDef);
+        Circle circle = new Circle();
+        circle.setRadius(effectRadius);
+        circle.setCenterX(bulletLocation.x);
+        circle.setCenterY(bulletLocation.y);
+        GameScreen.getRootNode().getChildren().add(circle);
+        Timer timer = new Timer();
+        final float start = GameTimer.getElapsedSeconds();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    if (GameTimer.getElapsedSeconds() - start >= removalTime) {
+                        GameScreen.getRootNode().getChildren().remove(circle);
+                        WorldManager.getInstance().removeBody(explosion);
+                        timer.cancel();
+                    }
+                });
+            }
+        };
+        final long period = (long) ((1 / 60f) * 1000);
+        timer.schedule(timerTask, 0, period);
+    }
     private void decreaseCurrentClip(final int bulletsShot) {
         currentClipCount -= bulletsShot;
     }

@@ -56,7 +56,7 @@ public final class BulletManager {
     private static void makeBulletEffect(final Bullet bullet) {
         if (bullet.getOriginator() == GameEntityType.Player) {
             AbstractWeapon currentWeapon = Player.getInstance().getCurrentWeapon();
-            currentWeapon.createBulletEffect(bullet);
+            currentWeapon.createBulletEffect(bullet, bullet.getEffectRadius(), bullet.getRemovalTime());
         }
     }
 }

@@ -78,13 +78,8 @@ public class Shotgun extends AbstractWeapon {
                 } else {
                     start = start.sub(new Vec2(0, bulletDistance));
                 }
-                fireSingleShot(ATTACK_RANGE, start, start, DAMAGE);
+                fireSingleShot(ATTACK_RANGE, start, start, DAMAGE, 5f, 0.1f);
             }
         }
-    }
-
-    @Override
-    public void createBulletEffect(Bullet bullet) {
-
     }
 }
