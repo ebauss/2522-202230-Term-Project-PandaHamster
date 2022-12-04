@@ -125,6 +125,7 @@ public class PandaHamster extends Application {
                         root.getChildren().add(alienSprite.getAlienSprite());
                     }
                     System.out.println("Boss is spawned!!!!");
+                    base.resetAlienAttackCounter();
                 }
 
                 if (alienWaveGenerator.isWaveComplete()) {
@@ -134,6 +135,7 @@ public class PandaHamster extends Application {
                         root.getChildren().add(alienSprite.getAlienSprite());
                     }
                     alienWaveGenerator.moveAliensTowardBase();
+                    base.resetAlienAttackCounter();
                 }
             }
         };
