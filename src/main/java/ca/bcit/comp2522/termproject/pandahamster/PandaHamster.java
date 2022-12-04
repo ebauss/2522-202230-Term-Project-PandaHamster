@@ -53,12 +53,8 @@ public class PandaHamster extends Application {
         for (Node child: hBox.getChildren()) {
             HBox.setHgrow(child, Priority.ALWAYS);
         }
-        VBox vBox = new VBox();
-        vBox.getStyleClass().add("game-bar");
-        vBox.getChildren().add(new Label("Towers"));
         layout.add(stackPane, 0, 0);
         layout.add(hBox, 0, 1);
-        layout.add(vBox, 1, 0, 1, 2);
         Player player = Player.getInstance();
         // Instantiate single instance of AlienWaveGenerator
         AlienWaveGenerator alienWaveGenerator = AlienWaveGenerator
