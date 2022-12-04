@@ -24,6 +24,7 @@ public final class CurrentWeaponInfo implements DynamicUi {
      * Creates a new current weapon info label.
      */
     private CurrentWeaponInfo() {
+        currentWeaponInfo.getStyleClass().add("game-label");
         StringBinding stringBinding = Bindings.createStringBinding(() -> String.format(
                 "%s\n%d/%d", currentWeaponName.get(),
                         (int) currentClipSize.get(),
