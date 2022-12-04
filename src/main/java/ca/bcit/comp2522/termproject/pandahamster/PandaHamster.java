@@ -14,9 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import org.jbox2d.common.Vec2;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledReader;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Entry point into the game.
@@ -78,6 +81,7 @@ public class PandaHamster extends Application {
             root.getChildren().add(alienSprite.getAlienSprite());
         }
         alienWaveGenerator.moveAliensTowardBase();
+        Base base = new Base();
 
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
@@ -86,12 +90,23 @@ public class PandaHamster extends Application {
                 player.faceMouseDirection();
                 BulletManager.cleanup();
                 DynamicUiUpdater.updateUi();
-                // TODO Remove alien from map if it is dead.
+
+                alienWaveGenerator.moveAliensTowardBase();
                 for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
                     if (alienSprite.getHealthPoints() <= 0) {
                         root.getChildren().remove(alienSprite.getAlienSprite());
                         WorldManager.getInstance().removeBody(alienSprite.getBody());
                         alienWaveGenerator.setAlienDead(true);
+                    }
+
+                    if (alienSprite.getXPosition() >= 206 && alienSprite.getXPosition() <= 208 + 66
+                    && alienSprite.getYPosition() >= 206 && alienSprite.getYPosition() <= 208 + 66) {
+                        if (base.getAlienAttackCounter() == 5000) {
+                            base.reduceBaseHealth();
+                            System.out.println(base.getHealth());
+                            base.resetAlienAttackCounter();
+                        }
+                        base.incrementAlienAttackCounter();
                     }
                 }
 
@@ -106,6 +121,7 @@ public class PandaHamster extends Application {
                         root.getChildren().add(alienSprite.getAlienSprite());
                     }
                     System.out.println("Boss is spawned!!!!");
+                    base.resetAlienAttackCounter();
                 }
 
                 if (alienWaveGenerator.isWaveComplete()) {
@@ -115,6 +131,7 @@ public class PandaHamster extends Application {
                         root.getChildren().add(alienSprite.getAlienSprite());
                     }
                     alienWaveGenerator.moveAliensTowardBase();
+                    base.resetAlienAttackCounter();
                 }
             }
         };
