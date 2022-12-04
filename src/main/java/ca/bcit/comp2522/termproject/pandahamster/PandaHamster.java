@@ -100,13 +100,21 @@ public class PandaHamster extends Application {
                     alienWaveGenerator.setAlienDead(false);
                 }
 
-                if (alienWaveGenerator.isAllNonBossAliensDead()) {
+                if (alienWaveGenerator.isAllNonBossAliensDead() && !alienWaveGenerator.isBossSpawned()) {
                     alienWaveGenerator.spawnBoss();
+                    for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
+                        root.getChildren().add(alienSprite.getAlienSprite());
+                    }
                     System.out.println("Boss is spawned!!!!");
                 }
 
                 if (alienWaveGenerator.isWaveComplete()) {
                     System.out.println("Wave is complete. Here is the next wave for you!");
+                    alienWaveGenerator.generateWaveOfAliens();
+                    for (AbstractEnemy alienSprite: alienWaveGenerator.getAlienCollection()) {
+                        root.getChildren().add(alienSprite.getAlienSprite());
+                    }
+                    alienWaveGenerator.moveAliensTowardBase();
                 }
             }
         };

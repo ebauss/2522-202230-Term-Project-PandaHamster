@@ -205,14 +205,14 @@ public final class WorldManager {
                     ((Bullet) bodyB.getUserData()).setMarkedForRemoval(true);
                     // Reduce the health of the enemy.
                     long currentAlienHealth = ((AbstractEnemy) bodyA.getUserData()).getHealthPoints();
-                    long newAlienHealth = currentAlienHealth - 30; // Set the bullet damage
+                    long newAlienHealth = currentAlienHealth - 1000; // Set the bullet damage
                     ((AbstractEnemy) bodyA.getUserData()).setHealthPoints(newAlienHealth);
                     System.out.println("hit enemy");
                 } else if (bodyA.getUserData() instanceof Bullet && bodyB.getUserData() instanceof AbstractEnemy) {
                     ((Bullet) bodyA.getUserData()).setMarkedForRemoval(true);
                     // Reduce the health of the enemy.
                     long currentAlienHealth = ((AbstractEnemy) bodyB.getUserData()).getHealthPoints();
-                    long newAlienHealth = currentAlienHealth - 30; // Set the bullet damage
+                    long newAlienHealth = currentAlienHealth - 1000; // Set the bullet damage
                     ((AbstractEnemy) bodyB.getUserData()).setHealthPoints(newAlienHealth);
                     System.out.println("hit enemy");
                 }
