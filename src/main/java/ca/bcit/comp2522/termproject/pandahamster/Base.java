@@ -9,17 +9,25 @@ import java.util.ArrayList;
  * @version 2022
  */
 public class Base {
+    private static final long MAX_HEALTH = 3000;
     private long health;
     private int alienAttackCounter;
+    private static Base base;
     // TODO Implement towers so that you can uncomment this.
 //    private ArrayList<AbstractTower> towerCollection;
 
     /**
      * Constructs an object of type Base.
      */
-    public Base() {
-        this.health = 3000;
+    private Base() {
+        this.health = MAX_HEALTH;
         this.alienAttackCounter = 0;
+    }
+    public static Base getInstance() {
+        if (base == null) {
+            base = new Base();
+        }
+        return base;
     }
 
     public int getAlienAttackCounter() {
@@ -43,6 +51,10 @@ public class Base {
         return health;
     }
 
+    public static long getMaxHealth() {
+        return MAX_HEALTH;
+    }
+
     /**
      * Reduces the base health;
      */
@@ -54,6 +66,6 @@ public class Base {
      * Resets the health of the base.
      */
     public void resetBaseHeatlh() {
-        this.health = 3000;
+        this.health = MAX_HEALTH;
      }
 }
