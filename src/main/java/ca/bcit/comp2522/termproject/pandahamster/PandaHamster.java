@@ -24,6 +24,7 @@ import org.tiledreader.TiledReader;
  * @version 2022
  */
 public class PandaHamster extends Application {
+    private static Stage stage;
     private static Group root;
     /**
      * Starts the game, main logic will exist in here.
@@ -35,6 +36,7 @@ public class PandaHamster extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
+        stage = primaryStage;
         GridPane layout = new GridPane();
         root = new Group(layout);
         Scene scene = new Scene(root);
@@ -140,13 +142,20 @@ public class PandaHamster extends Application {
 //            }
 //        });
     }
-
     /**
      * Returns the group that contains all the elements.
      * @return the group
      */
     public static Group getGroup() {
         return root;
+    }
+
+    /**
+     * Sets the scene to the specified screen.
+     * @param screen the screen to set to
+     */
+    public static void changeScreen(final Scene screen) {
+        stage.setScene(screen);
     }
 
     /**
