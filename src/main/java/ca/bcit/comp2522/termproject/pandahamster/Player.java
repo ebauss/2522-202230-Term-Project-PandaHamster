@@ -51,7 +51,7 @@ public class Player extends GameEntity implements DynamicEntity {
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
         currentHealth = MAX_HEALTH;
-        playerSprite = new ImageView(new Image("fodderAlien.png"));
+        playerSprite = new ImageView(new Image("player.png"));
         playerSprite.setFitHeight(16);
         playerSprite.setFitWidth(16);
         setXPosition(0);
