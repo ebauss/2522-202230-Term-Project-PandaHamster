@@ -1,26 +1,18 @@
 package ca.bcit.comp2522.termproject.pandahamster;
 
 import ca.bcit.comp2522.termproject.pandahamster.aliens.AbstractEnemy;
+import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWaveCounter;
 import ca.bcit.comp2522.termproject.pandahamster.components.CurrentWeaponInfo;
 import ca.bcit.comp2522.termproject.pandahamster.components.DynamicUiUpdater;
+import ca.bcit.comp2522.termproject.pandahamster.components.PlayerInfo;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
@@ -49,16 +41,20 @@ public class PandaHamster extends Application {
         scene.getStylesheets().add(PandaHamster.class.getResource("/stylesheets/style.css").toExternalForm());
         TiledReader reader = new FileSystemTiledReader();
         TiledMap map = reader.getMap(PandaHamster.class.getResource("/gameMap.tmx").getPath());
+        GameMap.setMapWidth(map.getWidth() * map.getTileWidth());
+        GameMap.setMapHeight(map.getWidth() * map.getTileWidth());
         StackPane stackPane = MapRenderer.render(map);
         HBox hBox = new HBox();
+        hBox.setSpacing(10);
         hBox.getStyleClass().add("game-bar");
-        hBox.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoLabel());
-        VBox vBox = new VBox();
-        vBox.getStyleClass().add("game-bar");
-        vBox.getChildren().add(new Label("Towers"));
+        hBox.getChildren().add(CurrentWeaponInfo.createCurrentWeaponInfo().getCurrentWeaponInfoGrid());
+        hBox.getChildren().add(PlayerInfo.createPlayerInfo().getPlayerInfo());
+        hBox.getChildren().add(CurrentWaveCounter.createCurrentWaveCounter().getCurrentWaveInfoGrid());
+        for (Node child: hBox.getChildren()) {
+            HBox.setHgrow(child, Priority.ALWAYS);
+        }
         layout.add(stackPane, 0, 0);
         layout.add(hBox, 0, 1);
-        layout.add(vBox, 1, 0, 1, 2);
         Player player = Player.getInstance();
         // Instantiate single instance of AlienWaveGenerator
         AlienWaveGenerator alienWaveGenerator = AlienWaveGenerator

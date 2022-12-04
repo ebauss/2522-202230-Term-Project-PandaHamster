@@ -25,6 +25,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private static final long MAX_LEVEL = 20;
     private static final int THREE = 3;
     private static final int ONE_HUNDRED = 100;
+    private static final int MAX_HEALTH = 100;
     private static Player player;
     private String name;
     private long level;
@@ -33,6 +34,7 @@ public class Player extends GameEntity implements DynamicEntity {
     private List<AbstractWeapon> weaponInventory;
     private AbstractWeapon currentWeapon;
     private short lifeCount;
+    private int currentHealth;
     private ImageView playerSprite;
     private final float speed = 40f;
     private final float angularVelocity = 10;
@@ -48,6 +50,7 @@ public class Player extends GameEntity implements DynamicEntity {
         this.level = 1;
         this.lifeCount = THREE;
         this.money = ONE_HUNDRED;
+        currentHealth = MAX_HEALTH;
         playerSprite = new ImageView(new Image("fodderAlien.png"));
         playerSprite.setFitHeight(16);
         playerSprite.setFitWidth(16);
@@ -180,6 +183,17 @@ public class Player extends GameEntity implements DynamicEntity {
      */
     public ImageView getPlayerSprite() {
         return playerSprite;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
+    }
+    public int getMaxHealth() {
+        return MAX_HEALTH;
     }
 
     /**
